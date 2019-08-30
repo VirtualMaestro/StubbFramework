@@ -10,9 +10,9 @@ namespace StubbFramework
         public static Stubb Instance => _lazy.Value;
 
         private EcsWorld _world;
-        private EcsSystems _systemsHead;
-        private EcsSystems _systemsBody;
-        private EcsSystems _systemsTail;
+        private readonly EcsSystems _systemsHead;
+        private readonly EcsSystems _systemsBody;
+        private readonly EcsSystems _systemsTail;
 
         private Stubb()
         {
@@ -22,9 +22,21 @@ namespace StubbFramework
             _systemsTail = SystemsTailConfig.Create(_world);
         }
 
-        public void AddSystem(IEcsSystem system)
+        public void AddSystem(IEcsSystem system, bool init = false)
         {
             _systemsBody.Add(system);
+
+            if (init && (system is IEcsInitSystem initSystem))
+            {
+                initSystem.Initialize();
+            }
+        }
+
+        public void Initialize()
+        {
+            _systemsHead.Initialize();
+            _systemsBody.Initialize();
+            _systemsTail.Initialize();
         }
 
         public void Update()
