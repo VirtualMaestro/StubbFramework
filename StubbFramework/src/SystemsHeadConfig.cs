@@ -2,9 +2,9 @@
 
 namespace StubbFramework
 {
-    public static class SystemsHeadConfig
+    internal static class SystemsHeadConfig
     {
-        public static EcsSystems Create(EcsWorld world)
+        internal static EcsSystems Create(EcsWorld world)
         {
             var headSystems = new EcsSystems(world, "SystemsHead");
             

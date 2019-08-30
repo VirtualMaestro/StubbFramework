@@ -2,9 +2,9 @@
 
 namespace StubbFramework
 {
-    public static class SystemsTailConfig
+    internal static class SystemsTailConfig
     {
-        public static EcsSystems Create(EcsWorld world)
+        internal static EcsSystems Create(EcsWorld world)
         {
             var tailSystems = new EcsSystems(world, "SystemsTail");
             
