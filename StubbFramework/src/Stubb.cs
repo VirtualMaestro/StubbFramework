@@ -22,6 +22,8 @@ namespace StubbFramework
             _systemsTail = SystemsTailConfig.Create(_world);
         }
 
+        public EcsWorld World => _world;
+
         public void AddSystem(IEcsSystem system, bool init = false)
         {
             _systemsBody.Add(system);
