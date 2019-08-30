@@ -1,19 +1,44 @@
 ﻿using System;
+using Leopotam.Ecs;
 
 namespace StubbFramework
 {
     public class Stubb
     {
-        private Stubb()
-        {}
-
         private static readonly Lazy<Stubb> _lazy = new Lazy<Stubb>(() => new Stubb());
 
         public static Stubb Instance => _lazy.Value;
 
-        public void AddSystem()
+        private EcsWorld _world;
+        private EcsSystems _systemsHead;
+        private EcsSystems _systemsBody;
+        private EcsSystems _systemsTail;
+
+        private Stubb()
         {
-            
+            _world = new EcsWorld();
+            _systemsHead = SystemsHeadConfig.Create(_world);
+            _systemsBody = new EcsSystems(_world, "SystemsBody");
+            _systemsTail = SystemsTailConfig.Create(_world);
+        }
+
+        public void AddSystem(IEcsSystem system)
+        {
+            _systemsBody.Add(system);
+        }
+
+        public void Update()
+        {
+            _systemsHead.Run();
+            _systemsBody.Run();
+            _systemsTail.Run();
+        }
+
+        public void Dispose()
+        {
+            _systemsHead.Dispose();
+            _systemsBody.Dispose();
+            _systemsTail.Dispose();
         }
     }
 }
