@@ -10,9 +10,9 @@ namespace StubbFramework
         public static Stubb Instance => _lazy.Value;
 
         private EcsWorld _world;
-        private readonly EcsSystems _systemsHead;
-        private readonly EcsSystems _systemsBody;
-        private readonly EcsSystems _systemsTail;
+        private EcsSystems _systemsHead;
+        private EcsSystems _systemsBody;
+        private EcsSystems _systemsTail;
 
         private Stubb()
         {
@@ -51,6 +51,12 @@ namespace StubbFramework
             _systemsHead.Dispose();
             _systemsBody.Dispose();
             _systemsTail.Dispose();
+            _world.Dispose();
+
+            _world = null;
+            _systemsHead = null;
+            _systemsBody = null;
+            _systemsTail = null;
         }
     }
 }
