@@ -1,4 +1,5 @@
 ﻿using Leopotam.Ecs;
+using StubbFramework.Time;
 
 namespace StubbFramework
 {
@@ -7,8 +8,8 @@ namespace StubbFramework
         internal static EcsSystems Create(EcsWorld world)
         {
             var headSystems = new EcsSystems(world, "SystemsHead");
-            
-            
+
+            headSystems.Add(new TimeSystem(world));
 
             return headSystems;
         }
