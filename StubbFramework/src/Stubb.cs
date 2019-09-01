@@ -3,6 +3,8 @@ using Leopotam.Ecs;
 
 namespace StubbFramework
 {
+    #define LEOECS_DISABLE_INJECT
+
     public class Stubb
     {
         private static readonly Lazy<Stubb> _lazy = new Lazy<Stubb>(() => new Stubb());
