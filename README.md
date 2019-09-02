@@ -37,6 +37,10 @@ folder (one above Assets) and do the following command:
 
 - *git suba git@github.com:VirtualMaestro/StubbFramework.git Assets/Libs/Stubb*
 
+Or just via clone (open git in folder Assets/Libs):
+- *git clone --recurse-submodules git@github.com:VirtualMaestro/StubbFramework.git*
+
+
 That's it. The framework will be added to this folder
 'Assets/Libs/Stubb' and all dependencies will be downloaded.
 
