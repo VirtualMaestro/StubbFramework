@@ -15,6 +15,11 @@ namespace StubbFramework
         public EcsWorld World => Stubb.Instance.World;
         public string Name => _systems.Name;
         public virtual bool CanRun => true;
+
+        public void Add(IEcsSystem system)
+        {
+            _systems.Add(system);
+        }
         
         public void Initialize()
         {
