@@ -24,14 +24,9 @@ namespace StubbFramework
 
         public EcsWorld World => _world;
 
-        public void AddSystem(IEcsSystem system, bool init = false)
+        public void Add(Feature feature)
         {
-            _systemsBody.Add(system);
-
-            if (init && (system is IEcsInitSystem initSystem))
-            {
-                initSystem.Initialize();
-            }
+            _systemsBody.Add(feature);
         }
 
         public void Initialize()
