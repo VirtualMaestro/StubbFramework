@@ -5,9 +5,9 @@ namespace StubbFramework
 {
     internal static class SystemsHeadConfig
     {
-        internal static EcsSystems Create()
+        internal static EcsSystems Create(EcsWorld world)
         {
-            var headSystems = new EcsSystems(Stubb.Instance.World, "SystemsHead");
+            var headSystems = new EcsSystems(world, "SystemsHead");
 
             headSystems.Add(new TimeSystem());
 

@@ -17,9 +17,9 @@ namespace StubbFramework
         private Stubb()
         {
             _world = new EcsWorld();
-            _systemsHead = SystemsHeadConfig.Create();
-            _systemsBody = new EcsSystems(World, "SystemsBody");
-            _systemsTail = SystemsTailConfig.Create();
+            _systemsHead = SystemsHeadConfig.Create(_world);
+            _systemsBody = new EcsSystems(_world, "SystemsBody");
+            _systemsTail = SystemsTailConfig.Create(_world);
         }
 
         public EcsWorld World
