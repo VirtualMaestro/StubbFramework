@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 
 namespace StubbFramework
@@ -6,7 +7,6 @@ namespace StubbFramework
     public class Stubb
     {
         private static readonly Lazy<Stubb> _lazy = new Lazy<Stubb>(() => new Stubb());
-
         public static Stubb Instance => _lazy.Value;
 
         private EcsWorld _world;
@@ -17,16 +17,20 @@ namespace StubbFramework
         private Stubb()
         {
             _world = new EcsWorld();
-            _systemsHead = SystemsHeadConfig.Create(_world);
-            _systemsBody = new EcsSystems(_world, "SystemsBody");
-            _systemsTail = SystemsTailConfig.Create(_world);
+            _systemsHead = SystemsHeadConfig.Create();
+            _systemsBody = new EcsSystems(World, "SystemsBody");
+            _systemsTail = SystemsTailConfig.Create();
         }
 
-        public EcsWorld World => _world;
-
-        public void Add(Feature feature)
+        public EcsWorld World
         {
-            _systemsBody.Add(feature);
+            [MethodImpl (MethodImplOptions.AggressiveInlining)]
+            get => _world;
+        }
+
+        public void Add(EcsFeature ecsFeature)
+        {
+            _systemsBody.Add(ecsFeature);
         }
 
         public void Initialize()

@@ -4,9 +4,9 @@ namespace StubbFramework
 {
     internal static class SystemsTailConfig
     {
-        internal static EcsSystems Create(EcsWorld world)
+        internal static EcsSystems Create()
         {
-            var tailSystems = new EcsSystems(world, "SystemsTail");
+            var tailSystems = new EcsSystems(Stubb.Instance.World, "SystemsTail");
             
             
 

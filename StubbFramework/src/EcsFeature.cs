@@ -1,32 +1,41 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 
 namespace StubbFramework
 {
-    public class Feature : IDisposable, IEcsInitSystem, IEcsRunSystem
+    public class EcsFeature : EcsSystem, IDisposable
     {
         private EcsSystems _systems;
         
-        public Feature(string name = null)
+        public EcsFeature(string name = null)
         {
             _systems = new EcsSystems(Stubb.Instance.World, name);    
         }
 
-        public EcsWorld World => Stubb.Instance.World;
-        public string Name => _systems.Name;
-        public virtual bool CanRun => true;
+        protected string Name
+        {
+            [MethodImpl (MethodImplOptions.AggressiveInlining)]
+            get => _systems.Name;
+        }
+
+        public virtual bool CanRun
+        {
+            [MethodImpl (MethodImplOptions.AggressiveInlining)]
+            get => true;
+        }
 
         public void Add(IEcsSystem system)
         {
             _systems.Add(system);
         }
         
-        public void Initialize()
+        public override void Initialize()
         {
             _systems.Initialize();
         }
 
-        public void Run()
+        public override void Run()
         {
             if (CanRun)
             {
@@ -34,7 +43,7 @@ namespace StubbFramework
             }
         }
 
-        public void Destroy()
+        public override void Destroy()
         {
            Dispose();
         }
