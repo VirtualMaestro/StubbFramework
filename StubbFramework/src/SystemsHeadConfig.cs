@@ -1,4 +1,5 @@
 ﻿using Leopotam.Ecs;
+using StubbFramework.Remove;
 using StubbFramework.Time;
 
 namespace StubbFramework
@@ -9,6 +10,7 @@ namespace StubbFramework
         {
             var headSystems = new EcsSystems(world, "SystemsHead");
 
+            headSystems.Add(new RemoveEntitySystem());
             headSystems.Add(new TimeSystem());
 
             return headSystems;
