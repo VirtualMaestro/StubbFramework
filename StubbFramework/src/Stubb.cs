@@ -45,6 +45,8 @@ namespace StubbFramework
             _systemsHead.Run();
             _systemsBody.Run();
             _systemsTail.Run();
+           
+            _world.RemoveOneFrameComponents ();
         }
 
         public void Dispose()
