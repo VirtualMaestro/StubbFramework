@@ -1,4 +1,5 @@
 ﻿using Leopotam.Ecs;
+using StubbFramework.Remove;
 
 namespace StubbFramework
 {
@@ -8,7 +9,7 @@ namespace StubbFramework
         {
             var tailSystems = new EcsSystems(world, "SystemsTail");
             
-            
+            tailSystems.Add(new RemoveEntitySystem());
 
             return tailSystems;
         }
