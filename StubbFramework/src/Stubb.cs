@@ -10,16 +10,18 @@ namespace StubbFramework
         public static Stubb Instance => _lazy.Value;
 
         private EcsWorld _world;
-        private EcsSystems _systemsHead;
-        private EcsSystems _systemsBody;
-        private EcsSystems _systemsTail;
+        private EcsSystems _rootSystems;
+        private EcsSystems _userSystems;
 
         private Stubb()
         {
             _world = new EcsWorld();
-            _systemsHead = SystemsHeadConfig.Create(_world);
-            _systemsBody = new EcsSystems(_world, "SystemsBody");
-            _systemsTail = SystemsTailConfig.Create(_world);
+            _rootSystems = new EcsSystems(_world, "SystemsRoot");
+            _userSystems = new EcsSystems(_world, "SystemsBody");
+
+            _rootSystems.Add(SystemsHeadConfig.Create(_world));
+            _rootSystems.Add(_userSystems);
+            _rootSystems.Add(SystemsTailConfig.Create(_world));
         }
 
         public EcsWorld World
@@ -30,36 +32,30 @@ namespace StubbFramework
 
         public void Add(EcsFeature ecsFeature)
         {
-            _systemsBody.Add(ecsFeature);
+            _userSystems.Add(ecsFeature);
         }
 
-        public void Initialize()
+        public void Initialize(IStubbDebug debug = null)
         {
-            _systemsHead.Initialize();
-            _systemsBody.Initialize();
-            _systemsTail.Initialize();
+            debug?.Debug(_rootSystems, _world);
+
+            _rootSystems.Initialize();
         }
 
         public void Update()
         {
-            _systemsHead.Run();
-            _systemsBody.Run();
-            _systemsTail.Run();
-           
+            _rootSystems.Run();
             _world.RemoveOneFrameComponents ();
         }
 
         public void Dispose()
         {
-            _systemsHead.Dispose();
-            _systemsBody.Dispose();
-            _systemsTail.Dispose();
+            _rootSystems.Dispose();
             _world.Dispose();
 
             _world = null;
-            _systemsHead = null;
-            _systemsBody = null;
-            _systemsTail = null;
+            _rootSystems = null;
+            _userSystems = null;
         }
     }
 }
