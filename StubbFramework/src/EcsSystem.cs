@@ -8,7 +8,7 @@ namespace StubbFramework
         protected EcsWorld World
         {
             [MethodImpl (MethodImplOptions.AggressiveInlining)]
-            get => Stubb.Instance.World;
+            get => Stubb.World;
         }
         public virtual void Initialize()
         {

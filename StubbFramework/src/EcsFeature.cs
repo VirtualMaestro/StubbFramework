@@ -10,7 +10,7 @@ namespace StubbFramework
         
         public EcsFeature(string name = null)
         {
-            _systems = new EcsSystems(Stubb.Instance.World, name);    
+            _systems = new EcsSystems(Stubb.World, name);    
         }
 
         protected string Name
