@@ -18,9 +18,9 @@ namespace StubbFramework
             _context.Initialize();
         }
         
-        public static void Add(EcsSystems ecsSystems)
+        public static void Add(EcsSystem ecsSystem)
         {
-            _context.Add(ecsSystems);
+            _context.Add(ecsSystem);
         }
 
         public static void Update()

@@ -6,7 +6,7 @@ namespace StubbFramework
     {
         EcsWorld World { get; }
 
-        void Add(EcsSystems ecsSystems);
+        void Add(EcsSystem ecsSystem);
         void Initialize();
         void Update();
         void Dispose();
