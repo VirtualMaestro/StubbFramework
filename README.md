@@ -22,9 +22,10 @@
 You can add these shortcuts to your **.gitconfig**
 (under the [alias]) in order to simplify daily routine with submodules:
 
+- *subst = "!f() { git submodule status --recursive;}; f"*
 - *suba = "!f() { git submodule add $1 $2; git submodule update --init --recursive;}; f"* 
 - *subu = "!f() { git submodule update;}; f"* 
-- *subur = "!f() { git submodule update --recursive;}; f"* 
+- *subur = "!f() { git submodule update --remote --merge --recursive --force;}; f"* 
 - *subrm = "!f() { git submodule deinit -f $1; git rm -f $1; git commit -m 'Removed submodule'; rm -rf .git/modules/$1;}; f"*
 
 **Examples** 
