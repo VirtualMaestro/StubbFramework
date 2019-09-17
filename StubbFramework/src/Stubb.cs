@@ -9,6 +9,7 @@ namespace StubbFramework
         public static void Create(IStubbContext context = null)
         {
             _context = context ?? new StubbContextDefault();
+            _context.Create();
         }
         
         public static EcsWorld World => _context.World;
