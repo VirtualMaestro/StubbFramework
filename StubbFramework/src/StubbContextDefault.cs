@@ -11,7 +11,6 @@ namespace StubbFramework
         
         public StubbContextDefault(IStubbDebug debug = null)
         {
-           Create();
            DebugInfo = debug;
         }
         
