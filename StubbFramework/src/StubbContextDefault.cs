@@ -11,6 +11,12 @@ namespace StubbFramework
         
         public StubbContextDefault(IStubbDebug debug = null)
         {
+           Create();
+           DebugInfo = debug;
+        }
+        
+        public void Create()
+        {
             _world = new EcsWorld();
             _rootSystems = new EcsSystems(_world, "SystemsRoot");
             _userSystems = new EcsSystems(_world, "SystemsBody");
@@ -18,10 +24,8 @@ namespace StubbFramework
             _rootSystems.Add(SystemsHeadConfig.Create(_world));
             _rootSystems.Add(_userSystems);
             _rootSystems.Add(SystemsTailConfig.Create(_world));
-
-            DebugInfo = debug;
         }
-        
+
         public EcsWorld World
         {
             [MethodImpl (MethodImplOptions.AggressiveInlining)]
