@@ -2,7 +2,7 @@
 {
     public interface ISceneContentController
     {
-        bool IsActive();
+        bool IsActive { get; }
         void Show();
         void Hide();
         void Destroy();
