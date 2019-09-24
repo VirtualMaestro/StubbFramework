@@ -12,16 +12,14 @@ namespace StubbFramework
         }
         public virtual void Initialize()
         {
-            
+        }
+
+        public virtual void Run()
+        {
         }
 
         public virtual void Destroy()
         {
         }
-
-        public virtual void Run()
-        {
-            
-        }
-    }
+     }
 }
