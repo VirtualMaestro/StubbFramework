@@ -13,6 +13,7 @@ namespace StubbFramework
 
             headSystems.Add(new TimeSystem());
             headSystems.Add(new DelaySystem());
+            headSystems.Add(new SceneLoadedSystem());
             headSystems.Add(new LoadScenesSystem());
 
             return headSystems;

@@ -18,7 +18,7 @@ namespace StubbFramework.Extensions
         {
             world.CreateEntityWith<LoadScenesComponent, InternalNewSceneListComponent>(out var loadScenes,
                 out var newEntity);
-            loadScenes.Scenes = scenes;
+            loadScenes.Config = scenes;
             loadScenes.UnloadScenes = unloadScenes;
         }
 

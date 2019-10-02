@@ -1,24 +1,54 @@
-﻿namespace StubbFramework.Scenes.Configurations
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace StubbFramework.Scenes.Configurations
 {
     public class SceneLoadingListConfig : ISceneLoadingListConfig
     {
+        private Queue<ISceneLoadingConfig> _queue;
+        
         public string Name { get; }
         public bool IsActive { get; }
-        public bool IsEmpty { get; }
+        public bool IsEmpty => _queue.Count == 0;
+
+        public SceneLoadingListConfig(string name, bool isActive = true)
+        {
+            _queue = new Queue<ISceneLoadingConfig>(3);
+            Name = name;
+            IsActive = isActive;
+        }
 
         public ISceneLoadingListConfig Add(ISceneLoadingConfig config)
         {
-            throw new System.NotImplementedException();
+            _queue.Enqueue(config);
+            return this;
         }
 
-        public void Remove(string sceneName)
+        public void Pop()
         {
-            throw new System.NotImplementedException();
+            _queue.Dequeue();
         }
 
         public ISceneLoadingListConfig Clone()
         {
-            throw new System.NotImplementedException();
+            var loadingList = new SceneLoadingListConfig(Name, IsActive);
+
+            foreach (var item in _queue)
+            {
+                loadingList.Add(item.Clone());
+            }
+            
+            return loadingList;
+        }
+
+        public IEnumerator<ISceneLoadingConfig> GetEnumerator()
+        {
+            return _queue.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

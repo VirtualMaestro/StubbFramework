@@ -1,12 +1,14 @@
-﻿namespace StubbFramework.Scenes.Configurations
+﻿using System.Collections.Generic;
+
+namespace StubbFramework.Scenes.Configurations
 {
-    public interface ISceneLoadingListConfig
+    public interface ISceneLoadingListConfig : IEnumerable<ISceneLoadingConfig>
     {
         string Name { get; }
         bool IsActive { get; }
         bool IsEmpty { get; }
         ISceneLoadingListConfig Add(ISceneLoadingConfig config);
-        void Remove(string sceneName);
+        void Pop();
         ISceneLoadingListConfig Clone();
     }
 }

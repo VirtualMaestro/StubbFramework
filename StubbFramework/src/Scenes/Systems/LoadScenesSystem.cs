@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
+using StubbFramework.Remove;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Configurations;
 using StubbFramework.Services.Components;
@@ -11,12 +12,14 @@ namespace StubbFramework.Scenes.Systems
         private EcsFilter<LoadScenesComponent, InternalNewSceneListComponent> _newScenesFilter;
         private EcsFilter<LoadScenesComponent>.Exclude<InternalNewSceneListComponent> _loadScenesFilter;
         private EcsFilter<SceneServiceComponent> _sceneServiceFilter;
+        private EcsFilter<InternalActiveLoadingScenesComponent> _activeLoadingFilter;
        
         public override void Initialize()
         {
             _newScenesFilter = World.GetFilter<EcsFilter<LoadScenesComponent, InternalNewSceneListComponent>>();
             _loadScenesFilter = World.GetFilter<EcsFilter<LoadScenesComponent>.Exclude<InternalNewSceneListComponent>>();
             _sceneServiceFilter = World.GetFilter<EcsFilter<SceneServiceComponent>>();
+            _activeLoadingFilter = World.GetFilter<EcsFilter<InternalActiveLoadingScenesComponent>>();
         }
 
         public override void Run()
@@ -28,21 +31,36 @@ namespace StubbFramework.Scenes.Systems
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void _LoadScenes()
         {
-            foreach (var idx in _loadScenesFilter)
+            if (_activeLoadingFilter.IsEmpty())
             {
-                var loadScene = _loadScenesFilter.Components1[idx];
-                _LoadScene(loadScene.Scenes);
+                foreach (var idx in _loadScenesFilter)
+                {
+                    var loadScene = _loadScenesFilter.Components1[idx];
+                    if (loadScene.Config.IsEmpty)
+                    {
+                        World.AddComponent<RemoveEntityComponent>(_loadScenesFilter.Entities[idx]);
+                        continue;
+                    }
+                    
+                    World.CreateEntityWith<InternalActiveLoadingScenesComponent>(out var loadingComponent);
+                    loadingComponent.Config = loadScene.Config;
+                   
+                    _LoadScene(loadScene.Config);
 
-                break;
+                    break;
+                }
             }
         }
 
-        private void _LoadScene(ISceneLoadingListConfig configs)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void _LoadScene(ISceneLoadingListConfig configList)
         {
-            // todo:
-//            configs.
-//            _sceneServiceFilter.Components1[0].SceneService.Load(loadScene.Scenes);
+            var sceneService = _sceneServiceFilter.Components1[0].SceneService;
             
+            foreach (var config in configList)
+            {
+                sceneService.Load(config);
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -50,16 +68,20 @@ namespace StubbFramework.Scenes.Systems
         {
             foreach (var idx in _newScenesFilter)
             {
-                var entity = _newScenesFilter.Entities[idx];
+                ref var entity = ref _newScenesFilter.Entities[idx];
                 World.RemoveComponent<InternalNewSceneListComponent>(entity);
+                
                 var loadScenes = _newScenesFilter.Components1[idx];
-                loadScenes.Scenes = loadScenes.Scenes.Clone();
+                loadScenes.Config = loadScenes.Config.Clone();
             }
         }
 
         public override void Destroy()
         {
             _newScenesFilter = null;
+            _loadScenesFilter = null;
+            _sceneServiceFilter = null;
+            _activeLoadingFilter = null;
         }
     }
 }
