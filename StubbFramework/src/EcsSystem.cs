@@ -3,14 +3,15 @@ using Leopotam.Ecs;
 
 namespace StubbFramework
 {
-    public class EcsSystem : IEcsInitSystem, IEcsRunSystem
+    public class EcsSystem : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem
     {
         protected EcsWorld World
         {
             [MethodImpl (MethodImplOptions.AggressiveInlining)]
             get => Stubb.World;
         }
-        public virtual void Initialize()
+        
+        public virtual void Init()
         {
         }
 

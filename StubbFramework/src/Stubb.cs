@@ -19,7 +19,7 @@ namespace StubbFramework
             _context.Initialize();
         }
         
-        public static void Add(EcsSystem ecsSystem)
+        public static void Add(IEcsSystem ecsSystem)
         {
             _context.Add(ecsSystem);
         }

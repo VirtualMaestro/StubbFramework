@@ -2,7 +2,6 @@
 
 namespace StubbFramework.Remove
 {
-    [EcsIgnoreInFilter]
-    public class RemoveEntityComponent
+    public class RemoveEntityComponent : IEcsIgnoreInFilter
     {}
 }

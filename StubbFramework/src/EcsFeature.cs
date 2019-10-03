@@ -30,9 +30,9 @@ namespace StubbFramework
             _systems.Add(system);
         }
         
-        public override void Initialize()
+        public override void Init()
         {
-            _systems.Initialize();
+            _systems.Init();
         }
 
         public override void Run()
@@ -50,7 +50,7 @@ namespace StubbFramework
 
         public void Dispose()
         {
-            _systems.Dispose();
+            _systems.Destroy();
             _systems = null;
         }
     }

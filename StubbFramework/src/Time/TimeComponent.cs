@@ -3,7 +3,7 @@ using Leopotam.Ecs;
 
 namespace StubbFramework.Time
 {
-    public class TimeComponent : IEcsAutoResetComponent
+    public class TimeComponent : IEcsAutoReset
     {
         public Stopwatch Stopwatch;
         public long PrevElapsedMilliseconds;

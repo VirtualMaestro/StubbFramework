@@ -5,12 +5,11 @@ namespace StubbFramework.Time
 {
     public sealed class TimeSystem : EcsSystem
     {
-        private EcsFilter<TimeComponent> _filter;
+        EcsFilter<TimeComponent> _filter;
 
-        public override void Initialize()
+        public override void Init()
         {
-            _filter = World.GetFilter<EcsFilter<TimeComponent>>();
-            World.CreateEntityWith<TimeComponent>(out var timeComponent);
+            World.NewEntityWith<TimeComponent>(out var timeComponent);
             timeComponent.Stopwatch = new Stopwatch();
             timeComponent.ElapsedMilliseconds = 0;
             timeComponent.PrevElapsedMilliseconds = 0;
@@ -21,7 +20,7 @@ namespace StubbFramework.Time
 
         public override void Run()
         {
-            var timeComponent = _filter.Components1[0];
+            var timeComponent = _filter.Get1[0];
             long currentTime = timeComponent.Stopwatch.ElapsedMilliseconds;
             timeComponent.PrevElapsedMilliseconds = timeComponent.ElapsedMilliseconds;
             timeComponent.TimeStep = currentTime - timeComponent.PrevElapsedMilliseconds;

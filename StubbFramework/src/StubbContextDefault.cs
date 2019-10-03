@@ -18,7 +18,7 @@ namespace StubbFramework
         {
             _world = new EcsWorld();
             _rootSystems = new EcsSystems(_world, "SystemsRoot");
-            _userSystems = new EcsSystems(_world, "SystemsBody");
+            _userSystems = new EcsSystems(_world, "SystemsUserBody");
 
             _rootSystems.Add(SystemsHeadConfig.Create(_world));
             _rootSystems.Add(_userSystems);
@@ -31,7 +31,7 @@ namespace StubbFramework
             get => _world;
         }
         
-        public void Add(EcsSystem ecsSystem)
+        public void Add(IEcsSystem ecsSystem)
         {
             _userSystems.Add(ecsSystem);
         }
@@ -40,19 +40,20 @@ namespace StubbFramework
         {
             DebugInfo?.Debug(_rootSystems, _world);
 
-            _rootSystems.Initialize();
+            _rootSystems.ProcessInjects();
+            _rootSystems.Init();
         }
 
         public void Update()
         {
             _rootSystems.Run();
-            _world.RemoveOneFrameComponents ();
+            _world.EndFrame();
         }
 
         public void Dispose()
         {
-            _rootSystems.Dispose();
-            _world.Dispose();
+            _rootSystems.Destroy();
+            _world.Destroy();
 
             _world = null;
             _rootSystems = null;

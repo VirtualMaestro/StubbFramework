@@ -3,7 +3,7 @@ using StubbFramework.Scenes.Configurations;
 
 namespace StubbFramework.Scenes.Components
 {
-    public class LoadScenesComponent : IEcsAutoResetComponent
+    public class LoadScenesComponent : IEcsAutoReset
     {
         public ISceneLoadingListConfig Config;
         public string[] UnloadScenes;

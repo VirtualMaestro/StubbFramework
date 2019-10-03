@@ -2,8 +2,7 @@
 
 namespace StubbFramework.Scenes.Components
 {
-    [EcsIgnoreInFilter]
-    internal class InternalNewSceneListComponent
+    internal class InternalNewSceneListComponent : IEcsIgnoreInFilter
     {
     }
 }

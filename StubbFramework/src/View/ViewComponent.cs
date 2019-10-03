@@ -2,7 +2,7 @@
 
 namespace StubbFramework.View
 {
-    public class ViewComponent : IEcsAutoResetComponent
+    public class ViewComponent : IEcsAutoReset
     {
         public IViewObject View;
         
