@@ -7,7 +7,7 @@ namespace StubbFramework.Services
    /// </summary>
     public interface ISceneService
     {
-        void Load(ISceneLoadingConfig config);
+        void Load(ILoadingSceneConfig config);
         void Unload(string sceneName);
         
     }

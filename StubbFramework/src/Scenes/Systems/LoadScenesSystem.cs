@@ -57,7 +57,7 @@ namespace StubbFramework.Scenes.Systems
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void _LoadScene(ISceneLoadingListConfig configList)
+        private void _LoadScene(ILoadingScenesConfig configList)
         {
             var sceneService = _sceneServiceFilter.Get1[0].SceneService;
             

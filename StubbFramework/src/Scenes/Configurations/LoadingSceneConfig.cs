@@ -1,19 +1,19 @@
 ﻿namespace StubbFramework.Scenes.Configurations
 {
-    public class SceneLoadingConfig : ISceneLoadingConfig
+    public class LoadingSceneConfig : ILoadingSceneConfig
     {
         public string SceneName { get; }
         public bool IsAdditive { get; set; }
         public bool IsActive { get; set; }
 
-        public SceneLoadingConfig(string sceneName)
+        public LoadingSceneConfig(string sceneName)
         {
             SceneName = sceneName;
         }
 
-        public ISceneLoadingConfig Clone()
+        public ILoadingSceneConfig Clone()
         {
-            return new SceneLoadingConfig(SceneName) {IsActive = IsActive, IsAdditive = IsAdditive};
+            return new LoadingSceneConfig(SceneName) {IsActive = IsActive, IsAdditive = IsAdditive};
         }
     }
 }

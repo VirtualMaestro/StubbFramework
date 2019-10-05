@@ -3,35 +3,35 @@ using System.Collections.Generic;
 
 namespace StubbFramework.Scenes.Configurations
 {
-    public class SceneLoadingListConfig : ISceneLoadingListConfig
+    public class LoadingScenesConfig : ILoadingScenesConfig
     {
-        public static ISceneLoadingListConfig Create(string name, bool isActive = true)
+        public static ILoadingScenesConfig Create(string name, bool isActive = true)
         {
-            return new SceneLoadingListConfig(name, isActive);
+            return new LoadingScenesConfig(name, isActive);
         }
         
-        private Queue<ISceneLoadingConfig> _queue;
+        private Queue<ILoadingSceneConfig> _queue;
         
         public string Name { get; }
         public bool IsActive { get; }
         public bool IsEmpty => _queue.Count == 0;
 
-        public SceneLoadingListConfig(string name, bool isActive = true)
+        public LoadingScenesConfig(string name, bool isActive = true)
         {
-            _queue = new Queue<ISceneLoadingConfig>(3);
+            _queue = new Queue<ILoadingSceneConfig>(3);
             Name = name;
             IsActive = isActive;
         }
 
-        public ISceneLoadingListConfig Add(ISceneLoadingConfig config)
+        public ILoadingScenesConfig Add(ILoadingSceneConfig config)
         {
             _queue.Enqueue(config);
             return this;
         }
 
-        public ISceneLoadingListConfig Add(string sceneName, bool isActive, bool isAdditive)
+        public ILoadingScenesConfig Add(string sceneName, bool isActive, bool isAdditive)
         {
-            _queue.Enqueue(new SceneLoadingConfig(sceneName) {IsActive = isActive, IsAdditive = isAdditive});
+            _queue.Enqueue(new LoadingSceneConfig(sceneName) {IsActive = isActive, IsAdditive = isAdditive});
             return this;
         }
 
@@ -40,9 +40,9 @@ namespace StubbFramework.Scenes.Configurations
             _queue.Dequeue();
         }
 
-        public ISceneLoadingListConfig Clone()
+        public ILoadingScenesConfig Clone()
         {
-            var loadingList = new SceneLoadingListConfig(Name, IsActive);
+            var loadingList = new LoadingScenesConfig(Name, IsActive);
 
             foreach (var item in _queue)
             {
@@ -52,7 +52,7 @@ namespace StubbFramework.Scenes.Configurations
             return loadingList;
         }
 
-        public IEnumerator<ISceneLoadingConfig> GetEnumerator()
+        public IEnumerator<ILoadingSceneConfig> GetEnumerator()
         {
             return _queue.GetEnumerator();
         }

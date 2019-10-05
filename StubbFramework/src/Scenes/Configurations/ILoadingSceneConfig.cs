@@ -1,10 +1,10 @@
 ﻿namespace StubbFramework.Scenes.Configurations
 {
-    public interface ISceneLoadingConfig
+    public interface ILoadingSceneConfig
     {
         string SceneName { get; }
         bool IsAdditive { get; set; }
         bool IsActive { get; set; }
-        ISceneLoadingConfig Clone();
+        ILoadingSceneConfig Clone();
      }
 }
