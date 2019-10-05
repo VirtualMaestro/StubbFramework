@@ -5,6 +5,11 @@ namespace StubbFramework.Scenes.Configurations
 {
     public class SceneLoadingListConfig : ISceneLoadingListConfig
     {
+        public static ISceneLoadingListConfig Create(string name, bool isActive = true)
+        {
+            return new SceneLoadingListConfig(name, isActive);
+        }
+        
         private Queue<ISceneLoadingConfig> _queue;
         
         public string Name { get; }
@@ -21,6 +26,12 @@ namespace StubbFramework.Scenes.Configurations
         public ISceneLoadingListConfig Add(ISceneLoadingConfig config)
         {
             _queue.Enqueue(config);
+            return this;
+        }
+
+        public ISceneLoadingListConfig Add(string sceneName, bool isActive, bool isAdditive)
+        {
+            _queue.Enqueue(new SceneLoadingConfig(sceneName) {IsActive = isActive, IsAdditive = isAdditive});
             return this;
         }
 

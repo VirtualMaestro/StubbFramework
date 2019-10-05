@@ -51,3 +51,10 @@ it:
 
 When there is no needs anymore in this framework you can remove it:
 - *git subrm Assets/Libs/Stubb*
+
+
+**Scenes** 
+
+In order to load scenes need to invoke: 
+
+`World.LoadScenes`
