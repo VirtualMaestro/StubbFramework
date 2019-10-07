@@ -10,39 +10,33 @@ namespace StubbFramework.Scenes.Configurations
             return new LoadingScenesConfig(isActive);
         }
         
-        private Queue<ILoadingSceneConfig> _queue;
+        private readonly List<ILoadingSceneConfig> _list;
         
-        public bool IsActive { get; }
-        public bool IsEmpty => _queue.Count == 0;
+        public bool IsActivatingAll { get; }
 
         public LoadingScenesConfig(bool isActive = true)
         {
-            _queue = new Queue<ILoadingSceneConfig>(3);
-            IsActive = isActive;
+            _list = new List<ILoadingSceneConfig>(3);
+            IsActivatingAll = isActive;
         }
 
         public ILoadingScenesConfig Add(ILoadingSceneConfig config)
         {
-            _queue.Enqueue(config);
+            _list.Add(config);
             return this;
         }
 
         public ILoadingScenesConfig Add(string sceneName, string scenePath = null, bool isAdditive = true)
         {
-            _queue.Enqueue(new LoadingSceneConfig(sceneName, scenePath, isAdditive));
+            Add(new LoadingSceneConfig(sceneName, scenePath, isAdditive));
             return this;
-        }
-
-        public void Pop()
-        {
-            _queue.Dequeue();
         }
 
         public ILoadingScenesConfig Clone()
         {
-            var loadingList = new LoadingScenesConfig(IsActive);
+            var loadingList = new LoadingScenesConfig(IsActivatingAll);
 
-            foreach (var item in _queue)
+            foreach (var item in _list)
             {
                 loadingList.Add(item.Clone());
             }
@@ -52,7 +46,7 @@ namespace StubbFramework.Scenes.Configurations
 
         public IEnumerator<ILoadingSceneConfig> GetEnumerator()
         {
-            return _queue.GetEnumerator();
+            return _list.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
