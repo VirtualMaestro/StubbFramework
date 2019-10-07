@@ -3,17 +3,19 @@
     public class LoadingSceneConfig : ILoadingSceneConfig
     {
         public string SceneName { get; }
-        public bool IsAdditive { get; set; }
-        public bool IsActive { get; set; }
+        public string ScenePath { get; }
+        public bool IsAdditive { get; }
 
-        public LoadingSceneConfig(string sceneName)
+        public LoadingSceneConfig(string sceneName, string scenePath = null, bool isAdditive = true)
         {
             SceneName = sceneName;
+            ScenePath = scenePath;
+            IsAdditive = isAdditive;
         }
 
         public ILoadingSceneConfig Clone()
         {
-            return new LoadingSceneConfig(SceneName) {IsActive = IsActive, IsAdditive = IsAdditive};
+            return new LoadingSceneConfig(SceneName, ScenePath, IsAdditive);
         }
     }
 }

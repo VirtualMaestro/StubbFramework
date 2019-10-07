@@ -3,8 +3,8 @@
     public interface ILoadingSceneConfig
     {
         string SceneName { get; }
-        bool IsAdditive { get; set; }
-        bool IsActive { get; set; }
+        string ScenePath { get; }
+        bool IsAdditive { get; }
         ILoadingSceneConfig Clone();
      }
 }
