@@ -12,6 +12,7 @@
         bool IsContentActive { get; }
         bool IsDestroyed { get; }
         string SceneName { get; }
+        string ScenePath { get; }
         void Destroy();
     }
 }
