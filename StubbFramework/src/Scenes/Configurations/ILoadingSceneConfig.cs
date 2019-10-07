@@ -2,8 +2,7 @@
 {
     public interface ILoadingSceneConfig
     {
-        string SceneName { get; }
-        string ScenePath { get; }
+        ISceneName Name { get; }
         bool IsAdditive { get; }
         ILoadingSceneConfig Clone();
      }

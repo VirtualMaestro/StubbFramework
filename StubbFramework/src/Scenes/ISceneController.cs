@@ -4,15 +4,11 @@
     /// Interface for the SceneController which should be implemented in engine specific class.
     /// It will contain original Scene specific engine instance .
     /// </summary>
-    public interface ISceneController
+    public interface ISceneController : ISceneContent
     {
         void Initialize();
-        void ShowContent();
-        void HideContent();
-        bool IsContentActive { get; }
+        ISceneName SceneName { get; }
         bool IsDestroyed { get; }
-        string SceneName { get; }
-        string ScenePath { get; }
         void Destroy();
     }
 }

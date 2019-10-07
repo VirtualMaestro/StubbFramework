@@ -1,4 +1,5 @@
-﻿using StubbFramework.Scenes.Configurations;
+﻿using StubbFramework.Scenes;
+using StubbFramework.Scenes.Configurations;
 
 namespace StubbFramework.Services
 {
@@ -7,8 +8,11 @@ namespace StubbFramework.Services
    /// </summary>
     public interface ISceneService
     {
-        void Load(ILoadingSceneConfig config);
+        ISceneLoadingProgress[] Load(ILoadingScenesConfig config);
         void Unload(string sceneName);
-        
+        void Unload(string[] sceneNames);
+
+        void Activate(ISceneLoadingProgress[] progresses);
+        void Activate(ISceneLoadingProgress progress);
     }
 }

@@ -10,15 +10,29 @@ namespace StubbFramework.Extensions
     {
         /// <summary>
         /// Add configuration of the scenes list to load.
+        /// LoadScenesComponent will be sent.
         /// </summary>
         /// <param name="world"> Extension to the EcsWorld</param>
         /// <param name="config">Config of scenes to load</param>
         /// <param name="unloadScenes">scenes names which have to unload after given list config of new scenes will be loaded.</param>
         public static void LoadScenes(this EcsWorld world, ILoadingScenesConfig config, string[] unloadScenes = null)
         {
-            world.NewEntityWith<LoadScenesComponent, InternalNewSceneListComponent>(out var loadScenes, out var newEntity);
+            world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
             loadScenes.Config = config;
             loadScenes.UnloadScenes = unloadScenes;
+        }
+
+        /// <summary>
+        /// Unload list of scenes.
+        /// Names of scenes should be specified in full name format (path+name).
+        /// UnloadScenesComponent will be sent.
+        /// </summary>
+        /// <param name="world"></param>
+        /// <param name="unloadScenes"></param>
+        public static void UnloadScenes(this EcsWorld world, string[] unloadScenes)
+        {
+            world.NewEntityWith<UnloadScenesComponent>(out var unloadScenesComponent);
+            unloadScenesComponent.SceneNames = unloadScenes;
         }
 
         public static void AddSceneService(this EcsWorld world, ISceneService sceneService)

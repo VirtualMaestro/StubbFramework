@@ -1,6 +1,8 @@
-﻿namespace StubbFramework.Common
+﻿using Leopotam.Ecs;
+
+namespace StubbFramework.Common
 {
-    public class CompleteComponent
+    public class CompleteComponent : IEcsIgnoreInFilter 
     {
         
     }
