@@ -3,7 +3,7 @@ using StubbFramework.Time;
 
 namespace StubbFramework.Delay
 {
-    public class DelaySystem : EcsSystem
+    public sealed class DelaySystem : EcsSystem
     {
         private EcsFilter<DelayComponent> _filterDelay;
         private EcsFilter<TimeComponent> _filterTime;

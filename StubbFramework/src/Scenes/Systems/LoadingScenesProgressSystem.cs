@@ -7,7 +7,7 @@ using StubbFramework.Services.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
-    public class LoadingScenesProgressSystem : EcsSystem
+    public sealed class LoadingScenesProgressSystem : EcsSystem
     {
         EcsFilter<ActiveLoadingScenesComponent> _loadingFilter;
         EcsFilter<SceneServiceComponent> _sceneServiceFilter;

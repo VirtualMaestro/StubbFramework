@@ -4,7 +4,7 @@ using StubbFramework.Services.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
-    public class UnloadScenesSystem : EcsSystem
+    public sealed class UnloadScenesSystem : EcsSystem
     {
         EcsFilter<UnloadScenesComponent> _unloadFilter;
         EcsFilter<SceneServiceComponent> _sceneServiceFilter;

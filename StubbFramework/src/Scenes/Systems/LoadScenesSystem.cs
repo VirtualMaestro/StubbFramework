@@ -4,7 +4,7 @@ using StubbFramework.Services.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
-    public class LoadScenesSystem : EcsSystem
+    public sealed class LoadScenesSystem : EcsSystem
     {
         EcsFilter<LoadScenesComponent> _loadScenesFilter;
         EcsFilter<SceneServiceComponent> _sceneServiceFilter;
