@@ -13,6 +13,7 @@ namespace StubbFramework.Scenes.Configurations
         private readonly List<ILoadingSceneConfig> _list;
         
         public bool IsActivatingAll { get; }
+        public int NumScenes => _list.Count;
 
         public LoadingScenesConfig(bool isActive = true)
         {
