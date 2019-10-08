@@ -1,4 +1,5 @@
-﻿using Leopotam.Ecs;
+﻿using System.Collections.Generic;
+using Leopotam.Ecs;
 
 namespace StubbFramework.Scenes.Components
 {
@@ -9,7 +10,7 @@ namespace StubbFramework.Scenes.Components
     {
         public bool IsActivatingAll;
         public ISceneLoadingProgress[] Progresses;
-        public string[] UnloadScenes;
+        public IList<ISceneName> UnloadScenes;
         
         public void Reset()
         {

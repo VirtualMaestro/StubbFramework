@@ -1,10 +1,11 @@
-﻿using Leopotam.Ecs;
+﻿using System.Collections.Generic;
+using Leopotam.Ecs;
 
 namespace StubbFramework.Scenes.Components
 {
     public class UnloadScenesComponent : IEcsAutoReset
     {
-        public string[] SceneNames;
+        public IList<ISceneName> SceneNames;
         
         public void Reset()
         {
