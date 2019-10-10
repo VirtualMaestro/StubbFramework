@@ -5,9 +5,9 @@ namespace StubbFramework.Scenes.Configurations
 {
     public class LoadingScenesConfig : ILoadingScenesConfig
     {
-        public static ILoadingScenesConfig Create(bool isActive = true)
+        public static ILoadingScenesConfig Create(bool isActivatingAll = true)
         {
-            return new LoadingScenesConfig(isActive);
+            return new LoadingScenesConfig(isActivatingAll);
         }
         
         private readonly List<ILoadingSceneConfig> _list;
@@ -15,10 +15,10 @@ namespace StubbFramework.Scenes.Configurations
         public bool IsActivatingAll { get; }
         public int NumScenes => _list.Count;
 
-        public LoadingScenesConfig(bool isActive = true)
+        public LoadingScenesConfig(bool isActivatingAll = true)
         {
             _list = new List<ILoadingSceneConfig>(3);
-            IsActivatingAll = isActive;
+            IsActivatingAll = isActivatingAll;
         }
 
         public ILoadingScenesConfig Add(ILoadingSceneConfig config)
