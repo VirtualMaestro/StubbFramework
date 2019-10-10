@@ -17,12 +17,13 @@ namespace StubbFramework
         public void Create()
         {
             _world = new EcsWorld();
+            
             _rootSystems = new EcsSystems(_world, "SystemsRoot");
             _userSystems = new EcsSystems(_world, "SystemsUserBody");
-
-            _rootSystems.Add(SystemsHeadConfig.Create(_world));
+            
+            _rootSystems.Add(new SystemHeadFeature());
             _rootSystems.Add(_userSystems);
-            _rootSystems.Add(SystemsTailConfig.Create(_world));
+            _rootSystems.Add(new SystemTailFeature());
         }
 
         public EcsWorld World

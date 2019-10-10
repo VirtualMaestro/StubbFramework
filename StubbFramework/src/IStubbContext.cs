@@ -7,6 +7,10 @@ namespace StubbFramework
         EcsWorld World { get; }
 
         void Create();
+        /// <summary>
+        /// Method where user has to be able to add his systems.
+        /// </summary>
+        /// <param name="ecsSystem"></param>
         void Add(IEcsSystem ecsSystem);
         void Initialize();
         void Update();

@@ -13,7 +13,7 @@ namespace StubbFramework
             _systems = new EcsSystems(Stubb.World, name);    
         }
 
-        protected string Name
+        public string Name
         {
             [MethodImpl (MethodImplOptions.AggressiveInlining)]
             get => _systems.Name;
