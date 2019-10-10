@@ -24,9 +24,9 @@ namespace StubbFramework
             _context.Add(ecsSystem);
         }
 
-        public static void Update()
+        public static void Run()
         {
-            _context.Update();
+            _context.Run();
         }
 
         public static void Dispose()

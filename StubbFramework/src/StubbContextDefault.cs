@@ -45,7 +45,7 @@ namespace StubbFramework
             _rootSystems.Init();
         }
 
-        public void Update()
+        public void Run()
         {
             _rootSystems.Run();
             _world.EndFrame();

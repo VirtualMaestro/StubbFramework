@@ -13,7 +13,7 @@ namespace StubbFramework
         /// <param name="ecsSystem"></param>
         void Add(IEcsSystem ecsSystem);
         void Initialize();
-        void Update();
+        void Run();
         void Dispose();
 
         IStubbDebug DebugInfo { get; set; }
