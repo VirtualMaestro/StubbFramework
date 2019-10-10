@@ -1,6 +1,6 @@
 ﻿using Leopotam.Ecs;
 
-namespace StubbFramework.Common
+namespace StubbFramework.Common.Components
 {
     /// <summary>
     /// General flag component which indicates new entity which was added to the world.

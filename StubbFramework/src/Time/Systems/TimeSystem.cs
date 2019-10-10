@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using Leopotam.Ecs;
+using StubbFramework.Time.Components;
 
-namespace StubbFramework.Time
+namespace StubbFramework.Time.Systems
 {
     public sealed class TimeSystem : EcsSystem
     {

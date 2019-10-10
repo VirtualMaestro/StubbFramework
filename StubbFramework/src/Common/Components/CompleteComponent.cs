@@ -1,6 +1,6 @@
 ﻿using Leopotam.Ecs;
 
-namespace StubbFramework.Common
+namespace StubbFramework.Common.Components
 {
     public class CompleteComponent : IEcsIgnoreInFilter 
     {

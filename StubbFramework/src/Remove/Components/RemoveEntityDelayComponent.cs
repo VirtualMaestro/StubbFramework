@@ -1,4 +1,4 @@
-﻿namespace StubbFramework.Remove
+﻿namespace StubbFramework.Remove.Components
 {
     public class RemoveEntityDelayComponent
     {

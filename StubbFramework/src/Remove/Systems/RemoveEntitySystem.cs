@@ -1,7 +1,9 @@
 ﻿using Leopotam.Ecs;
+using StubbFramework.Remove.Components;
 using StubbFramework.Time;
+using StubbFramework.Time.Components;
 
-namespace StubbFramework.Remove
+namespace StubbFramework.Remove.Systems
 {
     public sealed class RemoveEntitySystem : EcsSystem
     {

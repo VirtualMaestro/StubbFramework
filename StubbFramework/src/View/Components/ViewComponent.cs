@@ -1,6 +1,6 @@
 ﻿using Leopotam.Ecs;
 
-namespace StubbFramework.View
+namespace StubbFramework.View.Components
 {
     public class ViewComponent : IEcsAutoReset
     {

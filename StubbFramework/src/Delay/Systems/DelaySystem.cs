@@ -1,7 +1,8 @@
 ﻿using Leopotam.Ecs;
-using StubbFramework.Time;
+using StubbFramework.Delay.Components;
+using StubbFramework.Time.Components;
 
-namespace StubbFramework.Delay
+namespace StubbFramework.Delay.Systems
 {
     public sealed class DelaySystem : EcsSystem
     {

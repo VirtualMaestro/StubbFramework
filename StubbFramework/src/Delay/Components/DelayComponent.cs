@@ -1,4 +1,4 @@
-﻿namespace StubbFramework.Delay
+﻿namespace StubbFramework.Delay.Components
 {
     public class DelayComponent
     {

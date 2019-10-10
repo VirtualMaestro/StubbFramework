@@ -2,6 +2,7 @@
 using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Remove;
+using StubbFramework.Remove.Components;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Services.Components;
 

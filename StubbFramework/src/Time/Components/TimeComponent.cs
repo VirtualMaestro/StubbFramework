@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Leopotam.Ecs;
 
-namespace StubbFramework.Time
+namespace StubbFramework.Time.Components
 {
     public class TimeComponent : IEcsAutoReset
     {
