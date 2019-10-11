@@ -20,8 +20,8 @@ namespace StubbFramework.Extensions
         public static void LoadScenes(this EcsWorld world, ILoadingScenesConfig config, IList<ISceneName> unloadScenes = null)
         {
             world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
-            loadScenes.Config = config;
-            loadScenes.UnloadScenes = unloadScenes;
+            loadScenes.LoadingScenes = config;
+            loadScenes.UnloadingScenes = unloadScenes;
         }
 
         /// <summary>

@@ -18,13 +18,12 @@ namespace StubbFramework.Scenes.Systems
             {
                 ref var entity = ref _loadScenesFilter.Entities[idx];
                 var loadScenes = entity.Get<LoadScenesComponent>();
-                var unloadScenes = loadScenes.UnloadScenes;
-                ISceneLoadingProgress[] progresses = sceneService.Load(loadScenes.Config);
+                ISceneLoadingProgress[] progresses = sceneService.Load(loadScenes.LoadingScenes);
                 
                 World.NewEntityWith<ActiveLoadingScenesComponent>(out var activeLoadingScenes);
-                activeLoadingScenes.IsActivatingAll = loadScenes.Config.IsActivatingAll;
+                activeLoadingScenes.IsActivatingAll = loadScenes.LoadingScenes.IsActivatingAll;
                 activeLoadingScenes.Progresses = progresses;
-                activeLoadingScenes.UnloadScenes = unloadScenes;
+                activeLoadingScenes.UnloadScenes = loadScenes.UnloadingScenes;
                 
                 entity.Destroy();
             }
