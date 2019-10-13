@@ -41,7 +41,7 @@ namespace StubbFramework.Scenes.Systems
             if (!_IsEverySceneLoaded(progresses)) return false;
             
             var service = _sceneServiceFilter.Get1[0].SceneService;
-            service.Activate(progresses);
+            service.LoadingComplete(progresses);
 
             return true;
         }
@@ -64,7 +64,7 @@ namespace StubbFramework.Scenes.Systems
                 if (!loadingProgress.IsComplete) continue;
                 
                 var service = _sceneServiceFilter.Get1[0].SceneService;
-                service.Activate(loadingProgress);
+                service.LoadingComplete(loadingProgress);
 
                 progresses[i] = null;
                 completedCount++;

@@ -13,7 +13,7 @@ namespace StubbFramework.Services
         void Unload(in ISceneName sceneName);
         void Unload(in IList<ISceneName> sceneNames);
 
-        void Activate(in ISceneLoadingProgress[] progresses);
-        void Activate(in ISceneLoadingProgress progress);
+        void LoadingComplete(in ISceneLoadingProgress[] progresses);
+        void LoadingComplete(in ISceneLoadingProgress progress);
     }
 }
