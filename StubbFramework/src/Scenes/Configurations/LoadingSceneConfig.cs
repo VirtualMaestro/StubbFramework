@@ -3,17 +3,22 @@
     public class LoadingSceneConfig : ILoadingSceneConfig
     {
         public ISceneName Name { get; }
-        public bool IsAdditive { get; }
+        public bool IsActive { get; }
+        public bool IsMain { get; }
+        public bool IsSingle { get; }
+        public object Payload { get; set; }
 
-        public LoadingSceneConfig(ISceneName name, bool isAdditive = true)
+        public LoadingSceneConfig(ISceneName name, bool isActive = true, bool isMain = false, bool isSingle = false)
         {
             Name = name;
-            IsAdditive = isAdditive;
+            IsActive = isActive;
+            IsMain = isMain;
+            IsSingle = isSingle;
         }
 
         public ILoadingSceneConfig Clone()
         {
-            return new LoadingSceneConfig(Name.Clone(), IsAdditive);
+            return new LoadingSceneConfig(Name.Clone(), IsActive, IsMain, IsSingle) {Payload = Payload};
         }
     }
 }
