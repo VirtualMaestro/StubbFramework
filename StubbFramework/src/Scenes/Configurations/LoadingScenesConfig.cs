@@ -27,12 +27,6 @@ namespace StubbFramework.Scenes.Configurations
             return this;
         }
 
-        public ILoadingScenesConfig Add(string sceneName, string scenePath = null, bool isAdditive = true)
-        {
-            Add(new LoadingSceneConfig(new SceneName(sceneName, scenePath), isAdditive));
-            return this;
-        }
-
         public ILoadingScenesConfig Clone()
         {
             var loadingList = new LoadingScenesConfig(IsActivatingAll);

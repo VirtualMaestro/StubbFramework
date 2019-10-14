@@ -10,7 +10,6 @@ namespace StubbFramework.Scenes.Configurations
         bool IsActivatingAll { get; }
         int NumScenes { get; }
         ILoadingScenesConfig Add(ILoadingSceneConfig config);
-        ILoadingScenesConfig Add(string sceneName, string scenePath = null, bool isAdditive = true);
         ILoadingScenesConfig Clone();
     }
 }
