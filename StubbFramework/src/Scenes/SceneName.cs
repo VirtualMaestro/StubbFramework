@@ -17,6 +17,11 @@ namespace StubbFramework.Scenes
             FullName = path + name;
         }
 
+        public override string ToString()
+        {
+            return FullName;
+        }
+
         public ISceneName Clone()
         {
             return new SceneName(Name, Path);

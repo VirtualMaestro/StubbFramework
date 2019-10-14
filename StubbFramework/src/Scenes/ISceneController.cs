@@ -9,6 +9,7 @@
         void Initialize();
         ISceneName SceneName { get; }
         bool IsDestroyed { get; }
+        bool IsMain { get; set; }
         void Destroy();
     }
 }
