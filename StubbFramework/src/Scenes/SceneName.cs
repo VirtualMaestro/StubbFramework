@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace StubbFramework.Scenes
 {
     public class SceneName : ISceneName
     {
-        public static SceneNameBuilder Create => new SceneNameBuilder();
+        private static readonly Regex NormalizePathRegex = new Regex(@"^\s*/|Assets/|\w+.unity", RegexOptions.Singleline | RegexOptions.IgnoreCase);
         
+        public static SceneNameBuilder Create => new SceneNameBuilder();
+
         public string Name { get; }
         public string Path { get; }
         public string FullName { get; }
@@ -13,7 +17,7 @@ namespace StubbFramework.Scenes
         public SceneName(string name, string path = null)
         {
             Name = name;
-            Path = path;
+            Path = _NormalizePath(path);
             FullName = path + name;
         }
 
@@ -25,6 +29,18 @@ namespace StubbFramework.Scenes
         public ISceneName Clone()
         {
             return new SceneName(Name, Path);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string _NormalizePath(string path)
+        {
+            if (path == null || (path = path.Trim()) == string.Empty) return string.Empty;
+            path = path.Replace("\\", "/");
+            path = NormalizePathRegex.Replace(path, "");
+
+            if (path[path.Length - 1] != '/') path += "/";
+
+            return path;
         }
     }
 
