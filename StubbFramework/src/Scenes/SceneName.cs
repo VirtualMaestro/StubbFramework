@@ -18,7 +18,7 @@ namespace StubbFramework.Scenes
         {
             Name = name;
             Path = _NormalizePath(path);
-            FullName = path + name;
+            FullName = Path + Name;
         }
 
         public override string ToString()
