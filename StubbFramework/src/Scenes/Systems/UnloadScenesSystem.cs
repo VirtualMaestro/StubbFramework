@@ -42,7 +42,7 @@ namespace StubbFramework.Scenes.Systems
             {
                 var sceneController = _scenesFilter.Get1[idx].Scene;
                 
-                if (sceneController.SceneName == sceneName)
+                if (sceneController.SceneName.Equals(sceneName))
                 {
                     var service = _sceneServiceFilter.Get1[0].SceneService;
                     service.Unload(sceneController);
