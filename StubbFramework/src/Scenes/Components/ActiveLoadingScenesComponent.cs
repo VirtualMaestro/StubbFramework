@@ -11,6 +11,7 @@ namespace StubbFramework.Scenes.Components
         public bool IsActivatingAll;
         public ISceneLoadingProgress[] Progresses;
         public IList<ISceneName> UnloadScenes;
+        public bool UnloadAllOtherScenes;
         
         public void Reset()
         {

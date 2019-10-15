@@ -24,6 +24,7 @@ namespace StubbFramework.Scenes.Systems
                 activeLoadingScenes.IsActivatingAll = loadScenes.LoadingScenes.IsActivatingAll;
                 activeLoadingScenes.Progresses = progresses;
                 activeLoadingScenes.UnloadScenes = loadScenes.UnloadingScenes;
+                activeLoadingScenes.UnloadAllOtherScenes = loadScenes.UnloadAllOtherScenes;
                 
                 entity.Destroy();
             }

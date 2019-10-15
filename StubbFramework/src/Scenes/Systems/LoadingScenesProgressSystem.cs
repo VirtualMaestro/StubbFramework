@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Extensions;
-using StubbFramework.Remove;
 using StubbFramework.Remove.Components;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Services.Components;
@@ -25,7 +24,11 @@ namespace StubbFramework.Scenes.Systems
 
                 if (activeLoadingComplete)
                 {
-                    if (activeLoading.UnloadScenes != null)
+                    if (activeLoading.UnloadAllOtherScenes)
+                    {
+                        World.UnloadAllScenes();
+                    }
+                    else if (activeLoading.UnloadScenes != null)
                     {
                         World.UnloadScenes(activeLoading.UnloadScenes);
                     }

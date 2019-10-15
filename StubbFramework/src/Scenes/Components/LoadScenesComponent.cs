@@ -8,6 +8,7 @@ namespace StubbFramework.Scenes.Components
     {
         public ILoadingScenesConfig LoadingScenes;
         public IList<ISceneName> UnloadingScenes;
+        public bool UnloadAllOtherScenes;
         
         public void Reset()
         {
