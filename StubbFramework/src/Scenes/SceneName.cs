@@ -42,6 +42,16 @@ namespace StubbFramework.Scenes
 
             return path;
         }
+
+        public static bool operator ==(SceneName a, SceneName b)
+        {
+            return a?.FullName == b?.FullName;
+        }
+
+        public static bool operator !=(SceneName a, SceneName b)
+        {
+            return a?.FullName != b?.FullName;
+        }
     }
 
     public class SceneNameBuilder
