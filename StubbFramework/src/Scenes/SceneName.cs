@@ -21,6 +21,21 @@ namespace StubbFramework.Scenes
             FullName = Path + Name;
         }
 
+        public bool Equals(ISceneName other)
+        {
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            return FullName.Equals(other.FullName);
+        }
+
         public override string ToString()
         {
             return FullName;
@@ -41,16 +56,6 @@ namespace StubbFramework.Scenes
             if (path[path.Length - 1] != '/') path += "/";
 
             return path;
-        }
-
-        public static bool operator ==(SceneName a, SceneName b)
-        {
-            return a?.FullName == b?.FullName;
-        }
-
-        public static bool operator !=(SceneName a, SceneName b)
-        {
-            return a?.FullName != b?.FullName;
         }
     }
 
