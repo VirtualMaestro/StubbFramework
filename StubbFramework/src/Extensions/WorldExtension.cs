@@ -53,9 +53,22 @@ namespace StubbFramework.Extensions
             unloadScenesComponent.SceneNames = unloadScenes;
         }
 
+        /// <summary>
+        /// Removes all current scenes.
+        /// </summary>
+        /// <param name="world"></param>
         public static void UnloadAllScenes(this EcsWorld world)
         {
             world.NewEntityWith<UnloadScenesComponent>(out var unloadScenesComponent);
+        }
+
+        /// <summary>
+        /// Remove all scenes which don't mark with NewSceneMarkerComponent.
+        /// </summary>
+        /// <param name="world"></param>
+        public static void UnloadNonNewScenes(this EcsWorld world)
+        {
+            world.NewEntityWith<UnloadNonNewScenesComponent>(out var unloadNonNewScenesComponent);
         }
 
         public static void AddSceneService(this EcsWorld world, ISceneService sceneService)

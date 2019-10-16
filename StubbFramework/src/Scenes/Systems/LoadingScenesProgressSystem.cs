@@ -26,7 +26,7 @@ namespace StubbFramework.Scenes.Systems
                 {
                     if (activeLoading.UnloadAllOtherScenes)
                     {
-                        World.UnloadAllScenes();
+                        World.UnloadNonNewScenes();
                     }
                     else if (activeLoading.UnloadScenes != null)
                     {

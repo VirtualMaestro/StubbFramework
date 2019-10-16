@@ -8,6 +8,7 @@ namespace StubbFramework
         public SystemTailFeature() : base("TailSystems")
         {
             Add(new UnloadScenesSystem());
+            Add(new UnloadNonNewScenesSystem());
             Add(new RemoveEntitySystem());
         }
     }

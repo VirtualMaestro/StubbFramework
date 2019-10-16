@@ -4,7 +4,7 @@ using Leopotam.Ecs;
 namespace StubbFramework.Scenes.Components
 {
     /// <summary>
-    /// If SceneNames is null will be unloaded all the current scenes.
+    /// If SceneNames is null will be unloaded all the scenes.
     /// </summary>
     public class UnloadScenesComponent : IEcsAutoReset
     {
