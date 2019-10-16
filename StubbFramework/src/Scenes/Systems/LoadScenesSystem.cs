@@ -1,4 +1,5 @@
 ﻿using Leopotam.Ecs;
+using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Services.Components;
 
@@ -12,7 +13,7 @@ namespace StubbFramework.Scenes.Systems
         public override void Run()
         {
             if (_loadScenesFilter.IsEmpty()) return;
-            var sceneService = _sceneServiceFilter.Get1[0].SceneService;
+            var sceneService = _sceneServiceFilter.Single().SceneService;
             
             foreach (var idx in _loadScenesFilter)
             {
