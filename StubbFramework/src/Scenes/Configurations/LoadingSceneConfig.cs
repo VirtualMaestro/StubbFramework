@@ -2,60 +2,22 @@
 {
     public class LoadingSceneConfig : ILoadingSceneConfig
     {
-        public static LoadingSceneConfigBuilder Create(ISceneName sceneName)
-        {
-            return new LoadingSceneConfigBuilder (sceneName);
-        }
-        
         public ISceneName Name { get; }
-        public bool IsActive { get; internal set; }
-        public bool IsMain { get; internal set; }
-        public object Payload { get; set; }
+        public bool IsActive { get; }
+        public bool IsMain { get; }
+        public object Payload { get; }
 
-        public LoadingSceneConfig(ISceneName sceneName)
+        public LoadingSceneConfig(ISceneName sceneName, bool isActive = true, bool isMain = false, object payload = null)
         {
             Name = sceneName;
-            IsActive = true;
-            IsMain = false;
+            IsActive = isActive;
+            IsMain = isMain;
+            Payload = payload;
         }
        
         public ILoadingSceneConfig Clone()
         {
-            var copy = new LoadingSceneConfig(Name.Clone())
-            {
-                IsActive = IsActive, IsMain = IsMain, Payload = Payload
-            };
-            return copy;
-        }
-    }
-
-    public class LoadingSceneConfigBuilder
-    {
-        private readonly LoadingSceneConfig _config;
-        
-        public LoadingSceneConfig Build => _config;
-
-        public LoadingSceneConfigBuilder(ISceneName sceneName)
-        {
-            _config = new LoadingSceneConfig(sceneName);
-        }
-
-        public LoadingSceneConfigBuilder IsActive(bool isActive)
-        {
-            _config.IsActive = isActive;
-            return this;
-        }
-
-        public LoadingSceneConfigBuilder IsMain(bool isMain)
-        {
-            _config.IsMain = isMain;
-            return this;
-        }
-
-        public LoadingSceneConfigBuilder WithPayload(object payload)
-        {
-            _config.Payload = payload;
-            return this;
+            return new LoadingSceneConfig(Name.Clone(), IsActive, IsMain, Payload);
         }
     }
 }

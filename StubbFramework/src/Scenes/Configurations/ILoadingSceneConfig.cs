@@ -12,7 +12,7 @@
         /// </summary>
         bool IsMain { get; }
         
-        object Payload { get; set; }
+        object Payload { get; }
         
         ILoadingSceneConfig Clone();
      }
