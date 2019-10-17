@@ -1,4 +1,5 @@
-﻿using Leopotam.Ecs;
+﻿using System.Collections.Generic;
+using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Services.Components;
@@ -19,7 +20,7 @@ namespace StubbFramework.Scenes.Systems
             {
                 ref var entity = ref _loadScenesFilter.Entities[idx];
                 var loadScenes = entity.Get<LoadScenesComponent>();
-                ISceneLoadingProgress[] progresses = sceneService.Load(loadScenes.LoadingScenes);
+                IList<ISceneLoadingProgress> progresses = sceneService.Load(loadScenes.LoadingScenes);
                 
                 World.NewEntityWith<ActiveLoadingScenesComponent>(out var activeLoadingScenes);
                 activeLoadingScenes.Progresses = progresses;

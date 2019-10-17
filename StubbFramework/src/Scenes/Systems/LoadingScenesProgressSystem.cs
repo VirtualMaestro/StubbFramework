@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Remove.Components;
@@ -37,7 +38,7 @@ namespace StubbFramework.Scenes.Systems
         }
 
         [MethodImpl (MethodImplOptions.AggressiveInlining)]
-        private bool _ProcessScenes(ISceneLoadingProgress[] progresses)
+        private bool _ProcessScenes(IList<ISceneLoadingProgress> progresses)
         {
             if (!_IsEverySceneLoaded(progresses)) return false;
             
@@ -48,7 +49,7 @@ namespace StubbFramework.Scenes.Systems
         }
 
         [MethodImpl (MethodImplOptions.AggressiveInlining)]
-        private bool _IsEverySceneLoaded(ISceneLoadingProgress[] progresses)
+        private bool _IsEverySceneLoaded(IList<ISceneLoadingProgress> progresses)
         {
             foreach (var progress in progresses)
             {
