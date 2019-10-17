@@ -2,9 +2,9 @@
 {
     public class LoadingSceneConfig : ILoadingSceneConfig
     {
-        public static LoadingSceneConfigBuilder Create(string sceneName, string scenePath = null)
+        public static LoadingSceneConfigBuilder Create(ISceneName sceneName)
         {
-            return new LoadingSceneConfigBuilder (sceneName, scenePath);
+            return new LoadingSceneConfigBuilder (sceneName);
         }
         
         public ISceneName Name { get; }
@@ -13,9 +13,9 @@
         public bool IsSingle { get; internal set; }
         public object Payload { get; set; }
 
-        public LoadingSceneConfig(string sceneName, string scenePath = null)
+        public LoadingSceneConfig(ISceneName sceneName)
         {
-            Name = new SceneName(sceneName, scenePath);
+            Name = sceneName;
             IsActive = true;
             IsMain = false;
             IsSingle = false;
@@ -23,7 +23,7 @@
        
         public ILoadingSceneConfig Clone()
         {
-            var copy = new LoadingSceneConfig(Name.Name, Name.Path)
+            var copy = new LoadingSceneConfig(Name.Clone())
             {
                 IsActive = IsActive, IsMain = IsMain, IsSingle = IsSingle, Payload = Payload
             };
@@ -37,9 +37,9 @@
         
         public LoadingSceneConfig Build => _config;
 
-        public LoadingSceneConfigBuilder(string sceneName, string scenePath = null)
+        public LoadingSceneConfigBuilder(ISceneName sceneName)
         {
-            _config = new LoadingSceneConfig(sceneName, scenePath);
+            _config = new LoadingSceneConfig(sceneName);
         }
 
         public LoadingSceneConfigBuilder IsActive(bool isActive)
