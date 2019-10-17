@@ -18,13 +18,11 @@ namespace StubbFramework.Scenes.Systems
             {
                 var activeLoading = _loadingFilter.Get1[idx];
 
-                bool activeLoadingComplete = activeLoading.IsActivatingAll ? 
-                                        _ProcessAllScenes(activeLoading.Progresses) : 
-                                        _ProcessEachScene(activeLoading.Progresses);
+                bool activeLoadingComplete = _ProcessScenes(activeLoading.Progresses);
 
                 if (activeLoadingComplete)
                 {
-                    if (activeLoading.UnloadAllOtherScenes)
+                    if (activeLoading.UnloadOthers)
                     {
                         World.UnloadNonNewScenes();
                     }
@@ -39,41 +37,14 @@ namespace StubbFramework.Scenes.Systems
         }
 
         [MethodImpl (MethodImplOptions.AggressiveInlining)]
-        private bool _ProcessAllScenes(ISceneLoadingProgress[] progresses)
+        private bool _ProcessScenes(ISceneLoadingProgress[] progresses)
         {
             if (!_IsEverySceneLoaded(progresses)) return false;
             
-            var service = _sceneServiceFilter.Get1[0].SceneService;
+            var service = _sceneServiceFilter.Single().SceneService;
             service.LoadingComplete(progresses);
 
             return true;
-        }
-
-        [MethodImpl (MethodImplOptions.AggressiveInlining)]
-        private bool _ProcessEachScene(ISceneLoadingProgress[] progresses)
-        {
-            int completedCount = 0;
-            
-            for (int i = 0; i < progresses.Length; i++)
-            {
-                var loadingProgress = progresses[i];
-
-                if (loadingProgress == null)
-                {
-                    completedCount++;
-                    continue;
-                }
-                
-                if (!loadingProgress.IsComplete) continue;
-                
-                var service = _sceneServiceFilter.Get1[0].SceneService;
-                service.LoadingComplete(loadingProgress);
-
-                progresses[i] = null;
-                completedCount++;
-            }
-
-            return completedCount == progresses.Length;
         }
 
         [MethodImpl (MethodImplOptions.AggressiveInlining)]

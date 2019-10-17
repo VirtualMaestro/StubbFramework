@@ -15,14 +15,14 @@ namespace StubbFramework.Extensions
         /// LoadScenesComponent will be sent.
         /// </summary>
         /// <param name="world"> Extension to the EcsWorld</param>
-        /// <param name="config">Config of scenes to load</param>
+        /// <param name="configs">List of the ILoadingSceneConfig to load</param>
         /// <param name="unloadScenes">scenes names which have to unload after given list config of new scenes will be loaded.</param>
-        public static void LoadScenes(this EcsWorld world, ILoadingScenesConfig config, IList<ISceneName> unloadScenes = null)
+        public static void LoadScenes(this EcsWorld world, IList<ILoadingSceneConfig> configs, IList<ISceneName> unloadScenes = null)
         {
             world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
-            loadScenes.LoadingScenes = config;
+            loadScenes.LoadingScenes = configs;
             loadScenes.UnloadingScenes = unloadScenes;
-            loadScenes.UnloadAllOtherScenes = false;
+            loadScenes.UnloadOthers = false;
         }
 
         /// <summary>
@@ -30,14 +30,14 @@ namespace StubbFramework.Extensions
         /// LoadScenesComponent will be sent.
         /// </summary>
         /// <param name="world"> Extension to the EcsWorld</param>
-        /// <param name="config">Config of scenes to load</param>
-        /// <param name="unloadAllOtherScenes">if true all current non new scenes will be unloaded</param>
-        public static void LoadScenes(this EcsWorld world, ILoadingScenesConfig config, bool unloadAllOtherScenes = false)
+        /// <param name="configs">List of the ILoadingSceneConfig to load</param>
+        /// <param name="unloadOthers">if true all current non new scenes will be unloaded</param>
+        public static void LoadScenes(this EcsWorld world, IList<ILoadingSceneConfig> configs, bool unloadOthers = false)
         {
             world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
-            loadScenes.LoadingScenes = config;
+            loadScenes.LoadingScenes = configs;
             loadScenes.UnloadingScenes = null;
-            loadScenes.UnloadAllOtherScenes = unloadAllOtherScenes;
+            loadScenes.UnloadOthers = unloadOthers;
         }
 
         /// <summary>

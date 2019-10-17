@@ -22,10 +22,9 @@ namespace StubbFramework.Scenes.Systems
                 ISceneLoadingProgress[] progresses = sceneService.Load(loadScenes.LoadingScenes);
                 
                 World.NewEntityWith<ActiveLoadingScenesComponent>(out var activeLoadingScenes);
-                activeLoadingScenes.IsActivatingAll = loadScenes.LoadingScenes.IsActivatingAll;
                 activeLoadingScenes.Progresses = progresses;
                 activeLoadingScenes.UnloadScenes = loadScenes.UnloadingScenes;
-                activeLoadingScenes.UnloadAllOtherScenes = loadScenes.UnloadAllOtherScenes;
+                activeLoadingScenes.UnloadOthers = loadScenes.UnloadOthers;
                 
                 entity.Destroy();
             }

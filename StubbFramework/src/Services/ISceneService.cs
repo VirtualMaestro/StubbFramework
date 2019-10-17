@@ -1,4 +1,5 @@
-﻿using StubbFramework.Scenes;
+﻿using System.Collections.Generic;
+using StubbFramework.Scenes;
 using StubbFramework.Scenes.Configurations;
 
 namespace StubbFramework.Services
@@ -8,7 +9,7 @@ namespace StubbFramework.Services
    /// </summary>
     public interface ISceneService
     {
-        ISceneLoadingProgress[] Load(in ILoadingScenesConfig config);
+        ISceneLoadingProgress[] Load(in IList<ILoadingSceneConfig> configs);
         
         void Unload(in ISceneController sceneController);
 

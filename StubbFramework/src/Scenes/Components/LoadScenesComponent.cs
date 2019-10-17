@@ -6,9 +6,9 @@ namespace StubbFramework.Scenes.Components
 {
     public class LoadScenesComponent : IEcsAutoReset
     {
-        public ILoadingScenesConfig LoadingScenes;
+        public IList<ILoadingSceneConfig> LoadingScenes;
         public IList<ISceneName> UnloadingScenes;
-        public bool UnloadAllOtherScenes;
+        public bool UnloadOthers;
         
         public void Reset()
         {
