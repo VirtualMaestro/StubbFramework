@@ -10,7 +10,6 @@
         public ISceneName Name { get; }
         public bool IsActive { get; internal set; }
         public bool IsMain { get; internal set; }
-        public bool IsSingle { get; internal set; }
         public object Payload { get; set; }
 
         public LoadingSceneConfig(ISceneName sceneName)
@@ -18,14 +17,13 @@
             Name = sceneName;
             IsActive = true;
             IsMain = false;
-            IsSingle = false;
         }
        
         public ILoadingSceneConfig Clone()
         {
             var copy = new LoadingSceneConfig(Name.Clone())
             {
-                IsActive = IsActive, IsMain = IsMain, IsSingle = IsSingle, Payload = Payload
+                IsActive = IsActive, IsMain = IsMain, Payload = Payload
             };
             return copy;
         }
@@ -54,12 +52,6 @@
             return this;
         }
 
-        public LoadingSceneConfigBuilder IsSingle(bool isSingle)
-        {
-            _config.IsSingle = isSingle;
-            return this;
-        }
-        
         public LoadingSceneConfigBuilder WithPayload(object payload)
         {
             _config.Payload = payload;
