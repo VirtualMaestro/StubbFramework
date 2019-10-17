@@ -50,14 +50,7 @@ namespace StubbFramework.Scenes
 
         protected virtual string FormatPath(string path)
         {
-            // TODO: Continue 
-            if (path == null || (path = path.Trim()) == string.Empty) return string.Empty;
-            path = path.Replace("\\", "/");
-            path = NormalizePathRegex.Replace(path, "");
-
-            if (path[path.Length - 1] != '/') path += "/";
-
-            return path;
+            return (path == null || (path = path.Trim()) == string.Empty) ? string.Empty : path;
         }
 
         protected virtual string FormatFullName(string name, string path)
