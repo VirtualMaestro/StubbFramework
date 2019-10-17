@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace StubbFramework.Scenes
@@ -16,9 +15,9 @@ namespace StubbFramework.Scenes
 
         public SceneName(string name, string path = null)
         {
-            Name = name;
-            Path = _NormalizePath(path);
-            FullName = Path + Name;
+            Name = FormatName(name);
+            Path = FormatPath(path);
+            FullName = FormatFullName(Name, Path);
         }
 
         public bool Equals(ISceneName other)
@@ -46,9 +45,15 @@ namespace StubbFramework.Scenes
             return new SceneName(Name, Path);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string _NormalizePath(string path)
+        protected string FormatName(string sceneName)
         {
+            // TODO: Continue 
+            return sceneName;
+        }
+
+        protected string FormatPath(string path)
+        {
+            // TODO: Continue 
             if (path == null || (path = path.Trim()) == string.Empty) return string.Empty;
             path = path.Replace("\\", "/");
             path = NormalizePathRegex.Replace(path, "");
@@ -56,6 +61,11 @@ namespace StubbFramework.Scenes
             if (path[path.Length - 1] != '/') path += "/";
 
             return path;
+        }
+
+        protected string FormatFullName(string name, string path)
+        {
+            return path + name;
         }
     }
 
