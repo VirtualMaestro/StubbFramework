@@ -14,6 +14,7 @@ namespace StubbFramework.Scenes.Components
         {
             LoadingScenes = null;
             UnloadingScenes = null;
+            UnloadOthers = false;
         }
     }
 }

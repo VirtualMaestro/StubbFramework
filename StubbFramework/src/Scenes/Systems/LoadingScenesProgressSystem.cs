@@ -43,7 +43,14 @@ namespace StubbFramework.Scenes.Systems
             if (!_IsEverySceneLoaded(progresses)) return false;
             
             var service = _sceneServiceFilter.Single().SceneService;
-            service.LoadingComplete(progresses);
+            IList<ISceneController> controllers = service.LoadingComplete(progresses);
+
+            foreach (var controller in controllers)
+            {
+                var entity = World.NewEntityWith<SceneComponent>(out var sceneComponent);
+                sceneComponent.Scene = controller;
+                controller.Entity = entity;
+            }
 
             return true;
         }

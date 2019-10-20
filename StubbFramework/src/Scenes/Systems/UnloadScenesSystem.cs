@@ -4,6 +4,7 @@ using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Services.Components;
+using StubbUnity.Logging;
 
 namespace StubbFramework.Scenes.Systems
 {
@@ -56,7 +57,7 @@ namespace StubbFramework.Scenes.Systems
             {
                 if (_UnloadScene(sceneName) == false) 
                 {
-                    // log warning - scene wasn't found
+                    log.Warn($"UnloadScenesSystem._UnloadScenesByNames. Scene '{sceneName}' to unload wasn't found!");
                 }
             }    
         }

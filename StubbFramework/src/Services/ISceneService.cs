@@ -11,6 +11,6 @@ namespace StubbFramework.Services
     {
         IList<ISceneLoadingProgress> Load(in IList<ILoadingSceneConfig> configs);
         void Unload(in ISceneController sceneController);
-        void LoadingComplete(IList<ISceneLoadingProgress> progresses);
+        IList<ISceneController> LoadingComplete(IList<ISceneLoadingProgress> progresses);
     }
 }
