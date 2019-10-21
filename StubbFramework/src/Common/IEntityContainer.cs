@@ -6,6 +6,6 @@ namespace StubbFramework.Common
     {
         ref EcsEntity GetEntity();
         void SetEntity(ref EcsEntity entity);
-        bool HasEntity();
+        bool HasEntity { get; }
     }
 }
