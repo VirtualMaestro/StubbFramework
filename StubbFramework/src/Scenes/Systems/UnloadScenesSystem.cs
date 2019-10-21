@@ -71,9 +71,11 @@ namespace StubbFramework.Scenes.Systems
                 
                 if (sceneController.SceneName.Equals(sceneName))
                 {
-                    var service = _sceneServiceFilter.Get1[0].SceneService;
-                    service.Unload(sceneController);
                     _scenesFilter.Entities[idx].Destroy();
+                    
+                    var service = _sceneServiceFilter.Single().SceneService;
+                    service.Unload(sceneController);
+                    
                     return true;
                 }
             }
