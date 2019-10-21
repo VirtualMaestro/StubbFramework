@@ -49,7 +49,7 @@ namespace StubbFramework.Scenes.Systems
             {
                 var entity = World.NewEntityWith<SceneComponent>(out var sceneComponent);
                 sceneComponent.Scene = controller;
-                controller.Entity = entity;
+                controller.SetEntity(ref entity);
             }
 
             return true;

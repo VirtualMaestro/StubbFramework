@@ -4,6 +4,8 @@ namespace StubbFramework.Common
 {
     public interface IEntityContainer
     {
-        EcsEntity Entity { ref get; ref set; }
+        ref EcsEntity GetEntity();
+        void SetEntity(ref EcsEntity entity);
+        bool HasEntity();
     }
 }
