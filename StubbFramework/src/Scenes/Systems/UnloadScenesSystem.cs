@@ -28,14 +28,8 @@ namespace StubbFramework.Scenes.Systems
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void _UnloadScenes(IList<ISceneName> names)
         {
-            if (names == null)
-            {
-                _UnloadAllScenes();
-            }
-            else
-            {
-                _UnloadScenesByNames(names);
-            }
+            if (names == null)  _UnloadAllScenes();
+            else _UnloadScenesByNames(names);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
