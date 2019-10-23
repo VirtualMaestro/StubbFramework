@@ -41,12 +41,9 @@ namespace StubbFramework.Scenes.Systems
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void _UnloadAllScenes()
         {
-            var service = _sceneServiceFilter.Single().SceneService;
-            
             foreach (var idx in _scenesFilter)
             {
-                service.Unload(_scenesFilter.Get1[idx].Scene);
-                _scenesFilter.Entities[idx].Destroy();
+                _RemoveScene(idx);
             }
         }
 
@@ -55,15 +52,17 @@ namespace StubbFramework.Scenes.Systems
         {
             foreach (ISceneName sceneName in names)
             {
-                if (_UnloadScene(sceneName) == false) 
+                var entityIndex = _FindSceneEntityIndex(sceneName);
+               
+                if (entityIndex != -1)
                 {
-                    log.Warn($"UnloadScenesSystem._UnloadScenesByNames. Scene '{sceneName}' to unload wasn't found!");
+                    _RemoveScene(entityIndex);
                 }
             }    
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool _UnloadScene(ISceneName sceneName)
+        private int _FindSceneEntityIndex(ISceneName sceneName)
         {
             foreach (var idx in _scenesFilter)
             {
@@ -71,16 +70,22 @@ namespace StubbFramework.Scenes.Systems
                 
                 if (sceneController.SceneName.Equals(sceneName))
                 {
-                    _scenesFilter.Entities[idx].Destroy();
-                    
-                    var service = _sceneServiceFilter.Single().SceneService;
-                    service.Unload(sceneController);
-                    
-                    return true;
+                    return idx;
                 }
             }
-
-            return false;
+            
+            log.Warn($"UnloadScenesSystem._FindSceneEntityIndex. Scene '{sceneName}' to unload wasn't found!");
+            return -1;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void _RemoveScene(int entityIndex)
+        {
+            ref var entity = ref _scenesFilter.Entities[entityIndex];
+            ISceneController controller = entity.Get<SceneComponent>().Scene;
+            _sceneServiceFilter.Single().SceneService.Unload(controller);
+            controller.Destroy();
+            entity.Destroy();
         }
     }
 }
