@@ -1,4 +1,5 @@
-﻿using Leopotam.Ecs;
+﻿using System.Runtime.CompilerServices;
+using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Services.Components;
@@ -15,13 +16,20 @@ namespace StubbFramework.Scenes.Systems
         {
             if (_filter.IsEmpty()) return;
 
-            var sceneService = _serviceFilter.Single().SceneService;
-
             foreach (var idx in _nonNewScenesFilter)
             {
-                sceneService.Unload(_nonNewScenesFilter.Get1[idx].Scene);
-                _nonNewScenesFilter.Entities[idx].Destroy();
+                _RemoveScene(idx);
             }
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void _RemoveScene(int entityIndex)
+        {
+            ref var entity = ref _nonNewScenesFilter.Entities[entityIndex];
+            ISceneController controller = entity.Get<SceneComponent>().Scene;
+            _serviceFilter.Single().SceneService.Unload(controller);
+            controller.Destroy();
+            entity.Destroy();
         }
     }
 }
