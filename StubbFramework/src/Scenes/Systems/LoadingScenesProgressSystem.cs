@@ -4,6 +4,7 @@ using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Remove.Components;
 using StubbFramework.Scenes.Components;
+using StubbFramework.Scenes.Configurations;
 using StubbFramework.Services.Components;
 
 namespace StubbFramework.Scenes.Systems
@@ -43,13 +44,19 @@ namespace StubbFramework.Scenes.Systems
             if (!_IsEverySceneLoaded(progresses)) return false;
             
             var service = _sceneServiceFilter.Single().SceneService;
-            IList<ISceneController> controllers = service.LoadingComplete(progresses);
+            KeyValuePair<ISceneController, ILoadingSceneConfig>[] controllers = service.LoadingComplete(progresses);
 
-            foreach (var controller in controllers)
+            for (var index = 0; index < controllers.Length; index++)
             {
+                ref var pair = ref controllers[index];
+                var controller = pair.Key;
+                var config = pair.Value;
                 var entity = World.NewEntityWith<SceneComponent>(out var sceneComponent);
                 sceneComponent.Scene = controller;
                 controller.SetEntity(ref entity);
+
+                if (config.IsActive) controller.ShowContent();
+                if (config.IsMain) controller.SetAsMain();
             }
 
             return true;
