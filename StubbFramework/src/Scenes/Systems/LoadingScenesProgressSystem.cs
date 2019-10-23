@@ -20,9 +20,7 @@ namespace StubbFramework.Scenes.Systems
             {
                 var activeLoading = _loadingFilter.Get1[idx];
 
-                bool activeLoadingComplete = _ProcessScenes(activeLoading.Progresses);
-
-                if (activeLoadingComplete)
+                if (_ProcessScenes(activeLoading.Progresses))
                 {
                     if (activeLoading.UnloadOthers)
                     {
@@ -49,17 +47,21 @@ namespace StubbFramework.Scenes.Systems
             for (var index = 0; index < controllers.Length; index++)
             {
                 ref var pair = ref controllers[index];
-                var controller = pair.Key;
-                var config = pair.Value;
-                var entity = World.NewEntityWith<SceneComponent>(out var sceneComponent);
-                sceneComponent.Scene = controller;
-                controller.SetEntity(ref entity);
-
-                if (config.IsActive) controller.ShowContent();
-                if (config.IsMain) controller.SetAsMain();
+                _InitSceneController(pair.Key, pair.Value);
             }
 
             return true;
+        }
+
+        [MethodImpl (MethodImplOptions.AggressiveInlining)]
+        private void _InitSceneController(ISceneController controller, ILoadingSceneConfig config)
+        {
+            var entity = World.NewEntityWith<SceneComponent, NewSceneMarkerComponent>(out var sceneComponent, out var newSceneMarkerComponent);
+            sceneComponent.Scene = controller;
+            controller.SetEntity(ref entity);
+
+            if (config.IsActive) controller.ShowContent();
+            if (config.IsMain) controller.SetAsMain();
         }
 
         [MethodImpl (MethodImplOptions.AggressiveInlining)]
