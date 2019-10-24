@@ -1,8 +1,9 @@
 ﻿using Leopotam.Ecs;
+using StubbFramework.Common;
 
 namespace StubbFramework
 {
-    public interface IStubbContext
+    public interface IStubbContext : IDisposable
     {
         EcsWorld World { get; }
 
@@ -14,7 +15,6 @@ namespace StubbFramework
         void Add(IEcsSystem ecsSystem);
         void Initialize();
         void Run();
-        void Dispose();
 
         IStubbDebug DebugInfo { get; set; }
     }

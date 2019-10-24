@@ -2,10 +2,8 @@
 
 namespace StubbFramework.View
 {
-    public interface IViewObject : IEntityContainer
+    public interface IViewObject : IEntityContainer, IDisposable
     {
         string Name { get; }
-        void Dispose();
-        bool IsDisposed { get; }
     }
 }

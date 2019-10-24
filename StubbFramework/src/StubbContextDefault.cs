@@ -8,7 +8,9 @@ namespace StubbFramework
         private EcsWorld _world;
         private EcsSystems _rootSystems;
         private EcsSystems _userSystems;
-        
+
+        public bool IsDisposed => _world == null;
+
         public StubbContextDefault(IStubbDebug debug = null)
         {
            DebugInfo = debug;
