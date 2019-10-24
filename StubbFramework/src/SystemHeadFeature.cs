@@ -7,6 +7,9 @@ namespace StubbFramework
     public class SystemHeadFeature : EcsFeature
     {
         public SystemHeadFeature() : base("HeadSystems")
+        {}
+
+        protected override void SetupSystems()
         {
             Add(new TimeSystem());
             Add(new DelaySystem());

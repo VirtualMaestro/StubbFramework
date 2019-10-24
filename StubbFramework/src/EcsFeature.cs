@@ -11,6 +11,7 @@ namespace StubbFramework
         public EcsFeature(string name = null)
         {
             _systems = new EcsSystems(Stubb.World, name);    
+            SetupSystems();
         }
 
         public string Name
@@ -24,6 +25,12 @@ namespace StubbFramework
             [MethodImpl (MethodImplOptions.AggressiveInlining)]
             get => true;
         }
+
+        /// <summary>
+        /// Method where all the systems should be created and added.
+        /// </summary>
+        protected virtual void SetupSystems()
+        {}
 
         public void Add(IEcsSystem system)
         {
