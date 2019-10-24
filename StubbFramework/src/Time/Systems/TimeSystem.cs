@@ -1,12 +1,13 @@
 ﻿using System.Diagnostics;
 using Leopotam.Ecs;
+using StubbFramework.Extensions;
 using StubbFramework.Time.Components;
 
 namespace StubbFramework.Time.Systems
 {
     public sealed class TimeSystem : EcsSystem
     {
-        EcsFilter<TimeComponent> _filter;
+        EcsFilter<TimeComponent> _timeFilter;
 
         public override void Init()
         {
@@ -21,7 +22,7 @@ namespace StubbFramework.Time.Systems
 
         public override void Run()
         {
-            var timeComponent = _filter.Get1[0];
+            var timeComponent = _timeFilter.Single();
             long currentTime = timeComponent.Stopwatch.ElapsedMilliseconds;
             timeComponent.PrevElapsedMilliseconds = timeComponent.ElapsedMilliseconds;
             timeComponent.TimeStep = currentTime - timeComponent.PrevElapsedMilliseconds;

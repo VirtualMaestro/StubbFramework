@@ -1,5 +1,6 @@
 ﻿using StubbFramework.Remove.Systems;
 using StubbFramework.Scenes.Systems;
+using StubbFramework.View.Systems;
 
 namespace StubbFramework
 {
@@ -12,6 +13,7 @@ namespace StubbFramework
         {
             Add(new UnloadScenesSystem());
             Add(new UnloadNonNewScenesSystem());
+            Add(new RemoveViewSystem());
             Add(new RemoveEntitySystem());
         }
     }

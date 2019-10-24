@@ -1,5 +1,6 @@
 ﻿using Leopotam.Ecs;
 using StubbFramework.Delay.Components;
+using StubbFramework.Extensions;
 using StubbFramework.Time.Components;
 
 namespace StubbFramework.Delay.Systems
@@ -11,7 +12,7 @@ namespace StubbFramework.Delay.Systems
         
         public override void Run()
         {
-            var time = _filterTime.Get1[0];
+            var time = _filterTime.Single();
             
             foreach (var index in _filterDelay)
             {
