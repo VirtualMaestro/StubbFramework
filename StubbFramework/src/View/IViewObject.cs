@@ -1,11 +1,10 @@
-﻿using Leopotam.Ecs;
+﻿using StubbFramework.Common;
 
 namespace StubbFramework.View
 {
-    public interface IViewObject
+    public interface IViewObject : IEntityContainer
     {
         string Name { get; }
-        EcsEntity Entity { get; }
         void Dispose();
         bool IsDisposed { get; }
     }
