@@ -3,7 +3,7 @@ using StubbFramework.Common;
 
 namespace StubbFramework
 {
-    public interface IStubbContext : IDisposable
+    public interface IStubbContext : IDispose
     {
         EcsWorld World { get; }
 

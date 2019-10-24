@@ -1,6 +1,6 @@
 ﻿namespace StubbFramework.Common
 {
-    public interface IDisposable : System.IDisposable
+    public interface IDispose : System.IDisposable
     {
         bool IsDisposed { get; }
     }
