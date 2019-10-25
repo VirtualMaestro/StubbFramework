@@ -14,7 +14,9 @@ namespace StubbFramework.Scenes.Configurations
         /// </summary>
         bool IsMain { get; }
         
-        object Payload { get; }
+        object Payload { get; set; }
+
+        void Set(IAssetName name, bool isActive, bool isMain);
         
         ILoadingSceneConfig Clone();
      }

@@ -4,22 +4,31 @@ namespace StubbFramework.Scenes.Configurations
 {
     public class LoadingSceneConfig : ILoadingSceneConfig
     {
-        public IAssetName Name { get; }
-        public bool IsActive { get; }
-        public bool IsMain { get; }
-        public object Payload { get; }
+        public IAssetName Name { get; private set; }
+        public bool IsActive { get; private set; }
+        public bool IsMain { get; private set; }
+        public object Payload { get; set; }
 
-        public LoadingSceneConfig(IAssetName sceneName, bool isActive = true, bool isMain = false, object payload = null)
+        public LoadingSceneConfig()
+        {}
+        
+        public LoadingSceneConfig(IAssetName sceneName, bool isActive = true, bool isMain = false)
         {
             Name = sceneName;
             IsActive = isActive;
             IsMain = isMain;
-            Payload = payload;
         }
-       
+
+        public void Set(IAssetName name, bool isActive, bool isMain)
+        {
+            Name = name;
+            IsActive = isActive;
+            IsMain = isMain;
+        }
+
         public ILoadingSceneConfig Clone()
         {
-            return new LoadingSceneConfig(Name.Clone(), IsActive, IsMain, Payload);
+            return new LoadingSceneConfig(Name.Clone(), IsActive, IsMain) {Payload = Payload};
         }
     }
 }
