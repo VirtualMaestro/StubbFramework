@@ -2,7 +2,7 @@
 {
     public interface ILoadingSceneConfig
     {
-        ISceneName Name { get; }
+        IAssetName Name { get; }
         /// <summary>
         /// Returns true if after loading, the content will be shown.
         /// </summary>

@@ -2,11 +2,11 @@
 
 namespace StubbFramework.Scenes
 {
-    public interface ISceneName : IEquatable<ISceneName>
+    public interface IAssetName : IEquatable<IAssetName>
     {
         string Name { get; }
         string Path { get; }
         string FullName { get; }
-        ISceneName Clone();
+        IAssetName Clone();
     }
 }

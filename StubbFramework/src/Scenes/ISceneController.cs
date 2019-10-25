@@ -9,7 +9,7 @@ namespace StubbFramework.Scenes
     public interface ISceneController : ISceneContent, IEntityContainer
     {
         void Initialize();
-        ISceneName SceneName { get; }
+        IAssetName SceneName { get; }
         bool IsDestroyed { get; }
         bool IsMain { get; }
         void SetAsMain();

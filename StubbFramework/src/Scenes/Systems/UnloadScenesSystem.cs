@@ -26,7 +26,7 @@ namespace StubbFramework.Scenes.Systems
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void _UnloadScenes(IList<ISceneName> names)
+        private void _UnloadScenes(IList<IAssetName> names)
         {
             if (names == null)  _UnloadAllScenes();
             else _UnloadScenesByNames(names);
@@ -42,9 +42,9 @@ namespace StubbFramework.Scenes.Systems
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void _UnloadScenesByNames(IList<ISceneName> names)
+        private void _UnloadScenesByNames(IList<IAssetName> names)
         {
-            foreach (ISceneName sceneName in names)
+            foreach (IAssetName sceneName in names)
             {
                 var entityIndex = _FindSceneEntityIndex(sceneName);
                
@@ -56,7 +56,7 @@ namespace StubbFramework.Scenes.Systems
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private int _FindSceneEntityIndex(ISceneName sceneName)
+        private int _FindSceneEntityIndex(IAssetName sceneName)
         {
             foreach (var idx in _scenesFilter)
             {

@@ -2,12 +2,12 @@
 {
     public class LoadingSceneConfig : ILoadingSceneConfig
     {
-        public ISceneName Name { get; }
+        public IAssetName Name { get; }
         public bool IsActive { get; }
         public bool IsMain { get; }
         public object Payload { get; }
 
-        public LoadingSceneConfig(ISceneName sceneName, bool isActive = true, bool isMain = false, object payload = null)
+        public LoadingSceneConfig(IAssetName sceneName, bool isActive = true, bool isMain = false, object payload = null)
         {
             Name = sceneName;
             IsActive = isActive;

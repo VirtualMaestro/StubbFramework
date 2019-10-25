@@ -1,22 +1,28 @@
-﻿using System;
+﻿using System.Runtime.CompilerServices;
 using StubbUnity.Logging;
 
 namespace StubbFramework.Scenes
 {
-    public abstract class AbstractSceneName : ISceneName
+    public class BaseAssetName : IAssetName
     {
-        public string Name { get; }
-        public string Path { get; }
-        public string FullName { get; }
+        public string Name { get; private set; }
+        public string Path { get; private set; }
+        public string FullName { get; private set; }
 
-        public AbstractSceneName(string name, string path = null)
+        public BaseAssetName(string name, string path = null)
+        {
+            Init(name, path);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void Init(string name, string path = null)
         {
             Name = FormatName(name);
             Path = FormatPath(path);
             FullName = FormatFullName(Name, Path);
         }
 
-        public virtual bool Equals(ISceneName other)
+        public virtual bool Equals(IAssetName other)
         {
             if (ReferenceEquals(this, other))
             {
@@ -36,16 +42,16 @@ namespace StubbFramework.Scenes
             return FullName;
         }
 
-        public virtual ISceneName Clone()
+        public virtual IAssetName Clone()
         {
-            throw new NotImplementedException();
+            return new BaseAssetName(Name, Path);
         }
 
-        protected virtual string FormatName(string sceneName)
+        protected virtual string FormatName(string name)
         {
-            sceneName = sceneName.Trim();
-            log.Assert(sceneName != string.Empty, $"Incorrect scene name '{sceneName}'!");
-            return sceneName;
+            name = name.Trim();
+            log.Assert(name != string.Empty, $"Incorrect asset name '{name}'!");
+            return name;
         }
 
         protected virtual string FormatPath(string path)

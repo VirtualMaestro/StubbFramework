@@ -8,7 +8,7 @@ namespace StubbFramework.Scenes.Components
     /// </summary>
     public class UnloadScenesComponent : IEcsAutoReset
     {
-        public IList<ISceneName> SceneNames;
+        public IList<IAssetName> SceneNames;
         
         public void Reset()
         {
