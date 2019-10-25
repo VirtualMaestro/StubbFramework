@@ -16,7 +16,7 @@ namespace StubbFramework.Extensions
         /// </summary>
         /// <param name="world"> Extension to the EcsWorld</param>
         /// <param name="configs">List of the ILoadingSceneConfig to load</param>
-        public static void LoadScenes<T>(this EcsWorld world, T configs) where T: List<ILoadingSceneConfig>
+        public static void LoadScenes(this EcsWorld world, List<ILoadingSceneConfig> configs)
         {
             world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
             loadScenes.LoadingScenes = configs;
@@ -31,7 +31,7 @@ namespace StubbFramework.Extensions
         /// <param name="world"> Extension to the EcsWorld</param>
         /// <param name="configs">List of the ILoadingSceneConfig to load</param>
         /// <param name="unloadScenes">scenes names which have to unload after given list config of new scenes will be loaded.</param>
-        public static void LoadScenes<T, S>(this EcsWorld world, T configs, S unloadScenes) where T: List<ILoadingSceneConfig> where S: List<IAssetName>
+        public static void LoadScenes(this EcsWorld world, List<ILoadingSceneConfig> configs, List<IAssetName> unloadScenes) 
         {
             world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
             loadScenes.LoadingScenes = configs;
@@ -46,7 +46,7 @@ namespace StubbFramework.Extensions
         /// <param name="world"> Extension to the EcsWorld</param>
         /// <param name="configs">List of the ILoadingSceneConfig to load</param>
         /// <param name="unloadOthers">if true all current non new scenes will be unloaded</param>
-        public static void LoadScenes<T>(this EcsWorld world, T configs, bool unloadOthers) where T: List<ILoadingSceneConfig>
+        public static void LoadScenes(this EcsWorld world, List<ILoadingSceneConfig> configs, bool unloadOthers)
         {
             world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
             loadScenes.LoadingScenes = configs;
@@ -61,7 +61,7 @@ namespace StubbFramework.Extensions
         /// </summary>
         /// <param name="world"></param>
         /// <param name="unloadScenes"></param>
-        public static void UnloadScenes<T>(this EcsWorld world, T unloadScenes) where T: List<IAssetName>
+        public static void UnloadScenes(this EcsWorld world, List<IAssetName> unloadScenes)
         {
             world.NewEntityWith<UnloadScenesComponent>(out var unloadScenesComponent);
             unloadScenesComponent.SceneNames = unloadScenes;
