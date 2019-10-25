@@ -7,11 +7,11 @@ namespace StubbFramework.Scenes.Configurations
     {
         public static SceneConfigsBuilder<T, S> Create => new SceneConfigsBuilder<T, S>();
         
-        private readonly List<T> _configs;
+        private readonly List<ILoadingSceneConfig> _configs;
 
         public SceneConfigsBuilder()
         {
-            _configs = new List<T>();
+            _configs = new List<ILoadingSceneConfig>();
         }
 
         public SceneConfigsBuilder<T, S> Add(string sceneName, string scenePath = null, bool isActive = true, bool isMain = false, object payload = null)
@@ -26,6 +26,6 @@ namespace StubbFramework.Scenes.Configurations
             return this;
         }
         
-        public List<T> Build => _configs;
+        public List<ILoadingSceneConfig> Build => _configs;
     }
 }
