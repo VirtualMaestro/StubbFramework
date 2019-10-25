@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
+using StubbFramework.Common.Names;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Services.Components;

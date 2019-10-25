@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Leopotam.Ecs;
+using StubbFramework.Common.Names;
 using StubbFramework.Scenes;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Configurations;

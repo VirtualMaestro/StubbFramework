@@ -1,4 +1,6 @@
-﻿namespace StubbFramework.Scenes.Configurations
+﻿using StubbFramework.Common.Names;
+
+namespace StubbFramework.Scenes.Configurations
 {
     public class LoadingSceneConfig : ILoadingSceneConfig
     {

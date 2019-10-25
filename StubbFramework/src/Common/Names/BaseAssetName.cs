@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using StubbUnity.Logging;
 
-namespace StubbFramework.Scenes
+namespace StubbFramework.Common.Names
 {
     public class BaseAssetName : IAssetName
     {
@@ -9,13 +9,19 @@ namespace StubbFramework.Scenes
         public string Path { get; private set; }
         public string FullName { get; private set; }
 
+        public BaseAssetName()
+        {
+            Name = string.Empty;
+            Path = string.Empty;
+        }
+        
         public BaseAssetName(string name, string path = null)
         {
-            Init(name, path);
+            Set(name, path);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void Init(string name, string path = null)
+        public void Set(string name, string path = null)
         {
             Name = FormatName(name);
             Path = FormatPath(path);

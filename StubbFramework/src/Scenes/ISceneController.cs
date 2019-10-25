@@ -1,4 +1,5 @@
 ﻿using StubbFramework.Common;
+using StubbFramework.Common.Names;
 
 namespace StubbFramework.Scenes
 {
