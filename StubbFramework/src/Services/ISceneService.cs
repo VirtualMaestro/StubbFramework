@@ -9,8 +9,8 @@ namespace StubbFramework.Services
    /// </summary>
     public interface ISceneService
     {
-        IList<ISceneLoadingProgress> Load(in IList<ILoadingSceneConfig> configs);
+        List<ISceneLoadingProgress> Load(in List<ILoadingSceneConfig> configs);
         void Unload(in ISceneController sceneController);
-        KeyValuePair<ISceneController, ILoadingSceneConfig>[] LoadingComplete(IList<ISceneLoadingProgress> progresses);
+        KeyValuePair<ISceneController, ILoadingSceneConfig>[] LoadingComplete(List<ISceneLoadingProgress> progresses);
     }
 }

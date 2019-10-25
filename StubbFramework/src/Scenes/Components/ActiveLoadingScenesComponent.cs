@@ -9,8 +9,8 @@ namespace StubbFramework.Scenes.Components
     /// </summary>
     public class ActiveLoadingScenesComponent : IEcsAutoReset
     {
-        public IList<ISceneLoadingProgress> Progresses;
-        public IList<IAssetName> UnloadScenes;
+        public List<ISceneLoadingProgress> Progresses;
+        public List<IAssetName> UnloadScenes;
         public bool UnloadOthers;
         
         public void Reset()

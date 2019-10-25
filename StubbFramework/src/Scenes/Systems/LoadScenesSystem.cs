@@ -20,7 +20,7 @@ namespace StubbFramework.Scenes.Systems
             {
                 ref var entity = ref _loadScenesFilter.Entities[idx];
                 var loadScenes = entity.Get<LoadScenesComponent>();
-                IList<ISceneLoadingProgress> progresses = sceneService.Load(loadScenes.LoadingScenes);
+                List<ISceneLoadingProgress> progresses = sceneService.Load(loadScenes.LoadingScenes);
                 
                 World.NewEntityWith<ActiveLoadingScenesComponent>(out var activeLoadingScenes);
                 activeLoadingScenes.Progresses = progresses;

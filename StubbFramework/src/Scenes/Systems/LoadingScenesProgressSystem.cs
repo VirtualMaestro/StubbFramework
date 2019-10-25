@@ -37,7 +37,7 @@ namespace StubbFramework.Scenes.Systems
         }
 
         [MethodImpl (MethodImplOptions.AggressiveInlining)]
-        private bool _ProcessScenes(IList<ISceneLoadingProgress> progresses)
+        private bool _ProcessScenes(List<ISceneLoadingProgress> progresses)
         {
             if (!_IsEverySceneLoaded(progresses)) return false;
             
@@ -65,7 +65,7 @@ namespace StubbFramework.Scenes.Systems
         }
 
         [MethodImpl (MethodImplOptions.AggressiveInlining)]
-        private bool _IsEverySceneLoaded(IList<ISceneLoadingProgress> progresses)
+        private bool _IsEverySceneLoaded(List<ISceneLoadingProgress> progresses)
         {
             foreach (var progress in progresses)
             {
