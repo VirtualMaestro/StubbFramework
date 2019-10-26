@@ -10,15 +10,12 @@ namespace StubbFramework
         private EcsSystems _userSystems;
 
         public bool IsDisposed => _world == null;
-
-        public StubbContextDefault(IStubbDebug debug = null)
-        {
-           DebugInfo = debug;
-        }
+        public IStubbDebug DebugInfo { get; private set; }
         
-        public void Create()
+        public void Init(EcsWorld world = null, IStubbDebug debug = null)
         {
-            _world = new EcsWorld();
+            _world = world ?? new EcsWorld();
+            DebugInfo = debug;
             
             _rootSystems = new EcsSystems(_world, "SystemsRoot");
             _userSystems = new EcsSystems(_world, "SystemsUserBody");
@@ -39,7 +36,7 @@ namespace StubbFramework
             _userSystems.Add(ecsSystem);
         }
 
-        public void Initialize()
+        public void InitSystems()
         {
             DebugInfo?.Debug(_rootSystems, _world);
 
@@ -62,7 +59,5 @@ namespace StubbFramework
             _rootSystems = null;
             _userSystems = null;
         }
-
-        public IStubbDebug DebugInfo { get; set; }
     }
 }

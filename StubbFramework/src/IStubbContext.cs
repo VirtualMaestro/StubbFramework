@@ -7,15 +7,15 @@ namespace StubbFramework
     {
         EcsWorld World { get; }
 
-        void Create();
+        void Init(EcsWorld world = null, IStubbDebug debug = null);
         /// <summary>
         /// Method where user has to be able to add his systems.
         /// </summary>
         /// <param name="ecsSystem"></param>
         void Add(IEcsSystem ecsSystem);
-        void Initialize();
+        void InitSystems();
         void Run();
 
-        IStubbDebug DebugInfo { get; set; }
+        IStubbDebug DebugInfo { get; }
     }
 }
