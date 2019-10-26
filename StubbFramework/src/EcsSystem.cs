@@ -1,15 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using Leopotam.Ecs;
+﻿using Leopotam.Ecs;
 
 namespace StubbFramework
 {
     public class EcsSystem : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem
     {
-        protected EcsWorld World
-        {
-            [MethodImpl (MethodImplOptions.AggressiveInlining)]
-            get => Stubb.World;
-        }
+        protected EcsWorld World;
         
         public virtual void Init()
         {
