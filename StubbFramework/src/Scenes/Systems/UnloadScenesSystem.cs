@@ -76,7 +76,7 @@ namespace StubbFramework.Scenes.Systems
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void _RemoveScene(int entityIndex)
         {
-            ref var entity = ref _scenesFilter.Entities[entityIndex];
+            var entity = _scenesFilter.Entities[entityIndex];
             ISceneController controller = entity.Get<SceneComponent>().Scene;
             _sceneServiceFilter.Single().SceneService.Unload(controller);
             controller.Destroy();
