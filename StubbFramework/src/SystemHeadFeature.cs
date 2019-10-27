@@ -7,7 +7,7 @@ namespace StubbFramework
 {
     public class SystemHeadFeature : EcsFeature
     {
-        public SystemHeadFeature(EcsWorld world) : base(world, "HeadSystems")
+        public SystemHeadFeature(EcsWorld world, string name = null) : base(world, name ?? "HeadSystems")
         {}
 
         protected override void SetupSystems()

@@ -7,7 +7,7 @@ namespace StubbFramework
 {
     public class SystemTailFeature : EcsFeature
     {
-        public SystemTailFeature(EcsWorld world) : base(world,"TailSystems")
+        public SystemTailFeature(EcsWorld world, string name = null) : base(world,name ?? "TailSystems")
         {}
 
         protected override void SetupSystems()

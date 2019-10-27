@@ -28,7 +28,7 @@ namespace StubbFramework
         
         protected virtual EcsSystems InitSystems()
         {
-            var rootSystems = new EcsSystems(World, "SystemsRoot");
+            var rootSystems = new EcsSystems(World, "RootSystems");
             rootSystems.Add(new SystemHeadFeature(World));
             rootSystems.Add(InitUserSystems());
             rootSystems.Add(new SystemTailFeature(World));
@@ -38,7 +38,7 @@ namespace StubbFramework
 
         protected virtual IEcsSystem InitUserSystems()
         {
-            return new EcsSystems(World, "SystemsUserBody");
+            return new EcsSystems(World, "UserSystems");
         }
 
         public EcsWorld World
