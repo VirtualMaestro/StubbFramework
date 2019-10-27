@@ -7,9 +7,9 @@ namespace StubbFramework
     {
         private EcsWorld _world;
         private EcsSystems _rootSystems;
+        private IStubbDebug _debugInfo;
 
         public bool IsDisposed => _world == null;
-        public IStubbDebug DebugInfo { get; private set; }
 
         public void Init()
         {
@@ -29,11 +29,11 @@ namespace StubbFramework
         public void Init(EcsWorld world, IStubbDebug debug)
         {
             _world = world;
-            DebugInfo = debug;
+            _debugInfo = debug;
             
             _rootSystems = InitSystems();
             
-            DebugInfo?.Debug(_rootSystems, _world);
+            _debugInfo?.Debug(_rootSystems, _world);
 
             _rootSystems.ProcessInjects();
             _rootSystems.Init();

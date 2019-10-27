@@ -12,7 +12,5 @@ namespace StubbFramework
         void Init(IStubbDebug debug);
         void Init(EcsWorld world, IStubbDebug debug);
         void Run();
-
-        IStubbDebug DebugInfo { get; }
     }
 }
