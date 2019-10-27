@@ -1,37 +1,24 @@
-﻿using Leopotam.Ecs;
-
-namespace StubbFramework
+﻿namespace StubbFramework
 {
     public static class Stubb
     {
-        private static IStubbContext _context;
+        private static int _index = 0;
+        private static IStubbContext[] _contexts = new IStubbContext[10];
 
-        public static void Create(IStubbContext context = null)
+        public static void AddContext(IStubbContext context)
         {
-            _context = context ?? new StubbContextDefault();
-            _context.Create();
-        }
-        
-        public static EcsWorld World => _context.World;
-
-        public static void Initialize()
-        {
-            _context.Initialize();
-        }
-        
-        public static void Add(IEcsSystem ecsSystem)
-        {
-            _context.Add(ecsSystem);
+            _contexts[_index++] = context;
         }
 
-        public static void Run()
+        public static IStubbContext GetContext(int index)
         {
-            _context.Run();
+            return _contexts[index];
         }
 
-        public static void Dispose()
+        public static void Clear()
         {
-            _context.Dispose();
+            _index = 0;
+            _contexts = new IStubbContext[10];
         }
     }
 }

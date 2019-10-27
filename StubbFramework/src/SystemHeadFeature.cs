@@ -1,4 +1,5 @@
-﻿using StubbFramework.Delay.Systems;
+﻿using Leopotam.Ecs;
+using StubbFramework.Delay.Systems;
 using StubbFramework.Scenes.Systems;
 using StubbFramework.Time.Systems;
 
@@ -6,7 +7,7 @@ namespace StubbFramework
 {
     public class SystemHeadFeature : EcsFeature
     {
-        public SystemHeadFeature() : base("HeadSystems")
+        public SystemHeadFeature(EcsWorld world) : base(world, "HeadSystems")
         {}
 
         protected override void SetupSystems()

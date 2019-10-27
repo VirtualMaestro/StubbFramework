@@ -7,7 +7,6 @@ namespace StubbFramework
     {
         private EcsWorld _world;
         private EcsSystems _rootSystems;
-        private EcsSystems _userSystems;
 
         public bool IsDisposed => _world == null;
         public IStubbDebug DebugInfo { get; private set; }
@@ -17,12 +16,29 @@ namespace StubbFramework
             _world = world ?? new EcsWorld();
             DebugInfo = debug;
             
-            _rootSystems = new EcsSystems(_world, "SystemsRoot");
-            _userSystems = new EcsSystems(_world, "SystemsUserBody");
+            _rootSystems = InitSystems();
             
-            _rootSystems.Add(new SystemHeadFeature());
-            _rootSystems.Add(_userSystems);
-            _rootSystems.Add(new SystemTailFeature());
+            DebugInfo?.Debug(_rootSystems, _world);
+
+            _rootSystems.ProcessInjects();
+            _rootSystems.Init();
+            
+            Stubb.AddContext(this);
+        }
+        
+        protected virtual EcsSystems InitSystems()
+        {
+            var rootSystems = new EcsSystems(World, "SystemsRoot");
+            rootSystems.Add(new SystemHeadFeature(World));
+            rootSystems.Add(InitUserSystems());
+            rootSystems.Add(new SystemTailFeature(World));
+
+            return rootSystems;
+        }
+
+        protected virtual IEcsSystem InitUserSystems()
+        {
+            return new EcsSystems(World, "SystemsUserBody");
         }
 
         public EcsWorld World
@@ -31,19 +47,6 @@ namespace StubbFramework
             get => _world;
         }
         
-        public void Add(IEcsSystem ecsSystem)
-        {
-            _userSystems.Add(ecsSystem);
-        }
-
-        public void InitSystems()
-        {
-            DebugInfo?.Debug(_rootSystems, _world);
-
-            _rootSystems.ProcessInjects();
-            _rootSystems.Init();
-        }
-
         public void Run()
         {
             _rootSystems.Run();
@@ -57,7 +60,6 @@ namespace StubbFramework
 
             _world = null;
             _rootSystems = null;
-            _userSystems = null;
         }
     }
 }

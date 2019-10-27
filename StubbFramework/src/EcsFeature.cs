@@ -7,10 +7,13 @@ namespace StubbFramework
     public class EcsFeature : EcsSystem, IDisposable
     {
         private EcsSystems _systems;
-        
-        public EcsFeature(string name = null)
+
+        internal EcsSystems Systems => _systems;
+
+        public EcsFeature(EcsWorld world, string name = null)
         {
-            _systems = new EcsSystems(Stubb.World, name);    
+            World = world;
+            _systems = new EcsSystems(World, name);    
             SetupSystems();
         }
 
