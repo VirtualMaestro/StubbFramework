@@ -10,7 +10,7 @@
             _contexts[_index++] = context;
         }
 
-        public static IStubbContext GetContext(int index)
+        public static IStubbContext GetContext(int index = 0)
         {
             return _contexts[index];
         }
