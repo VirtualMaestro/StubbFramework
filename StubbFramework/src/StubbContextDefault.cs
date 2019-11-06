@@ -13,10 +13,10 @@ namespace StubbFramework
 
         public void Init(EcsWorld world, IStubbDebug debug = null)
         {
+            Stubb.AddContext(this);
+
             _world = world;
             _debugInfo = debug;
-            
-            Stubb.AddContext(this);
 
             _rootSystems = InitSystems();
             
