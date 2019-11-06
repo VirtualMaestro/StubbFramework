@@ -16,14 +16,14 @@ namespace StubbFramework
             _world = world;
             _debugInfo = debug;
             
+            Stubb.AddContext(this);
+
             _rootSystems = InitSystems();
             
             _debugInfo?.Debug(_rootSystems, _world);
 
             _rootSystems.ProcessInjects();
             _rootSystems.Init();
-            
-            Stubb.AddContext(this);
         }
         
         protected virtual EcsSystems InitSystems()
