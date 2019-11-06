@@ -7,10 +7,7 @@ namespace StubbFramework
     {
         EcsWorld World { get; }
 
-        void Init();
-        void Init(EcsWorld world);
-        void Init(IStubbDebug debug);
-        void Init(EcsWorld world, IStubbDebug debug);
+        void Init(EcsWorld world, IStubbDebug debug = null);
         void Run();
     }
 }

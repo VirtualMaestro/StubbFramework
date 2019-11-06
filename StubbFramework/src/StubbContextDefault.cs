@@ -11,22 +11,7 @@ namespace StubbFramework
 
         public bool IsDisposed => _world == null;
 
-        public void Init()
-        {
-            Init(new EcsWorld(), null);
-        }
-
-        public void Init(EcsWorld world)
-        {
-            Init(world, null);
-        }
-
-        public void Init(IStubbDebug debug)
-        {
-            Init(new EcsWorld(), debug);
-        }
-        
-        public void Init(EcsWorld world, IStubbDebug debug)
+        public void Init(EcsWorld world, IStubbDebug debug = null)
         {
             _world = world;
             _debugInfo = debug;
