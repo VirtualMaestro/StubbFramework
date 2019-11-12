@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Leopotam.Ecs;
 using StubbFramework.Common.Names;
+using StubbFramework.Physics;
+using StubbFramework.Physics.Components;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Configurations;
 using StubbFramework.Services;
@@ -89,6 +91,54 @@ namespace StubbFramework.Extensions
         {
             world.NewEntityWith<SceneServiceComponent>(out var sceneServiceComponent);
             sceneServiceComponent.SceneService = sceneService;
+        }
+
+        public static void DispatchTriggerEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            world.NewEntityWith<TriggerEnterComponent>(out var triggerEnter);
+            triggerEnter.ObjectA = objA;
+            triggerEnter.ObjectB = objB;
+            triggerEnter.Info = collisionInfo;
+        }
+
+        public static void DispatchTriggerStay(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            world.NewEntityWith<TriggerStayComponent>(out var triggerStay);
+            triggerStay.ObjectA = objA;
+            triggerStay.ObjectB = objB;
+            triggerStay.Info = collisionInfo;
+        }
+
+        public static void DispatchTriggerExit(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            world.NewEntityWith<TriggerExitComponent>(out var triggerExit);
+            triggerExit.ObjectA = objA;
+            triggerExit.ObjectB = objB;
+            triggerExit.Info = collisionInfo;
+        }
+
+        public static void DispatchCollisionEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            world.NewEntityWith<CollisionEnterComponent>(out var collisionEnter);
+            collisionEnter.ObjectA = objA;
+            collisionEnter.ObjectB = objB;
+            collisionEnter.Info = collisionInfo;
+        }
+        
+        public static void DispatchCollisionStay(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            world.NewEntityWith<CollisionStayComponent>(out var collisionStay);
+            collisionStay.ObjectA = objA;
+            collisionStay.ObjectB = objB;
+            collisionStay.Info = collisionInfo;
+        }
+        
+        public static void DispatchCollisionExit(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            world.NewEntityWith<CollisionExitComponent>(out var collisionExit);
+            collisionExit.ObjectA = objA;
+            collisionExit.ObjectB = objB;
+            collisionExit.Info = collisionInfo;
         }
     }
 }
