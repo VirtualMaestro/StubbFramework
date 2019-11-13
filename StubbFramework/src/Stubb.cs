@@ -1,4 +1,6 @@
-﻿namespace StubbFramework
+﻿using System.Runtime.CompilerServices;
+
+namespace StubbFramework
 {
     public static class Stubb
     {
@@ -10,6 +12,7 @@
             _contexts[_index++] = context;
         }
 
+        [MethodImpl (MethodImplOptions.AggressiveInlining)]
         public static IStubbContext GetContext(int index = 0)
         {
             return _contexts[index];
