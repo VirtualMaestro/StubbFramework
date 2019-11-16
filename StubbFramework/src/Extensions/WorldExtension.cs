@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Common.Names;
 using StubbFramework.Physics;
@@ -12,6 +13,8 @@ namespace StubbFramework.Extensions
 {
     public static class WorldExtension
     {
+        private static readonly Dictionary<int, bool> CollisionTable = new Dictionary<int, bool>();
+
         /// <summary>
         /// Add configuration of the scenes list to load.
         /// LoadScenesComponent will be sent.
@@ -139,6 +142,50 @@ namespace StubbFramework.Extensions
             collisionExit.ObjectA = objA;
             collisionExit.ObjectB = objB;
             collisionExit.Info = collisionInfo;
+        }
+        
+        /// <summary>
+        /// Add two uniques ints as collision pair.
+        /// </summary>
+        /// <param name="world"></param>
+        /// <param name="typeIdA"></param>
+        /// <param name="typeIdB"></param>
+        /// <param name="shift"></param>
+        public static void AddCollisionPair(this EcsWorld world, int typeIdA, int typeIdB, int shift = 8)
+        {
+#if DEBUG
+            if (HasCollisionPair(world, typeIdA, typeIdB, shift) >= 0)
+            {
+                log.Warn($"Collision pair {typeIdA} : {typeIdB} is already added!");
+            }
+#endif            
+            CollisionTable.Add(_GetHash(typeIdA, typeIdB, shift), true);
+        }
+
+        /// <summary>
+        /// Check if given collision pair exist.
+        /// </summary>
+        /// <param name="world"></param>
+        /// <param name="typeIdA"></param>
+        /// <param name="typeIdB"></param>
+        /// <param name="shift"></param>
+        /// <returns>
+        /// -1 - no collision pair;
+        ///  0 - collision pair exists in given order;
+        ///  1 - collision pair exists in reverse order;
+        /// </returns>
+        public static int HasCollisionPair(this EcsWorld world, int typeIdA, int typeIdB, int shift = 8)
+        {
+            if (CollisionTable.ContainsKey(_GetHash(typeIdA, typeIdB, shift))) return 0;
+            if (CollisionTable.ContainsKey(_GetHash(typeIdB, typeIdA, shift))) return 1;
+            
+            return -1;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int _GetHash(int byte1, int byte2, int shift)
+        {
+            return byte1 | byte2 << shift;
         }
     }
 }
