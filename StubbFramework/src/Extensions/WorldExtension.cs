@@ -156,7 +156,7 @@ namespace StubbFramework.Extensions
 #if DEBUG
             if (HasCollisionPair(world, typeIdA, typeIdB, shift) >= 0)
             {
-                log.Warn($"Collision pair {typeIdA} : {typeIdB} is already added!");
+                StubbUnity.Logging.log.Warn($"Collision pair {typeIdA} : {typeIdB} is already added!");
             }
 #endif            
             CollisionTable.Add(_GetHash(typeIdA, typeIdB, shift), true);
