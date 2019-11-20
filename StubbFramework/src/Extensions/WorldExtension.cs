@@ -145,7 +145,8 @@ namespace StubbFramework.Extensions
         }
         
         /// <summary>
-        /// Add two uniques ints as collision pair.
+        /// Add two uniques ids (ints) as collision pair.
+        /// Ids should be > 0.
         /// </summary>
         /// <param name="world"></param>
         /// <param name="typeIdA"></param>
@@ -154,6 +155,8 @@ namespace StubbFramework.Extensions
         public static void AddCollisionPair(this EcsWorld world, int typeIdA, int typeIdB, int shift = 8)
         {
 #if DEBUG
+            if (typeIdA <= 0 || typeIdB <= 0) StubbUnity.Logging.log.Error($"Wrong collision pair: {typeIdA}:{typeIdB} - collision type should be > 0."); 
+
             if (HasCollisionPair(world, typeIdA, typeIdB, shift) >= 0)
             {
                 StubbUnity.Logging.log.Warn($"Collision pair {typeIdA} : {typeIdB} is already added!");
@@ -176,6 +179,7 @@ namespace StubbFramework.Extensions
         /// </returns>
         public static int HasCollisionPair(this EcsWorld world, int typeIdA, int typeIdB, int shift = 8)
         {
+            if (typeIdA <= 0 || typeIdB <= 0) return -1; 
             if (CollisionTable.ContainsKey(_GetHash(typeIdA, typeIdB, shift))) return 0;
             if (CollisionTable.ContainsKey(_GetHash(typeIdB, typeIdA, shift))) return 1;
             
