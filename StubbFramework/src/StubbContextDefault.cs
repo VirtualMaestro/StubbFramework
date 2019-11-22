@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
-using StubbFramework.Extensions;
 
 namespace StubbFramework
 {
@@ -51,7 +50,6 @@ namespace StubbFramework
         public void Run()
         {
             _rootSystems.Run();
-            _world.EndCollisionFrame();
             _world.EndFrame();
         }
 
