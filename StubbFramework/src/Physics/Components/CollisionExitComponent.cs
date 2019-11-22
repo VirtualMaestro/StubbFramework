@@ -2,7 +2,7 @@
 
 namespace StubbFramework.Physics.Components
 {
-    public sealed class CollisionExitComponent : IEcsOneFrame, IEcsAutoReset
+    public sealed class CollisionExitComponent : IEcsAutoReset
     {
         public IViewPhysics ObjectA;
         public IViewPhysics ObjectB;

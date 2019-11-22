@@ -109,7 +109,7 @@ namespace StubbFramework.Extensions
 
             RegisterCollision[hash] = true;
             
-            world.NewEntityWith<TriggerEnterComponent>(out var triggerEnter);
+            world.NewEntityWith<TriggerEnterComponent, CleanupCollisionComponent>(out var triggerEnter, out var cleanup);
             triggerEnter.ObjectA = objA;
             triggerEnter.ObjectB = objB;
             triggerEnter.Info = collisionInfo;
@@ -127,7 +127,7 @@ namespace StubbFramework.Extensions
 
             RegisterCollision[hash] = true;
 
-            world.NewEntityWith<TriggerStayComponent>(out var triggerStay);
+            world.NewEntityWith<TriggerStayComponent, CleanupCollisionComponent>(out var triggerStay, out var cleanup);
             triggerStay.ObjectA = objA;
             triggerStay.ObjectB = objB;
             triggerStay.Info = collisionInfo;
@@ -145,7 +145,7 @@ namespace StubbFramework.Extensions
 
             RegisterCollision[hash] = true;
 
-            world.NewEntityWith<TriggerExitComponent>(out var triggerExit);
+            world.NewEntityWith<TriggerExitComponent, CleanupCollisionComponent>(out var triggerExit, out var cleanup);
             triggerExit.ObjectA = objA;
             triggerExit.ObjectB = objB;
             triggerExit.Info = collisionInfo;
@@ -163,7 +163,7 @@ namespace StubbFramework.Extensions
 
             RegisterCollision[hash] = true;
 
-            world.NewEntityWith<CollisionEnterComponent>(out var collisionEnter);
+            world.NewEntityWith<CollisionEnterComponent, CleanupCollisionComponent>(out var collisionEnter, out var cleanup);
             collisionEnter.ObjectA = objA;
             collisionEnter.ObjectB = objB;
             collisionEnter.Info = collisionInfo;
@@ -181,7 +181,7 @@ namespace StubbFramework.Extensions
 
             RegisterCollision[hash] = true;
 
-            world.NewEntityWith<CollisionStayComponent>(out var collisionStay);
+            world.NewEntityWith<CollisionStayComponent, CleanupCollisionComponent>(out var collisionStay, out var cleanup);
             collisionStay.ObjectA = objA;
             collisionStay.ObjectB = objB;
             collisionStay.Info = collisionInfo;
@@ -199,7 +199,7 @@ namespace StubbFramework.Extensions
 
             RegisterCollision[hash] = true;
 
-            world.NewEntityWith<CollisionExitComponent>(out var collisionExit);
+            world.NewEntityWith<CollisionExitComponent, CleanupCollisionComponent>(out var collisionExit, out var cleanup);
             collisionExit.ObjectA = objA;
             collisionExit.ObjectB = objB;
             collisionExit.Info = collisionInfo;

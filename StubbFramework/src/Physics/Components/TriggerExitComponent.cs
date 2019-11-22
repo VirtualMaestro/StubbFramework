@@ -2,7 +2,7 @@
 
 namespace StubbFramework.Physics.Components
 {
-    public sealed class TriggerExitComponent : IEcsOneFrame, IEcsAutoReset
+    public sealed class TriggerExitComponent : IEcsAutoReset
     {
         public IViewPhysics ObjectA;
         public IViewPhysics ObjectB;
