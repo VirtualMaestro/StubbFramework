@@ -98,6 +98,8 @@ namespace StubbFramework.Extensions
 
         public static void DispatchTriggerEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
+            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+            
             world.NewEntityWith<TriggerEnterComponent>(out var triggerEnter);
             triggerEnter.ObjectA = objA;
             triggerEnter.ObjectB = objB;
@@ -106,6 +108,8 @@ namespace StubbFramework.Extensions
 
         public static void DispatchTriggerStay(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
+            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+
             world.NewEntityWith<TriggerStayComponent>(out var triggerStay);
             triggerStay.ObjectA = objA;
             triggerStay.ObjectB = objB;
@@ -114,6 +118,8 @@ namespace StubbFramework.Extensions
 
         public static void DispatchTriggerExit(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
+            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+
             world.NewEntityWith<TriggerExitComponent>(out var triggerExit);
             triggerExit.ObjectA = objA;
             triggerExit.ObjectB = objB;
@@ -122,6 +128,8 @@ namespace StubbFramework.Extensions
 
         public static void DispatchCollisionEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
+            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+
             world.NewEntityWith<CollisionEnterComponent>(out var collisionEnter);
             collisionEnter.ObjectA = objA;
             collisionEnter.ObjectB = objB;
@@ -130,6 +138,8 @@ namespace StubbFramework.Extensions
         
         public static void DispatchCollisionStay(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
+            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+
             world.NewEntityWith<CollisionStayComponent>(out var collisionStay);
             collisionStay.ObjectA = objA;
             collisionStay.ObjectB = objB;
@@ -138,6 +148,8 @@ namespace StubbFramework.Extensions
         
         public static void DispatchCollisionExit(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
+            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+
             world.NewEntityWith<CollisionExitComponent>(out var collisionExit);
             collisionExit.ObjectA = objA;
             collisionExit.ObjectB = objB;
