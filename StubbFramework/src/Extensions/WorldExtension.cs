@@ -14,6 +14,7 @@ namespace StubbFramework.Extensions
     public static class WorldExtension
     {
         private static readonly Dictionary<int, bool> CollisionTable = new Dictionary<int, bool>();
+        private static readonly Dictionary<int, bool> RegisterCollision = new Dictionary<int, bool>();
 
         /// <summary>
         /// Add configuration of the scenes list to load.
@@ -98,7 +99,15 @@ namespace StubbFramework.Extensions
 
         public static void DispatchTriggerEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
-            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+            if (result == 1)
+            {
+                var tmp = objA;
+                objA = objB;
+                objB = tmp;
+            }
+
+            RegisterCollision[hash] = true;
             
             world.NewEntityWith<TriggerEnterComponent>(out var triggerEnter);
             triggerEnter.ObjectA = objA;
@@ -108,7 +117,15 @@ namespace StubbFramework.Extensions
 
         public static void DispatchTriggerStay(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
-            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+            if (result == 1)
+            {
+                var tmp = objA;
+                objA = objB;
+                objB = tmp;
+            }
+
+            RegisterCollision[hash] = true;
 
             world.NewEntityWith<TriggerStayComponent>(out var triggerStay);
             triggerStay.ObjectA = objA;
@@ -118,7 +135,15 @@ namespace StubbFramework.Extensions
 
         public static void DispatchTriggerExit(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
-            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+            if (result == 1)
+            {
+                var tmp = objA;
+                objA = objB;
+                objB = tmp;
+            }
+
+            RegisterCollision[hash] = true;
 
             world.NewEntityWith<TriggerExitComponent>(out var triggerExit);
             triggerExit.ObjectA = objA;
@@ -128,7 +153,15 @@ namespace StubbFramework.Extensions
 
         public static void DispatchCollisionEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
-            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+            if (result == 1)
+            {
+                var tmp = objA;
+                objA = objB;
+                objB = tmp;
+            }
+
+            RegisterCollision[hash] = true;
 
             world.NewEntityWith<CollisionEnterComponent>(out var collisionEnter);
             collisionEnter.ObjectA = objA;
@@ -138,7 +171,15 @@ namespace StubbFramework.Extensions
         
         public static void DispatchCollisionStay(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
-            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+            if (result == 1)
+            {
+                var tmp = objA;
+                objA = objB;
+                objB = tmp;
+            }
+
+            RegisterCollision[hash] = true;
 
             world.NewEntityWith<CollisionStayComponent>(out var collisionStay);
             collisionStay.ObjectA = objA;
@@ -148,7 +189,15 @@ namespace StubbFramework.Extensions
         
         public static void DispatchCollisionExit(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
-            if (HasCollisionPair(world, objA.TypeId, objB.TypeId) < 0) return;
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+            if (result == 1)
+            {
+                var tmp = objA;
+                objA = objB;
+                objB = tmp;
+            }
+
+            RegisterCollision[hash] = true;
 
             world.NewEntityWith<CollisionExitComponent>(out var collisionExit);
             collisionExit.ObjectA = objA;
@@ -173,8 +222,8 @@ namespace StubbFramework.Extensions
             {
                 StubbUnity.Logging.log.Warn($"Collision pair {typeIdA} : {typeIdB} is already added!");
             }
-#endif            
-            CollisionTable.Add(_GetHash(typeIdA, typeIdB, shift), true);
+#endif
+            CollisionTable[_GetHash(typeIdA, typeIdB, shift)] = true;
         }
 
         /// <summary>
@@ -197,11 +246,43 @@ namespace StubbFramework.Extensions
             
             return -1;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool CanDispatch(int typeIdA, int typeIdB, out int result, out int hashResult, int shift = 8)
+        {
+            result = -1;
+            hashResult = -1;
+            
+            if (typeIdA <= 0 || typeIdB <= 0) return false;
+
+            int hash = _GetHash(typeIdA, typeIdB, shift);
+            if (CollisionTable.ContainsKey(hash))
+            {
+                result = 0;
+                hashResult = hash;
+                return RegisterCollision.ContainsKey(hash) == false;
+            }
+            
+            int reverseHash = _GetHash(typeIdB, typeIdA, shift);
+            if (CollisionTable.ContainsKey(reverseHash))
+            {
+                result = 1;
+                hashResult = reverseHash;
+                return RegisterCollision.ContainsKey(reverseHash) == false;
+            }
+
+            return false;
+        }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int _GetHash(int byte1, int byte2, int shift)
         {
             return byte1 | byte2 << shift;
+        }
+
+        public static void EndCollisionFrame(this EcsWorld world)
+        {
+            RegisterCollision.Clear();
         }
     }
 }
