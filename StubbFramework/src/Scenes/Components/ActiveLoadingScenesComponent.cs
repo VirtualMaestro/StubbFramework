@@ -7,7 +7,7 @@ namespace StubbFramework.Scenes.Components
     /// <summary>
     /// Component contains list of progresses of scenes loading.
     /// </summary>
-    public class ActiveLoadingScenesComponent : IEcsAutoReset
+    public sealed class ActiveLoadingScenesComponent : IEcsAutoReset
     {
         public List<ISceneLoadingProgress> Progresses;
         public List<IAssetName> UnloadScenes;

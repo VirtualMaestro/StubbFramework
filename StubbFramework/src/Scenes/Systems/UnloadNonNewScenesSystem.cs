@@ -2,11 +2,10 @@
 using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
-using StubbFramework.Services.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
-    public class UnloadNonNewScenesSystem : EcsSystem
+    public sealed class UnloadNonNewScenesSystem : EcsSystem
     {
         private EcsFilter<UnloadNonNewScenesComponent> _filter;
         private EcsFilter<SceneServiceComponent> _serviceFilter;

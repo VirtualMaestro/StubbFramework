@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using StubbFramework.Scenes;
 using StubbFramework.Scenes.Configurations;
 
-namespace StubbFramework.Services
+namespace StubbFramework.Scenes.Services
 {
    /// <summary>
    /// Access to engine specific Scene management.

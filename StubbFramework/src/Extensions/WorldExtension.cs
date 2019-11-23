@@ -6,8 +6,7 @@ using StubbFramework.Physics;
 using StubbFramework.Physics.Components;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Configurations;
-using StubbFramework.Services;
-using StubbFramework.Services.Components;
+using StubbFramework.Scenes.Services;
 
 namespace StubbFramework.Extensions
 {

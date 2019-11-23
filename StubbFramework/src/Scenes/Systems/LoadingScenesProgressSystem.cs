@@ -5,7 +5,6 @@ using StubbFramework.Extensions;
 using StubbFramework.Remove.Components;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Configurations;
-using StubbFramework.Services.Components;
 
 namespace StubbFramework.Scenes.Systems
 {

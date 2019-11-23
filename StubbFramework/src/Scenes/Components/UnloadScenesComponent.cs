@@ -7,7 +7,7 @@ namespace StubbFramework.Scenes.Components
     /// <summary>
     /// If SceneNames is null will be unloaded all the scenes.
     /// </summary>
-    public class UnloadScenesComponent : IEcsAutoReset
+    public sealed class UnloadScenesComponent : IEcsAutoReset
     {
         public IList<IAssetName> SceneNames;
         

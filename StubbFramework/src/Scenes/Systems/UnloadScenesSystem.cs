@@ -4,7 +4,6 @@ using Leopotam.Ecs;
 using StubbFramework.Common.Names;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
-using StubbFramework.Services.Components;
 using StubbUnity.Logging;
 
 namespace StubbFramework.Scenes.Systems

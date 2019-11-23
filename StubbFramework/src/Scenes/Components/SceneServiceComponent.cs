@@ -1,8 +1,9 @@
 ﻿using Leopotam.Ecs;
+using StubbFramework.Scenes.Services;
 
-namespace StubbFramework.Services.Components
+namespace StubbFramework.Scenes.Components
 {
-    public class SceneServiceComponent : IEcsAutoReset
+    public sealed class SceneServiceComponent : IEcsAutoReset
     {
         public ISceneService SceneService;
         

@@ -2,7 +2,6 @@
 using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
-using StubbFramework.Services.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
