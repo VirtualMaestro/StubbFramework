@@ -2,7 +2,7 @@
 
 namespace StubbFramework.Common.Components
 {
-    public class CompleteComponent : IEcsIgnoreInFilter 
+    public sealed class CompleteComponent : IEcsIgnoreInFilter 
     {
         
     }

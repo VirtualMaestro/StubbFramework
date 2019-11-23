@@ -5,7 +5,7 @@ using StubbFramework.View.Components;
 
 namespace StubbFramework.View.Systems
 {
-    public class RemoveViewSystem : EcsSystem
+    public sealed class RemoveViewSystem : EcsSystem
     {
         private EcsFilter<ViewComponent, RemoveEntityComponent>.Exclude<DelayComponent> _removeViewFilter;
             
