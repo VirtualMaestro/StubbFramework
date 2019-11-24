@@ -96,6 +96,16 @@ namespace StubbFramework.Extensions
             sceneServiceComponent.SceneService = sceneService;
         }
 
+        public static void ActivateScene(this EcsWorld world, IAssetName sceneName)
+        {
+            _ActivationScene(world, sceneName, true);
+        }
+
+        public static void DeactivateScene(this EcsWorld world, IAssetName sceneName)
+        {
+            _ActivationScene(world, sceneName, false);
+        }
+
         public static void DispatchTriggerEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -168,19 +178,6 @@ namespace StubbFramework.Extensions
             collisionExit.Info = collisionInfo;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void RegisterCollision(ref IViewPhysics objA, ref IViewPhysics objB, in int result, in int hash)
-        {
-            if (result == 1)
-            {
-                var tmp = objA;
-                objA = objB;
-                objB = tmp;
-            }
-
-            RegisterCollisionTable[hash] = true;
-        }
-        
         /// <summary>
         /// Add two uniques ids (ints) as collision pair.
         /// Ids should be > 0.
@@ -222,6 +219,24 @@ namespace StubbFramework.Extensions
             
             return -1;
         }
+        
+        public static void EndPhysicsFrame(this EcsWorld world)
+        {
+            RegisterCollisionTable.Clear();
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void RegisterCollision(ref IViewPhysics objA, ref IViewPhysics objB, in int result, in int hash)
+        {
+            if (result == 1)
+            {
+                var tmp = objA;
+                objA = objB;
+                objB = tmp;
+            }
+
+            RegisterCollisionTable[hash] = true;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool CanDispatch(int typeIdA, int typeIdB, out int result, out int hashResult, int shift = 8)
@@ -256,9 +271,12 @@ namespace StubbFramework.Extensions
             return byte1 | byte2 << shift;
         }
 
-        public static void EndCollisionFrame(this EcsWorld world)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void _ActivationScene(EcsWorld world, IAssetName sceneName, bool enable)
         {
-            RegisterCollisionTable.Clear();
+            world.NewEntityWith<ActivateSceneComponent>(out var activateSceneComponent);
+            activateSceneComponent.Name = sceneName;
+            activateSceneComponent.Active = enable;
         }
     }
 }

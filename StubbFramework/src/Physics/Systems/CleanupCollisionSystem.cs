@@ -15,7 +15,7 @@ namespace StubbFramework.Physics.Systems
                 _cleanupCollisionFilter.Entities[idx].Destroy();
             }
             
-            World.EndCollisionFrame();
+            World.EndPhysicsFrame();
         }
     }
 }
