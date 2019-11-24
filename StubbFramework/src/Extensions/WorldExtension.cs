@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Common.Names;
+using StubbFramework.Logging;
 using StubbFramework.Physics;
 using StubbFramework.Physics.Components;
 using StubbFramework.Scenes.Components;
@@ -188,14 +190,8 @@ namespace StubbFramework.Extensions
         /// <param name="shift"></param>
         public static void AddCollisionPair(this EcsWorld world, int typeIdA, int typeIdB, int shift = 8)
         {
-#if DEBUG
-            if (typeIdA <= 0 || typeIdB <= 0) StubbUnity.Logging.log.Error($"Wrong collision pair: {typeIdA}:{typeIdB} - collision type should be > 0."); 
-
-            if (HasCollisionPair(world, typeIdA, typeIdB, shift) >= 0)
-            {
-                StubbUnity.Logging.log.Warn($"Collision pair {typeIdA} : {typeIdB} is already added!");
-            }
-#endif
+            _VerifyCollisionPair(world, typeIdA, typeIdB, shift);
+            
             CollisionTable[_GetHash(typeIdA, typeIdB, shift)] = true;
         }
 
@@ -277,6 +273,20 @@ namespace StubbFramework.Extensions
             world.NewEntityWith<ActivateSceneComponent>(out var activateSceneComponent);
             activateSceneComponent.Name = sceneName;
             activateSceneComponent.Active = enable;
+        }
+        
+        [Conditional("DEBUG")]
+        private static void _VerifyCollisionPair(EcsWorld world, int typeIdA, int typeIdB, int shift)
+        {
+            if (typeIdA <= 0 || typeIdB <= 0)
+            {
+                log.Error($"Wrong collision pair: {typeIdA}:{typeIdB} - collision type should be > 0.");
+            } 
+
+            if (HasCollisionPair(world, typeIdA, typeIdB, shift) >= 0)
+            {
+                log.Warn($"Collision pair {typeIdA} : {typeIdB} is already added!");
+            }
         }
     }
 }
