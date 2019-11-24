@@ -1,5 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
-using StubbUnity.Logging;
+using StubbFramework.Logging;
 
 namespace StubbFramework.Common.Names
 {

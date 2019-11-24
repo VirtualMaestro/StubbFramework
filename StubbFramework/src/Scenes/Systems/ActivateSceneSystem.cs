@@ -2,8 +2,8 @@
 using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Common.Names;
+using StubbFramework.Logging;
 using StubbFramework.Scenes.Components;
-using StubbUnity.Logging;
 
 namespace StubbFramework.Scenes.Systems
 {
@@ -46,7 +46,7 @@ namespace StubbFramework.Scenes.Systems
         private void _Validate(ActivateSceneComponent activateComponent, ISceneController scene)
         {
             if (scene == null) 
-                log.Fatal($"Try to activate scene {activateComponent.Name}, but scene doesn't exist!");
+                log.Error($"Try to activate scene {activateComponent.Name}, but scene doesn't exist!");
   
             if (activateComponent.Active == scene.IsContentActive)
                 log.Warn($"Try to perform (de)activation for the scene {activateComponent.Name}, but state of the scene is already: {activateComponent.Active} ");

@@ -3,8 +3,8 @@ using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Common.Names;
 using StubbFramework.Extensions;
+using StubbFramework.Logging;
 using StubbFramework.Scenes.Components;
-using StubbUnity.Logging;
 
 namespace StubbFramework.Scenes.Systems
 {
