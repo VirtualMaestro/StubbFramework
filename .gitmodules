@@ -1,6 +1,3 @@
 [submodule "leoecs"]
 	path = leoecs
 	url = https://github.com/Leopotam/ecs.git
-[submodule "leotypes"]
-	path = leotypes
-	url = https://github.com/Leopotam/ecs-types.git
