@@ -1,5 +1,5 @@
 # StubbFramework
- Some framework for the games.. will define later - WIP.
+ Some framework for the games.. will define later.
  Project will be added as a submodule with the all dependencies to you project.
 
 **To install the framework use**: 
