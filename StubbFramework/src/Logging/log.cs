@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using StubbLog.StubbLog;
 
 namespace StubbFramework.Logging
 {
