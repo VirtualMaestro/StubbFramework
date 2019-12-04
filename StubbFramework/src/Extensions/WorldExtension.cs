@@ -120,6 +120,18 @@ namespace StubbFramework.Extensions
             triggerEnter.Info = collisionInfo;
         }
 
+        public static void DispatchTriggerEnter2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+            
+            RegisterCollision(ref objA, ref objB, in result, in hash);
+            
+            world.NewEntityWith<TriggerEnter2DComponent, CleanupCollisionComponent>(out var triggerEnter, out var cleanup);
+            triggerEnter.ObjectA = objA;
+            triggerEnter.ObjectB = objB;
+            triggerEnter.Info = collisionInfo;
+        }
+
         public static void DispatchTriggerStay(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -127,6 +139,18 @@ namespace StubbFramework.Extensions
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
             world.NewEntityWith<TriggerStayComponent, CleanupCollisionComponent>(out var triggerStay, out var cleanup);
+            triggerStay.ObjectA = objA;
+            triggerStay.ObjectB = objB;
+            triggerStay.Info = collisionInfo;
+        }
+
+        public static void DispatchTriggerStay2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+            
+            RegisterCollision(ref objA, ref objB, in result, in hash);
+
+            world.NewEntityWith<TriggerStay2DComponent, CleanupCollisionComponent>(out var triggerStay, out var cleanup);
             triggerStay.ObjectA = objA;
             triggerStay.ObjectB = objB;
             triggerStay.Info = collisionInfo;
@@ -144,6 +168,18 @@ namespace StubbFramework.Extensions
             triggerExit.Info = collisionInfo;
         }
 
+        public static void DispatchTriggerExit2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+           
+            RegisterCollision(ref objA, ref objB, in result, in hash);
+
+            world.NewEntityWith<TriggerExit2DComponent, CleanupCollisionComponent>(out var triggerExit, out var cleanup);
+            triggerExit.ObjectA = objA;
+            triggerExit.ObjectB = objB;
+            triggerExit.Info = collisionInfo;
+        }
+
         public static void DispatchCollisionEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -151,6 +187,18 @@ namespace StubbFramework.Extensions
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
             world.NewEntityWith<CollisionEnterComponent, CleanupCollisionComponent>(out var collisionEnter, out var cleanup);
+            collisionEnter.ObjectA = objA;
+            collisionEnter.ObjectB = objB;
+            collisionEnter.Info = collisionInfo;
+        }
+        
+        public static void DispatchCollisionEnter2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+           
+            RegisterCollision(ref objA, ref objB, in result, in hash);
+
+            world.NewEntityWith<CollisionEnter2DComponent, CleanupCollisionComponent>(out var collisionEnter, out var cleanup);
             collisionEnter.ObjectA = objA;
             collisionEnter.ObjectB = objB;
             collisionEnter.Info = collisionInfo;
@@ -168,6 +216,18 @@ namespace StubbFramework.Extensions
             collisionStay.Info = collisionInfo;
         }
         
+        public static void DispatchCollisionStay2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+          
+            RegisterCollision(ref objA, ref objB, in result, in hash);
+
+            world.NewEntityWith<CollisionStay2DComponent, CleanupCollisionComponent>(out var collisionStay, out var cleanup);
+            collisionStay.ObjectA = objA;
+            collisionStay.ObjectB = objB;
+            collisionStay.Info = collisionInfo;
+        }
+        
         public static void DispatchCollisionExit(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -175,6 +235,18 @@ namespace StubbFramework.Extensions
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
             world.NewEntityWith<CollisionExitComponent, CleanupCollisionComponent>(out var collisionExit, out var cleanup);
+            collisionExit.ObjectA = objA;
+            collisionExit.ObjectB = objB;
+            collisionExit.Info = collisionInfo;
+        }
+
+        public static void DispatchCollisionExit2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
+        {
+            if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
+            
+            RegisterCollision(ref objA, ref objB, in result, in hash);
+
+            world.NewEntityWith<CollisionExit2DComponent, CleanupCollisionComponent>(out var collisionExit, out var cleanup);
             collisionExit.ObjectA = objA;
             collisionExit.ObjectB = objB;
             collisionExit.Info = collisionInfo;
