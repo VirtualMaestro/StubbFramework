@@ -7,12 +7,12 @@ using StubbFramework.Scenes.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
-    public sealed class ActivateSceneSystem : EcsSystem
+    public sealed class ActivateSceneSystem : IEcsRunSystem
     {
         private EcsFilter<ActivateSceneComponent> _activateFilter;
         private EcsFilter<SceneComponent> _scenesFilter;
 
-        public override void Run()
+        public void Run()
         {
             foreach (var idx in _activateFilter)
             {

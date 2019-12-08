@@ -5,12 +5,12 @@ using StubbFramework.Time.Components;
 
 namespace StubbFramework.Delay.Systems
 {
-    public sealed class DelaySystem : EcsSystem
+    public sealed class DelaySystem : IEcsRunSystem
     {
         private EcsFilter<DelayComponent> _filterDelay;
         private EcsFilter<TimeComponent> _filterTime;
         
-        public override void Run()
+        public void Run()
         {
             var time = _filterTime.Single();
             

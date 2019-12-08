@@ -4,11 +4,11 @@ using StubbFramework.Remove.Components;
 
 namespace StubbFramework.Remove.Systems
 {
-    public sealed class RemoveEntitySystem : EcsSystem
+    public sealed class RemoveEntitySystem : IEcsRunSystem
     {
         EcsFilter<RemoveEntityComponent>.Exclude<DelayComponent> _removeFilter;
         
-        public override void Run()
+        public void Run()
         {
             foreach (var index in _removeFilter)
             {

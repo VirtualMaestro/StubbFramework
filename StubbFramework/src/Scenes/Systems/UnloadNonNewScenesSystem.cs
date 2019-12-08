@@ -5,13 +5,13 @@ using StubbFramework.Scenes.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
-    public sealed class UnloadNonNewScenesSystem : EcsSystem
+    public sealed class UnloadNonNewScenesSystem : IEcsRunSystem
     {
         private EcsFilter<UnloadNonNewScenesComponent> _filter;
         private EcsFilter<SceneServiceComponent> _serviceFilter;
         private EcsFilter<SceneComponent>.Exclude<NewSceneMarkerComponent> _nonNewScenesFilter;
         
-        public override void Run()
+        public void Run()
         {
             if (_filter.IsEmpty()) return;
 

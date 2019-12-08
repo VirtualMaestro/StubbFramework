@@ -4,7 +4,7 @@ using Leopotam.Ecs;
 
 namespace StubbFramework
 {
-    public class EcsFeature : EcsSystem, IDisposable
+    public class EcsFeature : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem, IDisposable
     {
         private EcsSystems _systems;
 
@@ -16,6 +16,8 @@ namespace StubbFramework
             _systems = new EcsSystems(World, name);    
             SetupSystems();
         }
+
+        public EcsWorld World { get; }
 
         public string Name
         {
@@ -40,12 +42,12 @@ namespace StubbFramework
             _systems.Add(system);
         }
         
-        public override void Init()
+        public void Init()
         {
             _systems.Init();
         }
 
-        public override void Run()
+        public void Run()
         {
             if (CanRun)
             {
@@ -53,7 +55,7 @@ namespace StubbFramework
             }
         }
 
-        public override void Destroy()
+        public void Destroy()
         {
            Dispose();
         }

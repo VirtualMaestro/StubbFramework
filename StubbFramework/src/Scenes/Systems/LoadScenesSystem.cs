@@ -5,12 +5,13 @@ using StubbFramework.Scenes.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
-    public sealed class LoadScenesSystem : EcsSystem
+    public sealed class LoadScenesSystem : IEcsRunSystem
     {
-        EcsFilter<LoadScenesComponent> _loadScenesFilter;
-        EcsFilter<SceneServiceComponent> _sceneServiceFilter;
+        private EcsWorld World;
+        private EcsFilter<LoadScenesComponent> _loadScenesFilter;
+        private EcsFilter<SceneServiceComponent> _sceneServiceFilter;
        
-        public override void Run()
+        public void Run()
         {
             if (_loadScenesFilter.IsEmpty()) return;
             var sceneService = _sceneServiceFilter.Single().SceneService;

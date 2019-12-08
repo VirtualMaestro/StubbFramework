@@ -4,11 +4,12 @@ using StubbFramework.Physics.Components;
 
 namespace StubbFramework.Physics.Systems
 {
-    public sealed class CleanupCollisionSystem : EcsSystem
+    public sealed class CleanupCollisionSystem : IEcsRunSystem
     {
+        private EcsWorld World;
         private EcsFilter<CleanupCollisionComponent> _cleanupCollisionFilter;
         
-        public override void Run()
+        public void Run()
         {
             foreach (var idx in _cleanupCollisionFilter)
             {

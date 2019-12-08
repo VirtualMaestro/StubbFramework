@@ -5,11 +5,11 @@ using StubbFramework.View.Components;
 
 namespace StubbFramework.View.Systems
 {
-    public sealed class RemoveViewSystem : EcsSystem
+    public sealed class RemoveViewSystem : IEcsRunSystem
     {
         private EcsFilter<ViewComponent, RemoveEntityComponent>.Exclude<DelayComponent> _removeViewFilter;
             
-        public override void Run()
+        public void Run()
         {
             foreach (var idx in _removeViewFilter)
             {

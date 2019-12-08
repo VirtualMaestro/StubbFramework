@@ -8,13 +8,13 @@ using StubbFramework.Scenes.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
-    public sealed class UnloadScenesSystem : EcsSystem
+    public sealed class UnloadScenesSystem : IEcsRunSystem
     {
         EcsFilter<UnloadScenesComponent> _unloadFilter;
         EcsFilter<SceneServiceComponent> _sceneServiceFilter;
         EcsFilter<SceneComponent> _scenesFilter;
 
-        public override void Run()
+        public void Run()
         {
             if (_unloadFilter.IsEmpty()) return;
 

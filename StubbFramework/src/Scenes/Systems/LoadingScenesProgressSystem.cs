@@ -8,12 +8,13 @@ using StubbFramework.Scenes.Configurations;
 
 namespace StubbFramework.Scenes.Systems
 {
-    public sealed class LoadingScenesProgressSystem : EcsSystem
+    public sealed class LoadingScenesProgressSystem : IEcsRunSystem
     {
-        EcsFilter<ActiveLoadingScenesComponent> _loadingFilter;
-        EcsFilter<SceneServiceComponent> _sceneServiceFilter;
+        private EcsWorld World;
+        private EcsFilter<ActiveLoadingScenesComponent> _loadingFilter;
+        private EcsFilter<SceneServiceComponent> _sceneServiceFilter;
         
-        public override void Run()
+        public void Run()
         {
             foreach (var idx in _loadingFilter)
             {
