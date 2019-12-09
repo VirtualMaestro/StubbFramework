@@ -9,11 +9,16 @@ namespace StubbFramework.Scenes.Systems
 {
     public sealed class ActivateSceneSystem : IEcsRunSystem
     {
+        private EcsFilter<SceneActivatedComponent> _sceneActivatedFilter;
+        private EcsFilter<SceneDeactivatedComponent> _sceneDeactivatedFilter;
         private EcsFilter<ActivateSceneComponent> _activateFilter;
         private EcsFilter<SceneComponent> _scenesFilter;
+        private EcsWorld _world;
 
         public void Run()
         {
+            _ClearSceneActiveStatusFilters();
+            
             foreach (var idx in _activateFilter)
             {
                 var activateComponent = _activateFilter.Get1[idx];
@@ -21,8 +26,27 @@ namespace StubbFramework.Scenes.Systems
                 
                 _Validate(activateComponent, scene);
 
-                if (activateComponent.Active) scene.ShowContent();
-                else scene.HideContent();
+                if (activateComponent.IsMain) scene.SetAsMain();
+                if (activateComponent.Active == scene.IsContentActive) continue;
+
+                if (activateComponent.Active) _ActivateScene(scene);
+                else _DeactivateScene(scene);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void _ClearSceneActiveStatusFilters()
+        {
+            if (!_sceneActivatedFilter.IsEmpty())
+            {
+                foreach (var idx in _sceneActivatedFilter)
+                    _sceneActivatedFilter.Entities[idx].Destroy();
+            }
+
+            if (!_sceneDeactivatedFilter.IsEmpty())
+            {
+                foreach (var idx in _sceneDeactivatedFilter)
+                    _sceneDeactivatedFilter.Entities[idx].Destroy();
             }
         }
         
@@ -40,6 +64,22 @@ namespace StubbFramework.Scenes.Systems
             }
 
             return null;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void _ActivateScene(ISceneController scene)
+        {
+            scene.ShowContent();
+            _world.NewEntityWith<SceneActivatedComponent>(out var sceneActivatedComponent);
+            sceneActivatedComponent.SceneName = scene.SceneName;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void _DeactivateScene(ISceneController scene)
+        {
+            scene.HideContent();
+            _world.NewEntityWith<SceneDeactivatedComponent>(out var sceneDeactivatedComponent);
+            sceneDeactivatedComponent.SceneName = scene.SceneName;
         }
 
         [Conditional("DEBUG")]

@@ -60,8 +60,8 @@ namespace StubbFramework.Scenes.Systems
             sceneComponent.Scene = controller;
             controller.SetEntity(ref entity);
 
-            if (config.IsActive) controller.ShowContent();
-            if (config.IsMain) controller.SetAsMain();
+            if (config.IsActive) 
+                World.ActivateScene(controller.SceneName, config.IsMain);
         }
 
         [MethodImpl (MethodImplOptions.AggressiveInlining)]

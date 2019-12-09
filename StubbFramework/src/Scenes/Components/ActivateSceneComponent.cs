@@ -7,11 +7,11 @@ namespace StubbFramework.Scenes.Components
     {
         public IAssetName Name;
         public bool Active;
+        public bool IsMain;
         
         public void Reset()
         {
             Name = null;
-            Active = false;
         }
     }
 }

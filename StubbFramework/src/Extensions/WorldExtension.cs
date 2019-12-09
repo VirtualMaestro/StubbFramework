@@ -98,14 +98,14 @@ namespace StubbFramework.Extensions
             sceneServiceComponent.SceneService = sceneService;
         }
 
-        public static void ActivateScene(this EcsWorld world, IAssetName sceneName)
+        public static void ActivateScene(this EcsWorld world, IAssetName sceneName, bool isMain = false)
         {
-            _ActivationScene(world, sceneName, true);
+            _ActivationScene(world, sceneName, true, isMain);
         }
 
-        public static void DeactivateScene(this EcsWorld world, IAssetName sceneName)
+        public static void DeactivateScene(this EcsWorld world, IAssetName sceneName, bool isMain = false)
         {
-            _ActivationScene(world, sceneName, false);
+            _ActivationScene(world, sceneName, false, isMain);
         }
 
         public static void DispatchTriggerEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
@@ -340,11 +340,12 @@ namespace StubbFramework.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void _ActivationScene(EcsWorld world, IAssetName sceneName, bool enable)
+        private static void _ActivationScene(EcsWorld world, IAssetName sceneName, bool enable, bool isMain)
         {
             world.NewEntityWith<ActivateSceneComponent>(out var activateSceneComponent);
             activateSceneComponent.Name = sceneName;
             activateSceneComponent.Active = enable;
+            activateSceneComponent.IsMain = isMain;
         }
         
         [Conditional("DEBUG")]
