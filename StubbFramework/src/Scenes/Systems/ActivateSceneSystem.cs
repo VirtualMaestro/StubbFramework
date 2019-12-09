@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Common.Names;
+using StubbFramework.Extensions;
 using StubbFramework.Logging;
 using StubbFramework.Scenes.Components;
 
@@ -37,17 +38,8 @@ namespace StubbFramework.Scenes.Systems
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void _ClearSceneActiveStatusFilters()
         {
-            if (!_sceneActivatedFilter.IsEmpty())
-            {
-                foreach (var idx in _sceneActivatedFilter)
-                    _sceneActivatedFilter.Entities[idx].Destroy();
-            }
-
-            if (!_sceneDeactivatedFilter.IsEmpty())
-            {
-                foreach (var idx in _sceneDeactivatedFilter)
-                    _sceneDeactivatedFilter.Entities[idx].Destroy();
-            }
+            if (!_sceneActivatedFilter.IsEmpty()) _sceneActivatedFilter.Clear();
+            if (!_sceneDeactivatedFilter.IsEmpty()) _sceneDeactivatedFilter.Clear();
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

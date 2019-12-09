@@ -14,5 +14,13 @@ namespace StubbFramework.Extensions
             
             return filter.Get1[0];
         }
+
+        public static void Clear<T> (this EcsFilter<T> filter) where T : class
+        {
+            foreach (var idx in filter)
+            {
+                filter.Entities[idx].Destroy();
+            }
+        }
     }
 }
