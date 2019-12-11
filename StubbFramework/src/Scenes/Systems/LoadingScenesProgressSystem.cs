@@ -20,19 +20,18 @@ namespace StubbFramework.Scenes.Systems
             {
                 var activeLoading = _loadingFilter.Get1[idx];
 
-                if (_ProcessScenes(activeLoading.Progresses))
+                if (!_ProcessScenes(activeLoading.Progresses)) continue;
+                
+                if (activeLoading.UnloadOthers)
                 {
-                    if (activeLoading.UnloadOthers)
-                    {
-                        World.UnloadNonNewScenes();
-                    }
-                    else if (activeLoading.UnloadScenes != null)
-                    {
-                        World.UnloadScenes(activeLoading.UnloadScenes);
-                    }
-                    
-                    _loadingFilter.Entities[idx].Set<RemoveEntityComponent>();    
+                    World.UnloadNonNewScenes();
                 }
+                else if (activeLoading.UnloadScenes != null)
+                {
+                    World.UnloadScenes(activeLoading.UnloadScenes);
+                }
+                    
+                _loadingFilter.Entities[idx].Set<RemoveEntityComponent>();
             }    
         }
 

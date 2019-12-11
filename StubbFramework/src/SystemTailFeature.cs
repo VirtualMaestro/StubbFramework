@@ -12,9 +12,9 @@ namespace StubbFramework
 
         protected override void SetupSystems()
         {
-            Add(new ActivateSceneSystem());
             Add(new UnloadScenesSystem());
             Add(new UnloadNonNewScenesSystem());
+            Add(new ActivateSceneSystem());
             Add(new RemoveViewSystem());
             Add(new RemoveEntitySystem());
         }
