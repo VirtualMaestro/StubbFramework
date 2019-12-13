@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
+using StubbFramework.Extensions;
 
 namespace StubbFramework
 {
@@ -29,9 +30,9 @@ namespace StubbFramework
         protected virtual EcsSystems InitSystems()
         {
             var rootSystems = new EcsSystems(World, "RootSystems");
-            rootSystems.Add(new SystemHeadFeature(World));
+            rootSystems.AddFeature(new SystemHeadFeature(World));
             rootSystems.Add(InitUserSystems());
-            rootSystems.Add(new SystemTailFeature(World));
+            rootSystems.AddFeature(new SystemTailFeature(World));
 
             return rootSystems;
         }
