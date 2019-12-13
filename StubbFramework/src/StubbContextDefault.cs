@@ -31,7 +31,11 @@ namespace StubbFramework
         {
             var rootSystems = new EcsSystems(World, "RootSystems");
             rootSystems.AddFeature(new SystemHeadFeature(World));
-            rootSystems.Add(InitUserSystems());
+
+            var userSystems = InitUserSystems();
+            if (userSystems is EcsFeature feature) rootSystems.AddFeature(feature);
+            else rootSystems.Add(userSystems); 
+            
             rootSystems.AddFeature(new SystemTailFeature(World));
 
             return rootSystems;
