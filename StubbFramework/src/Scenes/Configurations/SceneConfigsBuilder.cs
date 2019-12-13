@@ -27,7 +27,7 @@ namespace StubbFramework.Scenes.Configurations
             return this;
         }
 
-        public SceneConfigsBuilder<T, S> Add(S sceneName, bool isActive = true,
+        public SceneConfigsBuilder<T, S> Add(in S sceneName, bool isActive = true,
             bool isMain = false, object payload = null)
         {
             var config = new T();
