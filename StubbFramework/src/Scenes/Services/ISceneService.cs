@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using StubbFramework.Common.Names;
 using StubbFramework.Scenes.Configurations;
 
 namespace StubbFramework.Scenes.Services
@@ -11,5 +12,6 @@ namespace StubbFramework.Scenes.Services
         List<ISceneLoadingProgress> Load(in List<ILoadingSceneConfig> configs);
         void Unload(in ISceneController sceneController);
         KeyValuePair<ISceneController, ILoadingSceneConfig>[] LoadingComplete(List<ISceneLoadingProgress> progresses);
+        bool HasScene(in IAssetName sceneName);
     }
 }
