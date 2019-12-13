@@ -37,14 +37,8 @@ namespace StubbFramework
 
         public void Add(IEcsSystem system)
         {
-            if (system is EcsFeature feature)
-            {
-                _systems.AddFeature(feature);
-            }
-            else
-            {
-                _systems.Add(system);
-            }
+            if (system is EcsFeature feature) _systems.AddFeature(feature);
+            else _systems.Add(system);
         }
 
         /// <summary>
