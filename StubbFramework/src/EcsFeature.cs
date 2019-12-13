@@ -1,34 +1,50 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using Leopotam.Ecs;
+﻿using Leopotam.Ecs;
+using StubbFramework.Extensions;
 
 namespace StubbFramework
 {
-    public class EcsFeature : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem, IDisposable
+    public class EcsFeature : IEcsSystem
     {
         private EcsSystems _systems;
+        private bool _isEnable = true;
 
         internal EcsSystems Systems => _systems;
+
+        public string Name { get; }
+        public EcsWorld World { get; }
 
         public EcsFeature(EcsWorld world, string name = null)
         {
             World = world;
-            _systems = new EcsSystems(World, name);    
+            Name = name ?? GetType().Name;
+            _systems = new EcsSystems(World, $"{name}_FeatureSystems");    
             SetupSystems();
         }
 
-        public EcsWorld World { get; }
-
-        public string Name
+        public bool Enable
         {
-            [MethodImpl (MethodImplOptions.AggressiveInlining)]
-            get => _systems.Name;
+            get => _isEnable;
+            set
+            {
+                if (_isEnable == value) return;
+
+                _isEnable = value;
+
+                var idx = _systems.GetNamedRunSystem($"{_systems.Name}_FeatureSystems");
+                _systems.SetRunSystemState(idx, _isEnable);
+            }
         }
 
-        public virtual bool CanRun
+        public void Add(IEcsSystem system)
         {
-            [MethodImpl (MethodImplOptions.AggressiveInlining)]
-            get => true;
+            if (system is EcsFeature feature)
+            {
+                _systems.AddFeature(feature);
+            }
+            else
+            {
+                _systems.Add(system);
+            }
         }
 
         /// <summary>
@@ -36,34 +52,5 @@ namespace StubbFramework
         /// </summary>
         protected virtual void SetupSystems()
         {}
-
-        public void Add(IEcsSystem system)
-        {
-            _systems.Add(system);
-        }
-        
-        public void Init()
-        {
-            _systems.Init();
-        }
-
-        public void Run()
-        {
-            if (CanRun)
-            {
-                _systems.Run();
-            }
-        }
-
-        public void Destroy()
-        {
-           Dispose();
-        }
-
-        public void Dispose()
-        {
-            _systems.Destroy();
-            _systems = null;
-        }
     }
 }
