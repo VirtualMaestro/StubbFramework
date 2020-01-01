@@ -17,7 +17,13 @@ namespace StubbFramework
         {
             World = world;
             Name = name ?? GetType().Name;
-            _systems = new EcsSystems(World, $"{name}_FeatureSystems");    
+
+            _InitSystems();
+        }
+
+        private void _InitSystems()
+        {
+            _systems = new EcsSystems(World, $"{Name}_FeatureSystems");    
             SetupSystems();
         }
 
@@ -35,7 +41,7 @@ namespace StubbFramework
             }
         }
 
-        public void Add(IEcsSystem system)
+        protected void Add(IEcsSystem system)
         {
             if (system is EcsFeature feature) _systems.AddFeature(feature);
             else _systems.Add(system);
