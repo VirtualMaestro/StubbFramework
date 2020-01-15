@@ -47,6 +47,16 @@ namespace StubbFramework
             else _systems.Add(system);
         }
 
+        protected void Inject<T>(T data)
+        {
+            _systems.Inject<T>(data);
+        }
+
+        protected void OneFrame<T>() where T : class
+        {
+            _systems.OneFrame<T>();
+        }
+
         /// <summary>
         /// Method where all the systems should be created and added.
         /// </summary>

@@ -3,7 +3,7 @@ using StubbFramework.Common.Names;
 
 namespace StubbFramework.Scenes.Components
 {
-    public sealed class ActivateSceneComponent : IEcsOneFrame, IEcsAutoReset
+    public sealed class ActivateSceneComponent : IEcsAutoReset
     {
         public IAssetName Name;
         public bool Active;

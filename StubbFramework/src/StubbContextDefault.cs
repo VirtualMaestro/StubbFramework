@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Extensions;
+using StubbFramework.Scenes.Components;
 
 namespace StubbFramework
 {
@@ -38,6 +39,10 @@ namespace StubbFramework
             
             rootSystems.AddFeature(new SystemTailFeature(World));
 
+            rootSystems.OneFrame<ActivateSceneComponent>();
+            rootSystems.OneFrame<NewSceneMarkerComponent>();
+            rootSystems.OneFrame<UnloadNonNewScenesComponent>();
+
             return rootSystems;
         }
 
@@ -55,7 +60,6 @@ namespace StubbFramework
         public void Run()
         {
             _rootSystems.Run();
-            _world.EndFrame();
         }
 
         public void Dispose()
