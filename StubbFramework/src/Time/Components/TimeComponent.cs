@@ -13,7 +13,7 @@ namespace StubbFramework.Time.Components
         
         public void Reset()
         {
-            Stopwatch.Stop();
+            Stopwatch?.Stop();
             Stopwatch = null;
         }
     }
