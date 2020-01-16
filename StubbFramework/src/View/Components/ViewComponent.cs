@@ -8,11 +8,10 @@ namespace StubbFramework.View.Components
         
         public void Reset()
         {
-            if (View.IsDisposed == false)
-            {
-                View.Dispose();
-                View = null;
-            }
+            if (View == null || View.IsDisposed) return;
+            
+            View.Dispose();
+            View = null;
         }
     }
 }
