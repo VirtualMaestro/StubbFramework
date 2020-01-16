@@ -13,5 +13,6 @@ namespace StubbFramework.Scenes.Services
         void Unload(in ISceneController sceneController);
         KeyValuePair<ISceneController, ILoadingSceneConfig>[] LoadingComplete(List<ISceneLoadingProgress> progresses);
         bool HasScene(in IAssetName sceneName);
+        bool IsSceneReady(in IAssetName sceneName);
     }
 }
