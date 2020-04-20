@@ -1,17 +1,14 @@
-﻿using Leopotam.Ecs;
-
-namespace StubbFramework.Scenes.Components
+﻿namespace StubbFramework.Scenes.Components
 {
     /// <summary>
-    /// Component contains reference to the ISceneController which contains Scene which is loaded.
+    /// Contains reference to the ISceneController which contains a ref to the scene (or part of the scene).
     /// </summary>
-    public sealed class SceneComponent : IEcsAutoReset
+#if ENABLE_IL2CPP
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
+#endif
+    public struct SceneComponent
     {
         public ISceneController Scene;
-        
-        public void Reset()
-        {
-            Scene = null;
-        }
     }
 }

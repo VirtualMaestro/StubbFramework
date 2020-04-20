@@ -1,23 +1,19 @@
 ﻿using System.Collections.Generic;
-using Leopotam.Ecs;
 using StubbFramework.Common.Names;
 
 namespace StubbFramework.Scenes.Components
 {
     /// <summary>
-    /// Component contains list of progresses of scenes loading.
+    /// Contains list of the progresses for loading scenes.
     /// </summary>
-    public sealed class ActiveLoadingScenesComponent : IEcsAutoReset
+#if ENABLE_IL2CPP
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
+#endif
+    public struct ActiveLoadingScenesComponent
     {
         public List<ISceneLoadingProgress> Progresses;
         public List<IAssetName> UnloadScenes;
         public bool UnloadOthers;
-        
-        public void Reset()
-        {
-            Progresses = null;
-            UnloadScenes = null;
-            UnloadOthers = false;
-        }
     }
 }

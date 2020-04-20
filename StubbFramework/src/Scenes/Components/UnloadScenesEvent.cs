@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using StubbFramework.Common.Names;
-using StubbFramework.Scenes.Configurations;
 
 namespace StubbFramework.Scenes.Components
 {
+    /// <summary>
+    /// Event is sent when some set of the scenes should be unloaded.
+    /// If SceneNames is null will be unloaded all the scenes.
+    /// </summary>
 #if ENABLE_IL2CPP
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
 #endif
-    public struct LoadScenesComponent
+    public struct UnloadScenesEvent
     {
-        public List<ILoadingSceneConfig> LoadingScenes;
-        public List<IAssetName> UnloadingScenes;
-        public bool UnloadOthers;
+        public IList<IAssetName> SceneNames;
     }
 }
