@@ -15,7 +15,7 @@ namespace StubbFramework.Time.Systems
 
         public void Init()
         {
-            var timeComponent = World.NewEntity().Set<TimeComponent>();
+            ref var timeComponent = ref World.NewEntity().Set<TimeComponent>();
             timeComponent.Stopwatch = new Stopwatch();
             timeComponent.ElapsedMilliseconds = 0;
             timeComponent.PrevElapsedMilliseconds = 0;
