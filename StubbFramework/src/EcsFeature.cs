@@ -52,7 +52,7 @@ namespace StubbFramework
             _systems.Inject<T>(data);
         }
 
-        protected void OneFrame<T>() where T : class
+        protected void OneFrame<T>() where T : struct
         {
             _systems.OneFrame<T>();
         }

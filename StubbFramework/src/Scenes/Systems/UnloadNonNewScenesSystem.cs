@@ -1,34 +1,24 @@
-﻿using System.Runtime.CompilerServices;
-using Leopotam.Ecs;
+﻿using Leopotam.Ecs;
+using StubbFramework.Common.Components;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
 
 namespace StubbFramework.Scenes.Systems
 {
+#if ENABLE_IL2CPP
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
+#endif
     public sealed class UnloadNonNewScenesSystem : IEcsRunSystem
     {
-        private EcsFilter<UnloadNonNewScenesComponent> _filter;
-        private EcsFilter<SceneServiceComponent> _serviceFilter;
-        private EcsFilter<SceneComponent>.Exclude<NewSceneMarkerComponent> _nonNewScenesFilter;
-        
+        private EcsFilter<UnloadNonNewScenesEvent> _eventFilter;
+        private EcsFilter<SceneComponent>.Exclude<IsNewEvent> _nonNewScenesFilter;
+
         public void Run()
         {
-            if (_filter.IsEmpty()) return;
+            if (_eventFilter.IsEmpty()) return;
 
-            foreach (var idx in _nonNewScenesFilter)
-            {
-                _RemoveScene(idx);
-            }
-        }
-        
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void _RemoveScene(int entityIndex)
-        {
-            ref var entity = ref _nonNewScenesFilter.Entities[entityIndex];
-            ISceneController controller = entity.Get<SceneComponent>().Scene;
-            _serviceFilter.Single().SceneService.Unload(controller);
-            controller.Destroy();
-            entity.Destroy();
+            _nonNewScenesFilter.MarkRemove();
         }
     }
 }

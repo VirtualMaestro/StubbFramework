@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
+using StubbFramework.Common.Components;
 using StubbFramework.Extensions;
 using StubbFramework.Remove.Components;
 using StubbFramework.Scenes.Components;
@@ -8,6 +9,10 @@ using StubbFramework.Scenes.Configurations;
 
 namespace StubbFramework.Scenes.Systems
 {
+#if ENABLE_IL2CPP
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
+#endif
     public sealed class LoadingScenesProgressSystem : IEcsRunSystem
     {
         private EcsWorld World;
@@ -18,7 +23,7 @@ namespace StubbFramework.Scenes.Systems
         {
             foreach (var idx in _loadingFilter)
             {
-                var activeLoading = _loadingFilter.Get1[idx];
+                var activeLoading = _loadingFilter.Get1(idx);
 
                 if (!_ProcessScenes(activeLoading.Progresses)) continue;
                 
@@ -31,7 +36,7 @@ namespace StubbFramework.Scenes.Systems
                     World.UnloadScenes(activeLoading.UnloadScenes);
                 }
                     
-                _loadingFilter.Entities[idx].Set<RemoveEntityComponent>();
+                _loadingFilter.GetEntity(idx).Set<RemoveEntityComponent>();
             }    
         }
 
@@ -41,7 +46,7 @@ namespace StubbFramework.Scenes.Systems
             if (!_IsEverySceneLoaded(progresses)) return false;
             
             var service = _sceneServiceFilter.Single().SceneService;
-            KeyValuePair<ISceneController, ILoadingSceneConfig>[] controllers = service.LoadingComplete(progresses);
+            KeyValuePair<ISceneController, ILoadingSceneConfig>[] controllers = service.GetLoaded(progresses);
 
             for (var index = 0; index < controllers.Length; index++)
             {
@@ -55,12 +60,18 @@ namespace StubbFramework.Scenes.Systems
         [MethodImpl (MethodImplOptions.AggressiveInlining)]
         private void _InitSceneController(ISceneController controller, ILoadingSceneConfig config)
         {
-            var entity = World.NewEntityWith<SceneComponent, NewSceneMarkerComponent>(out var sceneComponent, out var newSceneMarkerComponent);
+            var entity = World.NewEntity();
+            entity.Set<IsNewEvent>();
+            
+            ref var sceneComponent = ref entity.Set<SceneComponent>();
             sceneComponent.Scene = controller;
             controller.SetEntity(ref entity);
 
-            if (config.IsActive) 
-                World.ActivateScene(controller.SceneName, config.IsMain);
+            if (controller.IsContentActive) entity.Set<IsActiveComponent>();
+            else entity.Set<IsInactiveComponent>();
+
+            if (config.IsActive) World.ActivateScene(controller, config.IsMain);
+            else World.DeactivateScene(controller);
         }
 
         [MethodImpl (MethodImplOptions.AggressiveInlining)]

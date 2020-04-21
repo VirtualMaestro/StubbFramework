@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Leopotam.Ecs;
 using StubbFramework.Common.Names;
+using StubbFramework.Scenes;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Configurations;
 using StubbFramework.Scenes.Services;
@@ -90,16 +91,28 @@ namespace StubbFramework.Extensions
             world.NewEntity().Set<SceneServiceComponent>().SceneService = sceneService;
         }
 
-        public static void ActivateScene(this EcsWorld world, IAssetName sceneName, bool isMain = false)
+        public static void ActivateSceneByName(this EcsWorld world, IAssetName sceneName, bool isMain = false)
         {
             ref var activateScene = ref world.NewEntity().Set<ActivateSceneByNameEvent>();
             activateScene.Name = sceneName;
             activateScene.IsMain = isMain;
         }
 
-        public static void DeactivateScene(this EcsWorld world, IAssetName sceneName)
+        public static void ActivateScene(this EcsWorld world, ISceneController controller, bool isMain = false)
+        {
+            ref var entity = ref controller.GetEntity();
+            ref var activateScene = ref entity.Set<ActivateSceneEvent>();
+            activateScene.IsMain = isMain;
+        }
+
+        public static void DeactivateSceneByName(this EcsWorld world, IAssetName sceneName)
         {
             world.NewEntity().Set<DeactivateSceneByNameEvent>().Name = sceneName;
+        }
+
+        public static void DeactivateScene(this EcsWorld world, ISceneController controller)
+        {
+            controller.GetEntity().Set<DeactivateSceneEvent>();
         }
     }
 }

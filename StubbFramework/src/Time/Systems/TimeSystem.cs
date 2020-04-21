@@ -1,18 +1,21 @@
 ﻿using System.Diagnostics;
 using Leopotam.Ecs;
-using StubbFramework.Extensions;
 using StubbFramework.Time.Components;
 
 namespace StubbFramework.Time.Systems
 {
-    public sealed class TimeSystem : IEcsInitSystem, IEcsRunSystem
+#if ENABLE_IL2CPP
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
+#endif
+    public sealed class TimeSystem : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem
     {
         private EcsWorld World;
         private EcsFilter<TimeComponent> _timeFilter;
 
         public void Init()
         {
-            World.NewEntityWith<TimeComponent>(out var timeComponent);
+            var timeComponent = World.NewEntity().Set<TimeComponent>();
             timeComponent.Stopwatch = new Stopwatch();
             timeComponent.ElapsedMilliseconds = 0;
             timeComponent.PrevElapsedMilliseconds = 0;
@@ -23,12 +26,24 @@ namespace StubbFramework.Time.Systems
 
         public void Run()
         {
-            var timeComponent = _timeFilter.Single();
-            long currentTime = timeComponent.Stopwatch.ElapsedMilliseconds;
-            timeComponent.PrevElapsedMilliseconds = timeComponent.ElapsedMilliseconds;
-            timeComponent.TimeStep = currentTime - timeComponent.PrevElapsedMilliseconds;
-            timeComponent.ElapsedMilliseconds = currentTime;
-            timeComponent.ElapsedFrames++;
+            foreach (var idx in _timeFilter)
+            {
+                ref var timeComponent = ref _timeFilter.Get1(idx);
+                long currentTime = timeComponent.Stopwatch.ElapsedMilliseconds;
+                timeComponent.PrevElapsedMilliseconds = timeComponent.ElapsedMilliseconds;
+                timeComponent.TimeStep = currentTime - timeComponent.PrevElapsedMilliseconds;
+                timeComponent.ElapsedMilliseconds = currentTime;
+                timeComponent.ElapsedFrames++;
+            }
+        }
+
+        public void Destroy()
+        {
+            foreach (var idx in _timeFilter)
+            {
+                var stopwatch = _timeFilter.Get1(idx).Stopwatch;
+                stopwatch?.Stop();
+            }
         }
     }
 }

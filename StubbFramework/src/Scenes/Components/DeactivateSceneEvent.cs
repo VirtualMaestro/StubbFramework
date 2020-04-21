@@ -3,13 +3,14 @@
 namespace StubbFramework.Scenes.Components
 {
     /// <summary>
-    /// Event-component will be sent when all scenes which are not marked with IsNewEvent need to be unloaded.
-    /// Component will be removed at the end of the frame.
+    /// Event-component can be sent when need to deactivate scene by attaching it to the entity of the scene.
+    /// For convenience sake it is better to use World.DeactivateScene().
     /// </summary>
 #if ENABLE_IL2CPP
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
 #endif
-    public struct UnloadNonNewScenesEvent : IEcsIgnoreInFilter
-    {}
+    public struct DeactivateSceneEvent : IEcsIgnoreInFilter
+    {
+    }
 }

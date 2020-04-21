@@ -1,17 +1,15 @@
-﻿using System.Collections.Generic;
-using StubbFramework.Common.Names;
-using StubbFramework.Scenes.Configurations;
+﻿using Leopotam.Ecs;
 
 namespace StubbFramework.Scenes.Components
 {
+    /// <summary>
+    /// One-frame marker-component which determines whether state of a scene was changed.
+    /// </summary>
 #if ENABLE_IL2CPP
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
 #endif
-    public struct LoadScenesComponent
+    public struct IsSceneStateChangedComponent : IEcsIgnoreInFilter
     {
-        public List<ILoadingSceneConfig> LoadingScenes;
-        public List<IAssetName> UnloadingScenes;
-        public bool UnloadOthers;
     }
 }

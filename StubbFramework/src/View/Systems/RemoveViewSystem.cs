@@ -5,15 +5,21 @@ using StubbFramework.View.Components;
 
 namespace StubbFramework.View.Systems
 {
+#if ENABLE_IL2CPP
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
+    [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
+#endif
     public sealed class RemoveViewSystem : IEcsRunSystem
     {
         private EcsFilter<ViewComponent, RemoveEntityComponent>.Exclude<DelayComponent> _removeViewFilter;
             
         public void Run()
         {
+            if (_removeViewFilter.IsEmpty()) return;
+            
             foreach (var idx in _removeViewFilter)
             {
-                var view = _removeViewFilter.Get1[idx].View;
+                var view = _removeViewFilter.Get1(idx).View;
                 view.Dispose();
             }
         }

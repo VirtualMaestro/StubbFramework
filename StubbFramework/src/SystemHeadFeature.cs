@@ -14,7 +14,6 @@ namespace StubbFramework
         {
             Add(new TimeSystem());
             Add(new DelaySystem());
-            Add(new LoadScenesSystem());
             Add(new LoadingScenesProgressSystem());
         }
     }

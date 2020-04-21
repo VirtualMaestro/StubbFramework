@@ -8,9 +8,9 @@ namespace StubbFramework.Scenes.Systems
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
 #endif
-    public sealed class ActivateSceneSystem : IEcsRunSystem
+    public sealed class DeactivateSceneSystem : IEcsRunSystem
     {
-        private EcsFilter<SceneComponent, IsInactiveComponent, ActivateSceneEvent> _eventFilter;
+        private EcsFilter<SceneComponent, IsActiveComponent, DeactivateSceneEvent> _eventFilter;
 
         public void Run()
         {
@@ -21,15 +21,12 @@ namespace StubbFramework.Scenes.Systems
                 ref var entity = ref _eventFilter.GetEntity(idx);
                 ref var sceneComponent = ref _eventFilter.Get1(idx);
                 var sceneController = sceneComponent.Scene;
-                var isMain = _eventFilter.Get3(idx).IsMain;
 
-                entity.Unset<IsInactiveComponent>();
-                entity.Set<IsActiveComponent>();
+                entity.Unset<IsActiveComponent>();
+                entity.Set<IsInactiveComponent>();
                 entity.Set<IsSceneStateChangedComponent>();
 
-                sceneController.ShowContent();
-
-                if (isMain) sceneController.SetAsMain();
+                sceneController.HideContent();
             }
         }
     }

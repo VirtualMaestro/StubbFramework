@@ -3,16 +3,16 @@
 namespace StubbFramework.Scenes.Components
 {
     /// <summary>
-    /// Component (as an event) is sent when a scene become inactive (content of the scene).
-    /// IMPORTANT: You will not get this component if scene was unload.
+    /// Event-component can be sent when need to activate scene by its name.
+    /// For convenience sake it is better to use World.ActivateSceneByName().
     /// </summary>
-    /// TODO: Rework and send SceneController instead of its name;
 #if ENABLE_IL2CPP
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
 #endif
-    public struct SceneDeactivatedEvent
+    public struct ActivateSceneByNameEvent
     {
-        public IAssetName SceneName;
+        public IAssetName Name;
+        public bool IsMain;
     }
 }

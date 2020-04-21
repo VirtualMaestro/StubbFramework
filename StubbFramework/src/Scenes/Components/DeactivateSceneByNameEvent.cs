@@ -1,15 +1,17 @@
-﻿using Leopotam.Ecs;
+﻿using StubbFramework.Common.Names;
 
 namespace StubbFramework.Scenes.Components
 {
     /// <summary>
-    /// Event-component will be sent when all scenes which are not marked with IsNewEvent need to be unloaded.
-    /// Component will be removed at the end of the frame.
+    /// Event-component can be sent when need to deactivate scene by its name.
+    /// For convenience sake it is better to use World.DeactivateSceneByName().
     /// </summary>
 #if ENABLE_IL2CPP
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
 #endif
-    public struct UnloadNonNewScenesEvent : IEcsIgnoreInFilter
-    {}
+    public struct DeactivateSceneByNameEvent
+    {
+        public IAssetName Name;
+    }
 }

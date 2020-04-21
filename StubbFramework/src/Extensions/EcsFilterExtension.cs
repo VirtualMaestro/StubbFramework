@@ -1,25 +1,43 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
+using StubbFramework.Remove.Components;
 
 namespace StubbFramework.Extensions
 {
     public static class EcsFilterExtension
     {
-        public static T Single<T>(this EcsFilter<T> filter) where T : class
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T Single<T>(this EcsFilter<T> filter) where T : struct
         {
             #if DEBUG
                 if (filter.IsEmpty()) throw new Exception($"EcsFilterExtension.Single. Filter with type {typeof(T)} is empty!");
                 if (filter.GetEntitiesCount() > 1) throw new Exception($"EcsFilterExtension.Single. Filter with type {typeof(T)} is used as single but contains more than one entity!");
             #endif
             
-            return filter.Get1[0];
+            return filter.Get1(0);
         }
 
-        public static void Clear<T> (this EcsFilter<T> filter) where T : class
+        /// <summary>
+        /// Immediately removes all entities in given filter.
+        /// Use it carefully!
+        /// </summary>
+        public static void Clear<T> (this EcsFilter<T> filter) where T : struct
         {
             foreach (var idx in filter)
             {
-                filter.Entities[idx].Destroy();
+                filter.GetEntity(idx).Destroy();
+            }
+        }
+
+        /// <summary>
+        /// Mark all entities in a filter with RemoveEntityComponent. 
+        /// </summary>
+        public static void MarkRemove<T> (this EcsFilter<T> filter) where T : struct
+        {
+            foreach (var idx in filter)
+            {
+                filter.GetEntity(idx).Set<RemoveEntityComponent>();
             }
         }
     }
