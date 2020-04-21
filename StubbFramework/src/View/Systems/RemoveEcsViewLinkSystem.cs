@@ -9,9 +9,9 @@ namespace StubbFramework.View.Systems
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
 #endif
-    public sealed class RemoveViewSystem : IEcsRunSystem
+    public sealed class RemoveEcsViewLinkSystem : IEcsRunSystem
     {
-        private EcsFilter<ViewComponent, RemoveEntityComponent>.Exclude<DelayComponent> _removeViewFilter;
+        private EcsFilter<EcsViewLinkComponent, RemoveEntityComponent>.Exclude<DelayComponent> _removeViewFilter;
             
         public void Run()
         {
@@ -19,7 +19,7 @@ namespace StubbFramework.View.Systems
             
             foreach (var idx in _removeViewFilter)
             {
-                var view = _removeViewFilter.Get1(idx).View;
+                var view = _removeViewFilter.Get1(idx).Value;
                 view.Dispose();
             }
         }

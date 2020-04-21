@@ -9,8 +9,8 @@
 #endif
     public struct TriggerStay2DComponent
     {
-        public IViewPhysics ObjectA;
-        public IViewPhysics ObjectB;
+        public IEcsViewPhysics ObjectA;
+        public IEcsViewPhysics ObjectB;
         public object Info;
     }
 }

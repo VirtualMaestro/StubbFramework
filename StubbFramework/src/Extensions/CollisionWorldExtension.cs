@@ -13,7 +13,7 @@ namespace StubbFramework.Extensions
         private static readonly Dictionary<int, bool> CollisionTable = new Dictionary<int, bool>();
         private static readonly Dictionary<int, bool> RegisterCollisionTable = new Dictionary<int, bool>();
 
-        public static void DispatchTriggerEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchTriggerEnter(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -29,7 +29,7 @@ namespace StubbFramework.Extensions
             triggerEnter.Info = collisionInfo;
         }
 
-        public static void DispatchTriggerEnter2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchTriggerEnter2D(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -45,7 +45,7 @@ namespace StubbFramework.Extensions
             triggerEnter.Info = collisionInfo;
         }
 
-        public static void DispatchTriggerStay(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchTriggerStay(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -61,7 +61,7 @@ namespace StubbFramework.Extensions
             triggerStay.Info = collisionInfo;
         }
 
-        public static void DispatchTriggerStay2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchTriggerStay2D(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -77,7 +77,7 @@ namespace StubbFramework.Extensions
             triggerStay.Info = collisionInfo;
         }
 
-        public static void DispatchTriggerExit(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchTriggerExit(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -93,7 +93,7 @@ namespace StubbFramework.Extensions
             triggerExit.Info = collisionInfo;
         }
 
-        public static void DispatchTriggerExit2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchTriggerExit2D(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -109,7 +109,7 @@ namespace StubbFramework.Extensions
             triggerExit.Info = collisionInfo;
         }
 
-        public static void DispatchCollisionEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchCollisionEnter(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -125,7 +125,7 @@ namespace StubbFramework.Extensions
             collisionEnter.Info = collisionInfo;
         }
 
-        public static void DispatchCollisionEnter2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchCollisionEnter2D(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -141,7 +141,7 @@ namespace StubbFramework.Extensions
             collisionEnter.Info = collisionInfo;
         }
 
-        public static void DispatchCollisionStay(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchCollisionStay(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -157,7 +157,7 @@ namespace StubbFramework.Extensions
             collisionStay.Info = collisionInfo;
         }
 
-        public static void DispatchCollisionStay2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchCollisionStay2D(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -173,7 +173,7 @@ namespace StubbFramework.Extensions
             collisionStay.Info = collisionInfo;
         }
 
-        public static void DispatchCollisionExit(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchCollisionExit(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -189,7 +189,7 @@ namespace StubbFramework.Extensions
             collisionExit.Info = collisionInfo;
         }
 
-        public static void DispatchCollisionExit2D(this EcsWorld world, IViewPhysics objA, IViewPhysics objB,
+        public static void DispatchCollisionExit2D(this EcsWorld world, IEcsViewPhysics objA, IEcsViewPhysics objB,
             object collisionInfo)
         {
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
@@ -247,7 +247,7 @@ namespace StubbFramework.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void RegisterCollision(ref IViewPhysics objA, ref IViewPhysics objB, in int result, in int hash)
+        private static void RegisterCollision(ref IEcsViewPhysics objA, ref IEcsViewPhysics objB, in int result, in int hash)
         {
             if (result == 1)
             {

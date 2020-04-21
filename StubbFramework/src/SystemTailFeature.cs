@@ -27,7 +27,7 @@ namespace StubbFramework
             Add(new ActivateSceneSystem());
             Add(new DeactivateSceneSystem());
             
-            Add(new RemoveViewSystem());
+            Add(new RemoveEcsViewLinkSystem());
             Add(new RemoveEntitySystem());
             
             OneFrame<ActivateSceneByNameEvent>();

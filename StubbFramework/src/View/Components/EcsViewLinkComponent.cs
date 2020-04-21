@@ -7,8 +7,8 @@
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
 #endif
-    public struct ViewComponent
+    public struct EcsViewLinkComponent
     {
-        public IViewObject View;
+        public IEcsViewLink Value;
     }
 }

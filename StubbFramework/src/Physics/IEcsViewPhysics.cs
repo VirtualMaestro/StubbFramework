@@ -2,7 +2,7 @@
 
 namespace StubbFramework.Physics
 {
-    public interface IViewPhysics : IViewObject
+    public interface IEcsViewPhysics : IEcsViewLink
     {
         int TypeId { get; set; }
         bool EnableTriggerEnter { get; set; }
