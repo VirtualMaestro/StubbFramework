@@ -25,7 +25,7 @@ namespace StubbFramework.Extensions
         /// <param name="configs">List of the ILoadingSceneConfig to load</param>
         public static void LoadScenes(this EcsWorld world, List<ILoadingSceneConfig> configs)
         {
-            world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
+            ref var loadScenes = ref world.NewEntity().Set<LoadScenesEvent>();
             loadScenes.LoadingScenes = configs;
             loadScenes.UnloadingScenes = null;
             loadScenes.UnloadOthers = false;
@@ -40,7 +40,7 @@ namespace StubbFramework.Extensions
         /// <param name="unloadScenes">scenes names which have to unload after given list config of new scenes will be loaded.</param>
         public static void LoadScenes(this EcsWorld world, List<ILoadingSceneConfig> configs, List<IAssetName> unloadScenes) 
         {
-            world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
+            ref var loadScenes = ref world.NewEntity().Set<LoadScenesEvent>();
             loadScenes.LoadingScenes = configs;
             loadScenes.UnloadingScenes = unloadScenes;
             loadScenes.UnloadOthers = false;
@@ -55,7 +55,7 @@ namespace StubbFramework.Extensions
         /// <param name="unloadOthers">if true all current non new scenes will be unloaded</param>
         public static void LoadScenes(this EcsWorld world, List<ILoadingSceneConfig> configs, bool unloadOthers)
         {
-            world.NewEntityWith<LoadScenesComponent>(out var loadScenes);
+            ref var loadScenes = ref world.NewEntity().Set<LoadScenesEvent>();
             loadScenes.LoadingScenes = configs;
             loadScenes.UnloadingScenes = null;
             loadScenes.UnloadOthers = unloadOthers;
@@ -70,8 +70,8 @@ namespace StubbFramework.Extensions
         /// <param name="unloadScenes"></param>
         public static void UnloadScenes(this EcsWorld world, List<IAssetName> unloadScenes)
         {
-            world.NewEntityWith<UnloadScenesComponent>(out var unloadScenesComponent);
-            unloadScenesComponent.SceneNames = unloadScenes;
+            ref var scenes = ref world.NewEntity().Set<UnloadScenesByNamesEvent>();
+            scenes.SceneNames = unloadScenes;
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace StubbFramework.Extensions
         /// <param name="world"></param>
         public static void UnloadAllScenes(this EcsWorld world)
         {
-            world.NewEntityWith<UnloadScenesComponent>(out var unloadScenesComponent);
+            world.NewEntity().Set<UnloadAllScenesEvent>();
         }
 
         /// <summary>
@@ -89,23 +89,24 @@ namespace StubbFramework.Extensions
         /// <param name="world"></param>
         public static void UnloadNonNewScenes(this EcsWorld world)
         {
-            world.NewEntityWith<UnloadNonNewScenesComponent>(out var unloadNonNewScenesComponent);
+            world.NewEntity().Set<UnloadNonNewScenesEvent>();
         }
 
         public static void AddSceneService(this EcsWorld world, ISceneService sceneService)
         {
-            world.NewEntityWith<SceneServiceComponent>(out var sceneServiceComponent);
-            sceneServiceComponent.SceneService = sceneService;
+            world.NewEntity().Set<SceneServiceComponent>().SceneService = sceneService;
         }
 
         public static void ActivateScene(this EcsWorld world, IAssetName sceneName, bool isMain = false)
         {
-            _ActivationScene(world, sceneName, true, isMain);
+            ref var activateScene = ref world.NewEntity().Set<ActivateSceneByNameEvent>();
+            activateScene.Name = sceneName;
+            activateScene.IsMain = isMain;
         }
 
-        public static void DeactivateScene(this EcsWorld world, IAssetName sceneName, bool isMain = false)
+        public static void DeactivateScene(this EcsWorld world, IAssetName sceneName)
         {
-            _ActivationScene(world, sceneName, false, isMain);
+            world.NewEntity().Set<DeactivateSceneByNameEvent>().Name = sceneName;
         }
 
         public static void DispatchTriggerEnter(this EcsWorld world, IViewPhysics objA, IViewPhysics objB, object collisionInfo)
@@ -114,7 +115,10 @@ namespace StubbFramework.Extensions
             
             RegisterCollision(ref objA, ref objB, in result, in hash);
             
-            world.NewEntityWith<TriggerEnterComponent, CleanupCollisionComponent>(out var triggerEnter, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var triggerEnter = ref world.NewEntity().Set<TriggerEnterComponent>();
             triggerEnter.ObjectA = objA;
             triggerEnter.ObjectB = objB;
             triggerEnter.Info = collisionInfo;
@@ -125,8 +129,11 @@ namespace StubbFramework.Extensions
             if (CanDispatch(objA.TypeId, objB.TypeId, out int result, out int hash) == false) return;
             
             RegisterCollision(ref objA, ref objB, in result, in hash);
+           
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
             
-            world.NewEntityWith<TriggerEnter2DComponent, CleanupCollisionComponent>(out var triggerEnter, out var cleanup);
+            ref var triggerEnter = ref world.NewEntity().Set<TriggerEnter2DComponent>();
             triggerEnter.ObjectA = objA;
             triggerEnter.ObjectB = objB;
             triggerEnter.Info = collisionInfo;
@@ -138,7 +145,10 @@ namespace StubbFramework.Extensions
             
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<TriggerStayComponent, CleanupCollisionComponent>(out var triggerStay, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var triggerStay = ref world.NewEntity().Set<TriggerStayComponent>();
             triggerStay.ObjectA = objA;
             triggerStay.ObjectB = objB;
             triggerStay.Info = collisionInfo;
@@ -150,7 +160,10 @@ namespace StubbFramework.Extensions
             
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<TriggerStay2DComponent, CleanupCollisionComponent>(out var triggerStay, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var triggerStay = ref world.NewEntity().Set<TriggerStay2DComponent>();
             triggerStay.ObjectA = objA;
             triggerStay.ObjectB = objB;
             triggerStay.Info = collisionInfo;
@@ -162,7 +175,10 @@ namespace StubbFramework.Extensions
            
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<TriggerExitComponent, CleanupCollisionComponent>(out var triggerExit, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var triggerExit = ref world.NewEntity().Set<TriggerExitComponent>();
             triggerExit.ObjectA = objA;
             triggerExit.ObjectB = objB;
             triggerExit.Info = collisionInfo;
@@ -174,7 +190,10 @@ namespace StubbFramework.Extensions
            
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<TriggerExit2DComponent, CleanupCollisionComponent>(out var triggerExit, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var triggerExit = ref world.NewEntity().Set<TriggerExit2DComponent>();
             triggerExit.ObjectA = objA;
             triggerExit.ObjectB = objB;
             triggerExit.Info = collisionInfo;
@@ -186,7 +205,10 @@ namespace StubbFramework.Extensions
            
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<CollisionEnterComponent, CleanupCollisionComponent>(out var collisionEnter, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var collisionEnter = ref world.NewEntity().Set<CollisionEnterComponent>();
             collisionEnter.ObjectA = objA;
             collisionEnter.ObjectB = objB;
             collisionEnter.Info = collisionInfo;
@@ -198,7 +220,10 @@ namespace StubbFramework.Extensions
            
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<CollisionEnter2DComponent, CleanupCollisionComponent>(out var collisionEnter, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var collisionEnter = ref world.NewEntity().Set<CollisionEnter2DComponent>();
             collisionEnter.ObjectA = objA;
             collisionEnter.ObjectB = objB;
             collisionEnter.Info = collisionInfo;
@@ -210,7 +235,10 @@ namespace StubbFramework.Extensions
           
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<CollisionStayComponent, CleanupCollisionComponent>(out var collisionStay, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var collisionStay = ref world.NewEntity().Set<CollisionStayComponent>();
             collisionStay.ObjectA = objA;
             collisionStay.ObjectB = objB;
             collisionStay.Info = collisionInfo;
@@ -222,7 +250,10 @@ namespace StubbFramework.Extensions
           
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<CollisionStay2DComponent, CleanupCollisionComponent>(out var collisionStay, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var collisionStay = ref world.NewEntity().Set<CollisionStay2DComponent>();
             collisionStay.ObjectA = objA;
             collisionStay.ObjectB = objB;
             collisionStay.Info = collisionInfo;
@@ -234,7 +265,10 @@ namespace StubbFramework.Extensions
             
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<CollisionExitComponent, CleanupCollisionComponent>(out var collisionExit, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var collisionExit = ref entity.Set<CollisionExitComponent>();
             collisionExit.ObjectA = objA;
             collisionExit.ObjectB = objB;
             collisionExit.Info = collisionInfo;
@@ -246,7 +280,10 @@ namespace StubbFramework.Extensions
             
             RegisterCollision(ref objA, ref objB, in result, in hash);
 
-            world.NewEntityWith<CollisionExit2DComponent, CleanupCollisionComponent>(out var collisionExit, out var cleanup);
+            var entity = world.NewEntity();
+            entity.Set<CleanupCollisionComponent>();
+            
+            ref var collisionExit = ref entity.Set<CollisionExit2DComponent>();
             collisionExit.ObjectA = objA;
             collisionExit.ObjectB = objB;
             collisionExit.Info = collisionInfo;
@@ -337,15 +374,6 @@ namespace StubbFramework.Extensions
         private static int _GetHash(int byte1, int byte2, int shift)
         {
             return byte1 | byte2 << shift;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void _ActivationScene(EcsWorld world, IAssetName sceneName, bool enable, bool isMain)
-        {
-            world.NewEntityWith<ActivateSceneComponent>(out var activateSceneComponent);
-            activateSceneComponent.Name = sceneName;
-            activateSceneComponent.Active = enable;
-            activateSceneComponent.IsMain = isMain;
         }
         
         [Conditional("DEBUG")]
