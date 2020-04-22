@@ -15,7 +15,9 @@ namespace StubbFramework.Physics.Systems
         
         public void Run()
         {
-            _cleanupCollisionFilter.Clear();
+            if (!_cleanupCollisionFilter.IsEmpty())
+                _cleanupCollisionFilter.Clear();
+            
             World.EndPhysicsFrame();
         }
     }

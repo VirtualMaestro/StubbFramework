@@ -23,7 +23,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var triggerEnter = ref world.NewEntity().Set<TriggerEnterComponent>();
+            ref var triggerEnter = ref entity.Set<TriggerEnterComponent>();
             triggerEnter.ObjectA = objA;
             triggerEnter.ObjectB = objB;
             triggerEnter.Info = collisionInfo;
@@ -39,7 +39,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var triggerEnter = ref world.NewEntity().Set<TriggerEnter2DComponent>();
+            ref var triggerEnter = ref entity.Set<TriggerEnter2DComponent>();
             triggerEnter.ObjectA = objA;
             triggerEnter.ObjectB = objB;
             triggerEnter.Info = collisionInfo;
@@ -55,7 +55,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var triggerStay = ref world.NewEntity().Set<TriggerStayComponent>();
+            ref var triggerStay = ref entity.Set<TriggerStayComponent>();
             triggerStay.ObjectA = objA;
             triggerStay.ObjectB = objB;
             triggerStay.Info = collisionInfo;
@@ -71,7 +71,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var triggerStay = ref world.NewEntity().Set<TriggerStay2DComponent>();
+            ref var triggerStay = ref entity.Set<TriggerStay2DComponent>();
             triggerStay.ObjectA = objA;
             triggerStay.ObjectB = objB;
             triggerStay.Info = collisionInfo;
@@ -87,7 +87,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var triggerExit = ref world.NewEntity().Set<TriggerExitComponent>();
+            ref var triggerExit = ref entity.Set<TriggerExitComponent>();
             triggerExit.ObjectA = objA;
             triggerExit.ObjectB = objB;
             triggerExit.Info = collisionInfo;
@@ -103,7 +103,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var triggerExit = ref world.NewEntity().Set<TriggerExit2DComponent>();
+            ref var triggerExit = ref entity.Set<TriggerExit2DComponent>();
             triggerExit.ObjectA = objA;
             triggerExit.ObjectB = objB;
             triggerExit.Info = collisionInfo;
@@ -119,7 +119,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var collisionEnter = ref world.NewEntity().Set<CollisionEnterComponent>();
+            ref var collisionEnter = ref entity.Set<CollisionEnterComponent>();
             collisionEnter.ObjectA = objA;
             collisionEnter.ObjectB = objB;
             collisionEnter.Info = collisionInfo;
@@ -135,7 +135,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var collisionEnter = ref world.NewEntity().Set<CollisionEnter2DComponent>();
+            ref var collisionEnter = ref entity.Set<CollisionEnter2DComponent>();
             collisionEnter.ObjectA = objA;
             collisionEnter.ObjectB = objB;
             collisionEnter.Info = collisionInfo;
@@ -151,7 +151,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var collisionStay = ref world.NewEntity().Set<CollisionStayComponent>();
+            ref var collisionStay = ref entity.Set<CollisionStayComponent>();
             collisionStay.ObjectA = objA;
             collisionStay.ObjectB = objB;
             collisionStay.Info = collisionInfo;
@@ -167,7 +167,7 @@ namespace StubbFramework.Extensions
             var entity = world.NewEntity();
             entity.Set<CleanupCollisionComponent>();
 
-            ref var collisionStay = ref world.NewEntity().Set<CollisionStay2DComponent>();
+            ref var collisionStay = ref entity.Set<CollisionStay2DComponent>();
             collisionStay.ObjectA = objA;
             collisionStay.ObjectB = objB;
             collisionStay.Info = collisionInfo;
