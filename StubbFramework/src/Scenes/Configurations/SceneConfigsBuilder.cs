@@ -15,12 +15,12 @@ namespace StubbFramework.Scenes.Configurations
         }
 
         public SceneConfigsBuilder<T, S> Add(string sceneName, string scenePath = null, bool isActive = true,
-            bool isMain = false, object payload = null)
+            bool isMain = false, bool isMultiple = false, object payload = null)
         {
             var config = new T();
             S name = new S();
             name.Set(sceneName, scenePath);
-            config.Set(name, isActive, isMain);
+            config.Set(name, isActive, isMain, isMultiple);
             config.Payload = payload;
             _configs.Add(config);
 
@@ -28,10 +28,10 @@ namespace StubbFramework.Scenes.Configurations
         }
 
         public SceneConfigsBuilder<T, S> Add(in S sceneName, bool isActive = true,
-            bool isMain = false, object payload = null)
+            bool isMain = false, bool isMultiple = false, object payload = null)
         {
             var config = new T();
-            config.Set(sceneName, isActive, isMain);
+            config.Set(sceneName, isActive, isMain, isMultiple);
             config.Payload = payload;
             _configs.Add(config);
 
