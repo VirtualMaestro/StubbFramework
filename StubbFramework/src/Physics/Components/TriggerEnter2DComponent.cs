@@ -1,4 +1,6 @@
-﻿namespace StubbFramework.Physics.Components
+﻿using StubbFramework.View;
+
+namespace StubbFramework.Physics.Components
 {
     /// <summary>
     /// Contains trigger info of 2d physics for Enter phase.
@@ -9,8 +11,8 @@
 #endif
     public struct TriggerEnter2DComponent
     {
-        public IEcsViewPhysics ObjectA;
-        public IEcsViewPhysics ObjectB;
+        public IEcsViewLink ObjectA;
+        public IEcsViewLink ObjectB;
         public object Info;
     }
 }

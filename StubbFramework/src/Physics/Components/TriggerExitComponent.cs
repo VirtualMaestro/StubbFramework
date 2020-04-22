@@ -1,4 +1,6 @@
-﻿namespace StubbFramework.Physics.Components
+﻿using StubbFramework.View;
+
+namespace StubbFramework.Physics.Components
 {
     /// <summary>
     /// Contains trigger info of 3d physics for Exit phase.
@@ -9,8 +11,8 @@
 #endif
     public struct TriggerExitComponent
     {
-        public IEcsViewPhysics ObjectA;
-        public IEcsViewPhysics ObjectB;
+        public IEcsViewLink ObjectA;
+        public IEcsViewLink ObjectB;
         public object Info;
     }
 }
