@@ -14,9 +14,14 @@ namespace StubbFramework.Scenes.Configurations
         /// </summary>
         bool IsMain { get; }
         
+        /// <summary>
+        /// Allow this scene to be more than one instance.
+        /// </summary>
+        bool IsMultiple { get; }
+        
         object Payload { get; set; }
 
-        void Set(IAssetName name, bool isActive, bool isMain);
+        void Set(IAssetName name, bool isActive, bool isMain, bool isMultiple);
         
         ILoadingSceneConfig Clone();
      }

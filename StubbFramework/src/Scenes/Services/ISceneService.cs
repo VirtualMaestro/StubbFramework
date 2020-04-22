@@ -13,12 +13,9 @@ namespace StubbFramework.Scenes.Services
         void Unload(in ISceneController sceneController);
         
         /// <summary>
-        /// Creates and returns loaded scenes by given their loading progresses.
-        /// Returns array of KeyValuePair where key is ISceneController and value is config ILoadingSceneConfig.
+        /// Returns SceneController of a loaded scene.
         /// </summary>
-        /// <param name="progresses">List of ISceneLoadingProgress</param>
-        /// <returns>KeyValuePair of ISceneController, ILoadingSceneConfig</returns>
-        KeyValuePair<ISceneController, ILoadingSceneConfig>[] GetLoaded(List<ISceneLoadingProgress> progresses);
+        ISceneController GetLoadedSceneController(ISceneLoadingProgress progress);
         
         bool HasScene(in IAssetName sceneName);
         bool IsSceneReady(in IAssetName sceneName);
