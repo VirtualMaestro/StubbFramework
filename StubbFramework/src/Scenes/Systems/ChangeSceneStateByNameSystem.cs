@@ -1,4 +1,4 @@
-﻿using System.Management.Instrumentation;
+﻿using System;
 using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Common.Components;
@@ -77,7 +77,7 @@ namespace StubbFramework.Scenes.Systems
                 }
             }
 
-            throw new InstanceNotFoundException($"Scene with name'{sceneName}' not found!");
+            throw new Exception($"Scene with name'{sceneName}' not found!");
         }
     }
 }
