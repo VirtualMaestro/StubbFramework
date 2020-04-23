@@ -3,7 +3,7 @@ using StubbFramework.Common;
 
 namespace StubbFramework.View
 {
-    public interface IEcsViewLink : IEntityContainer, IDispose
+    public interface IEcsViewLink : IEntityContainer
     {
         string Name { get; }
         int TypeId { get; set; }

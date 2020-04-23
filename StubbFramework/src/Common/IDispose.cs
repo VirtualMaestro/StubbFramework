@@ -1,7 +1,8 @@
 ﻿namespace StubbFramework.Common
 {
-    public interface IDispose : System.IDisposable
+    public interface IDispose
     {
         bool IsDisposed { get; }
+        void Dispose();
     }
 }
