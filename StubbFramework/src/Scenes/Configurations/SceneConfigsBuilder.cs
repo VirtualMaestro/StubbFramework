@@ -8,36 +8,51 @@ namespace StubbFramework.Scenes.Configurations
         public static SceneConfigsBuilder<T, S> Create => new SceneConfigsBuilder<T, S>();
 
         private readonly List<ILoadingSceneConfig> _configs;
+        private ILoadingSceneConfig _currentConfig;
 
         public SceneConfigsBuilder()
         {
             _configs = new List<ILoadingSceneConfig>();
         }
 
-        public SceneConfigsBuilder<T, S> Add(string sceneName, string scenePath = null, bool isActive = true,
-            bool isMain = false, bool isMultiple = false, object payload = null)
+        public SceneConfigsBuilder<T, S> Add(in S sceneName)
         {
-            var config = new T();
-            S name = new S();
-            name.Set(sceneName, scenePath);
-            config.Set(name, isActive, isMain, isMultiple);
-            config.Payload = payload;
-            _configs.Add(config);
-
+            _currentConfig = new T();
+            _configs.Add(_currentConfig);
             return this;
         }
 
-        public SceneConfigsBuilder<T, S> Add(in S sceneName, bool isActive = true,
-            bool isMain = false, bool isMultiple = false, object payload = null)
+        public SceneConfigsBuilder<T, S> IsActive(bool value)
         {
-            var config = new T();
-            config.Set(sceneName, isActive, isMain, isMultiple);
-            config.Payload = payload;
-            _configs.Add(config);
-
+            _currentConfig.IsActive = value;
             return this;
         }
 
-        public List<ILoadingSceneConfig> Build => _configs;
+        public SceneConfigsBuilder<T, S> IsMain(bool value)
+        {
+            _currentConfig.IsMain = value;
+            return this;
+        }
+
+        public SceneConfigsBuilder<T, S> IsMultiple(bool value)
+        {
+            _currentConfig.IsMultiple = value;
+            return this;
+        }
+
+        public SceneConfigsBuilder<T, S> WithPayload(object value)
+        {
+            _currentConfig.Payload = value;
+            return this;
+        }
+
+        public List<ILoadingSceneConfig> Build
+        {
+            get
+            {
+                _currentConfig = null;
+                return _configs;
+            }
+        }
     }
 }
