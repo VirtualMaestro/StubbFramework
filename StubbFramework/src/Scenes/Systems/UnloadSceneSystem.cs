@@ -24,7 +24,7 @@ namespace StubbFramework.Scenes.Systems
             {
                 var controller = _unloadScenesFilter.Get1(idx).Scene;
                 service.Unload(controller);
-                controller.Destroy();
+                controller.Dispose();
             }
         }
     }

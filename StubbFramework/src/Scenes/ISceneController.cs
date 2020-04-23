@@ -35,6 +35,6 @@ namespace StubbFramework.Scenes
         /// Determines if scene is active.
         /// </summary>
         bool IsContentActive { get; }
-        void Destroy();
+        void Dispose();
     }
 }
