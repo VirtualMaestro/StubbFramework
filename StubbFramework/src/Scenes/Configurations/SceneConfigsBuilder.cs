@@ -22,6 +22,13 @@ namespace StubbFramework.Scenes.Configurations
             return this;
         }
 
+        public SceneConfigsBuilder<T, S> Add(T config)
+        {
+            _currentConfig = config;
+            _configs.Add(_currentConfig);
+            return this;
+        }
+
         public SceneConfigsBuilder<T, S> IsActive(bool value)
         {
             _currentConfig.IsActive = value;
