@@ -22,9 +22,9 @@ namespace StubbFramework.Scenes.Configurations
             return this;
         }
 
-        public SceneConfigsBuilder<T, S> Add(T config)
+        public SceneConfigsBuilder<T, S> Add(in T config)
         {
-            _currentConfig = config;
+            _currentConfig = config.Clone();
             _configs.Add(_currentConfig);
             return this;
         }
