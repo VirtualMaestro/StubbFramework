@@ -26,7 +26,7 @@ namespace StubbFramework.Scenes.Configurations
         /// <summary>
         /// Given config will be cloned.
         /// </summary>
-        public SceneConfigsBuilder<T, S> Add(in T config)
+        public SceneConfigsBuilder<T, S> Add(in ILoadingSceneConfig config)
         {
             _currentConfig = config.Clone();
             _configs.Add(_currentConfig);
