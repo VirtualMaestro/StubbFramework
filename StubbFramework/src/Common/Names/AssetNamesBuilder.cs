@@ -21,5 +21,12 @@ namespace StubbFramework.Common.Names
             
             return this;
         }
+
+        public AssetNamesBuilder<T> Add(IAssetName name)
+        {
+            _names.Add(name);
+            
+            return this;
+        }
     }
 }
