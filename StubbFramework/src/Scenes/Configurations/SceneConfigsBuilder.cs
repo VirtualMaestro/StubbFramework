@@ -18,10 +18,14 @@ namespace StubbFramework.Scenes.Configurations
         public SceneConfigsBuilder<T, S> Add(in S sceneName)
         {
             _currentConfig = new T();
+            _currentConfig.Name = sceneName;
             _configs.Add(_currentConfig);
             return this;
         }
 
+        /// <summary>
+        /// Given config will be cloned.
+        /// </summary>
         public SceneConfigsBuilder<T, S> Add(in T config)
         {
             _currentConfig = config.Clone();
