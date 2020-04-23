@@ -29,19 +29,19 @@ namespace StubbFramework.Scenes.Configurations
             return this;
         }
 
-        public SceneConfigsBuilder<T, S> IsActive(bool value)
+        public SceneConfigsBuilder<T, S> IsActive(bool value = true)
         {
             _currentConfig.IsActive = value;
             return this;
         }
 
-        public SceneConfigsBuilder<T, S> IsMain(bool value)
+        public SceneConfigsBuilder<T, S> IsMain(bool value = true)
         {
             _currentConfig.IsMain = value;
             return this;
         }
 
-        public SceneConfigsBuilder<T, S> IsMultiple(bool value)
+        public SceneConfigsBuilder<T, S> IsMultiple(bool value = true)
         {
             _currentConfig.IsMultiple = value;
             return this;
