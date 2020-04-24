@@ -4,6 +4,7 @@ using StubbFramework.Common.Names;
 using StubbFramework.Scenes;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Configurations;
+using StubbFramework.Scenes.Events;
 using StubbFramework.Scenes.Services;
 
 namespace StubbFramework.Extensions
@@ -101,7 +102,7 @@ namespace StubbFramework.Extensions
         public static void ActivateScene(this EcsWorld world, ISceneController controller, bool isMain = false)
         {
             ref var entity = ref controller.GetEntity();
-            ref var activateScene = ref entity.Set<ActivateSceneEvent>();
+            ref var activateScene = ref entity.Set<ActivateSceneComponent>();
             activateScene.IsMain = isMain;
         }
 
@@ -112,7 +113,7 @@ namespace StubbFramework.Extensions
 
         public static void DeactivateScene(this EcsWorld world, ISceneController controller)
         {
-            controller.GetEntity().Set<DeactivateSceneEvent>();
+            controller.GetEntity().Set<DeactivateSceneComponent>();
         }
     }
 }

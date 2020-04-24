@@ -1,7 +1,7 @@
 ﻿using Leopotam.Ecs;
-using StubbFramework.Common.Components;
 using StubbFramework.Remove.Systems;
 using StubbFramework.Scenes.Components;
+using StubbFramework.Scenes.Events;
 using StubbFramework.Scenes.Systems;
 using StubbFramework.View.Systems;
 
@@ -15,13 +15,14 @@ namespace StubbFramework
         protected override void SetupSystems()
         {
             Add(new LoadScenesSystem());
-            
+            Add(new LoadingScenesProgressSystem());
+
             Add(new UnloadScenesByNamesSystem());
             Add(new UnloadAllScenesSystem());
             Add(new UnloadNonNewScenesSystem());
             Add(new UnloadSceneSystem());
             
-            OneFrame<IsSceneStateChangedComponent>();
+            OneFrame<SceneChangedStateComponent>();
             
             Add(new ChangeSceneStateByNameSystem());
             Add(new ActivateSceneSystem());
@@ -30,11 +31,13 @@ namespace StubbFramework
             Add(new RemoveEcsViewLinkSystem());
             Add(new RemoveEntitySystem());
             
+            OneFrame<ActivateSceneComponent>();
+            OneFrame<DeactivateSceneComponent>();
+            OneFrame<SceneLoadedComponent>();
+
+            OneFrame<LoadScenesEvent>();
             OneFrame<ActivateSceneByNameEvent>();
             OneFrame<DeactivateSceneByNameEvent>();
-            OneFrame<ActivateSceneEvent>();
-            OneFrame<DeactivateSceneEvent>();
-            OneFrame<IsNewEvent>();
             OneFrame<UnloadNonNewScenesEvent>();
             OneFrame<UnloadAllScenesEvent>();
             OneFrame<UnloadScenesByNamesEvent>();

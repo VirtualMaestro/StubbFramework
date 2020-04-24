@@ -4,6 +4,7 @@ using Leopotam.Ecs;
 using StubbFramework.Common.Names;
 using StubbFramework.Remove.Components;
 using StubbFramework.Scenes.Components;
+using StubbFramework.Scenes.Events;
 
 namespace StubbFramework.Scenes.Systems
 {
@@ -14,7 +15,7 @@ namespace StubbFramework.Scenes.Systems
     public sealed class UnloadScenesByNamesSystem : IEcsRunSystem
     {
         EcsFilter<UnloadScenesByNamesEvent> _eventFilter;
-        EcsFilter<SceneComponent> _scenesFilter;
+        EcsFilter<SceneComponent>.Exclude<SceneUnloadedComponent> _scenesFilter;
 
         public void Run()
         {

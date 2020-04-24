@@ -1,10 +1,8 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Common.Components;
-using StubbFramework.Common.Names;
-using StubbFramework.Logging;
 using StubbFramework.Scenes.Components;
+using StubbFramework.Scenes.Events;
 
 namespace StubbFramework.Scenes.Systems
 {
@@ -16,7 +14,12 @@ namespace StubbFramework.Scenes.Systems
     {
         private EcsFilter<ActivateSceneByNameEvent> _activateFilter;
         private EcsFilter<DeactivateSceneByNameEvent> _deactivateFilter;
-        private EcsFilter<SceneComponent> _scenesFilter;
+
+        private EcsFilter<SceneComponent, IsActiveComponent>.Exclude<SceneUnloadedComponent, DeactivateSceneComponent>
+            _activeScenesFilter;
+
+        private EcsFilter<SceneComponent, IsInactiveComponent>.Exclude<SceneUnloadedComponent, ActivateSceneComponent>
+            _inactiveScenesFilter;
 
         public void Run()
         {
@@ -30,17 +33,20 @@ namespace StubbFramework.Scenes.Systems
             foreach (var idx in _activateFilter)
             {
                 var eventComponent = _activateFilter.Get1(idx);
-                ref var entity = ref _GetSceneEntity(eventComponent.Name);
 
-                if (entity.Has<IsActiveComponent>())
+                foreach (var i in _inactiveScenesFilter)
                 {
-                    log.Warn(
-                        $"Try to perform activation for the scene {eventComponent.Name}, " +
-                        $"but state of the scene is already activated!");
-                    continue;
-                }
+                    var scene = _inactiveScenesFilter.Get1(i).Scene;
 
-                entity.Set<ActivateSceneEvent>().IsMain = eventComponent.IsMain;
+                    if (!scene.SceneName.Equals(eventComponent.Name)) continue;
+
+                    _inactiveScenesFilter.GetEntity(i).Set<ActivateSceneComponent>().IsMain = eventComponent.IsMain;
+
+                    // idea behind this 'break' to reduce complexity of this loop,
+                    // but with this it is impossible to mark scenes with the same name,
+                    // which is possible if the same scene was loaded multiple times.  
+                    // break;
+                }
             }
         }
 
@@ -50,34 +56,21 @@ namespace StubbFramework.Scenes.Systems
             foreach (var idx in _deactivateFilter)
             {
                 var eventComponent = _deactivateFilter.Get1(idx);
-                ref var entity = ref _GetSceneEntity(eventComponent.Name);
 
-                if (entity.Has<IsInactiveComponent>())
+                foreach (var i in _activeScenesFilter)
                 {
-                    log.Warn(
-                        $"Try to perform deactivation for the scene {eventComponent.Name}, " +
-                        $"but state of the scene is already deactivated!");
-                    continue;
-                }
+                    var scene = _activeScenesFilter.Get1(i).Scene;
 
-                entity.Set<DeactivateSceneEvent>();
-            }
-        }
+                    if (!scene.SceneName.Equals(eventComponent.Name)) continue;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private ref EcsEntity _GetSceneEntity(IAssetName sceneName)
-        {
-            foreach (var idx in _scenesFilter)
-            {
-                var scene = _scenesFilter.Get1(idx).Scene;
+                    _activeScenesFilter.GetEntity(i).Set<DeactivateSceneComponent>();
 
-                if (scene.SceneName.Equals(sceneName))
-                {
-                    return ref scene.GetEntity();
+                    // idea behind this 'break' to reduce complexity of this loop,
+                    // but with this it is impossible to mark scenes with the same name,
+                    // which is possible if the same scene was loaded multiple times.  
+                    // break;
                 }
             }
-
-            throw new Exception($"Scene with name'{sceneName}' not found!");
         }
     }
 }

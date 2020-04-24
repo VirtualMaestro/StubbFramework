@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using StubbFramework.Common.Names;
 
-namespace StubbFramework.Scenes.Components
+namespace StubbFramework.Scenes.Events
 {
     /// <summary>
     /// Event-component is sent when some set of the scenes should be unloaded.

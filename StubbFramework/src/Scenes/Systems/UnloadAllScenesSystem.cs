@@ -1,6 +1,7 @@
 ﻿using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
+using StubbFramework.Scenes.Events;
 
 namespace StubbFramework.Scenes.Systems
 {
@@ -11,7 +12,7 @@ namespace StubbFramework.Scenes.Systems
     public sealed class UnloadAllScenesSystem : IEcsRunSystem
     {
         private EcsFilter<UnloadAllScenesEvent> _eventFilter;
-        private EcsFilter<SceneComponent> _scenesFilter;
+        private EcsFilter<SceneComponent>.Exclude<SceneUnloadedComponent> _scenesFilter;
 
         public void Run()
         {

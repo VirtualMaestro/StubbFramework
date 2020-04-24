@@ -58,7 +58,7 @@ namespace StubbFramework.Scenes.Systems
         private void _InitSceneController(ISceneController controller, ILoadingSceneConfig config)
         {
             var entity = World.NewEntity();
-            entity.Set<IsNewEvent>();
+            entity.Set<SceneLoadedComponent>();
 
             ref var sceneComponent = ref entity.Set<SceneComponent>();
             sceneComponent.Scene = controller;

@@ -33,7 +33,7 @@ namespace StubbFramework.Extensions
         /// <summary>
         /// Mark all entities in a filter with RemoveEntityComponent. 
         /// </summary>
-        public static void MarkRemove<T> (this EcsFilter<T> filter) where T : struct
+        public static void MarkRemove (this EcsFilter filter)
         {
             foreach (var idx in filter)
             {

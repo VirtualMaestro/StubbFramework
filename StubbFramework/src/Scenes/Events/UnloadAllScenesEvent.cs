@@ -1,15 +1,16 @@
 ﻿using Leopotam.Ecs;
 
-namespace StubbFramework.Scenes.Components
+namespace StubbFramework.Scenes.Events
 {
     /// <summary>
-    /// Event-component will be sent when all scenes which are not marked with IsNewEvent need to be unloaded.
+    /// Event-component which is sent when need to unload all scenes.
     /// Component will be removed at the end of the frame.
     /// </summary>
 #if ENABLE_IL2CPP
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.NullChecks, false)]
     [Unity.IL2CPP.CompilerServices.Il2CppSetOption (Unity.IL2CPP.CompilerServices.Option.ArrayBoundsChecks, false)]
 #endif
-    public struct UnloadNonNewScenesEvent : IEcsIgnoreInFilter
-    {}
+    public struct UnloadAllScenesEvent : IEcsIgnoreInFilter
+    {
+    }
 }

@@ -1,7 +1,7 @@
 ﻿using Leopotam.Ecs;
 using StubbFramework.Extensions;
-using StubbFramework.Remove.Components;
 using StubbFramework.Scenes.Components;
+using StubbFramework.Scenes.Events;
 
 namespace StubbFramework.Scenes.Systems
 {
@@ -27,9 +27,6 @@ namespace StubbFramework.Scenes.Systems
                 activeLoadingScenes.Progresses = sceneService.Load(loadScenes.LoadingScenes);
                 activeLoadingScenes.UnloadScenes = loadScenes.UnloadingScenes;
                 activeLoadingScenes.UnloadOthers = loadScenes.UnloadOthers;
-
-                ref var entity = ref _loadScenesFilter.GetEntity(idx);
-                entity.Set<RemoveEntityComponent>();
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using StubbFramework.Common.Names;
 
-namespace StubbFramework.Scenes.Components
+namespace StubbFramework.Scenes.Events
 {
     /// <summary>
     /// Event-component can be sent when need to activate scene by its name.

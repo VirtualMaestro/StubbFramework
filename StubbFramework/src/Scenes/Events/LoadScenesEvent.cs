@@ -2,10 +2,10 @@
 using StubbFramework.Common.Names;
 using StubbFramework.Scenes.Configurations;
 
-namespace StubbFramework.Scenes.Components
+namespace StubbFramework.Scenes.Events
 {
     /// <summary>
-    /// Event-component is sent when need to load one or bunch scenes.
+    /// Event-component is sent when need to load one or bunch scenes. Will be removed at the end of the loop
     /// For convenience use World.LoadScenes().
     /// </summary>
 #if ENABLE_IL2CPP

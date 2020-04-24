@@ -10,23 +10,20 @@ namespace StubbFramework.Scenes.Systems
 #endif
     public sealed class DeactivateSceneSystem : IEcsRunSystem
     {
-        private EcsFilter<SceneComponent, IsActiveComponent, DeactivateSceneEvent> _eventFilter;
+        private EcsFilter<SceneComponent, IsActiveComponent, DeactivateSceneComponent> _deactivateFilter;
 
         public void Run()
         {
-            if (_eventFilter.IsEmpty()) return;
+            if (_deactivateFilter.IsEmpty()) return;
 
-            foreach (var idx in _eventFilter)
+            foreach (var idx in _deactivateFilter)
             {
-                ref var entity = ref _eventFilter.GetEntity(idx);
-                ref var sceneComponent = ref _eventFilter.Get1(idx);
-                var sceneController = sceneComponent.Scene;
+                _deactivateFilter.Get1(idx).Scene.HideContent();
 
+                ref var entity = ref _deactivateFilter.GetEntity(idx);
                 entity.Unset<IsActiveComponent>();
                 entity.Set<IsInactiveComponent>();
-                entity.Set<IsSceneStateChangedComponent>();
-
-                sceneController.HideContent();
+                entity.Set<SceneChangedStateComponent>();
             }
         }
     }
