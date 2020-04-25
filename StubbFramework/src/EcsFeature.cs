@@ -23,7 +23,7 @@ namespace StubbFramework
 
         private void _InitSystems()
         {
-            Systems = new EcsSystems(World, Name);    
+            Systems = new EcsSystems(World, $"{Name}Systems");    
             SetupSystems();
         }
 
