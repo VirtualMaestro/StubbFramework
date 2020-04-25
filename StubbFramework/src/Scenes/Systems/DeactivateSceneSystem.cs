@@ -18,11 +18,6 @@ namespace StubbFramework.Scenes.Systems
 
             foreach (var idx in _deactivateFilter)
             {
-#if DEBUG            
-                if (_deactivateFilter.GetEntity(idx).Has<IsInactiveComponent>())
-                    throw new System.Exception($"Try to deactivate scene with name '{_deactivateFilter.Get1(idx).Scene.SceneName}' which is already deactivated!");
-#endif
-                
                 _deactivateFilter.Get1(idx).Scene.HideContent();
 
                 ref var entity = ref _deactivateFilter.GetEntity(idx);

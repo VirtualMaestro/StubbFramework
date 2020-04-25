@@ -18,11 +18,6 @@ namespace StubbFramework.Scenes.Systems
 
             foreach (var idx in _activateFilter)
             {
-#if DEBUG            
-                if (_activateFilter.GetEntity(idx).Has<IsActiveComponent>())
-                    throw new System.Exception($"Try to activate scene with name '{_activateFilter.Get1(idx).Scene.SceneName}' which is already activated!");
-#endif
-                
                 ref var entity = ref _activateFilter.GetEntity(idx);
                 var sceneController = _activateFilter.Get1(idx).Scene;
                 var isMain = _activateFilter.Get3(idx).IsMain;
