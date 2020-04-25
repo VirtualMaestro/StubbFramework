@@ -21,6 +21,8 @@ namespace StubbFramework.Scenes.Systems
 
         public void Run()
         {
+            if (_loadingFilter.IsEmpty()) return;
+            
             foreach (var idx in _loadingFilter)
             {
                 var activeLoading = _loadingFilter.Get1(idx);
