@@ -12,7 +12,7 @@ namespace StubbFramework.Scenes.Systems
     public sealed class UnloadAllScenesSystem : IEcsRunSystem
     {
         private EcsFilter<UnloadAllScenesEvent> _eventFilter;
-        private EcsFilter<SceneComponent>.Exclude<SceneUnloadedComponent> _scenesFilter;
+        private EcsFilter<SceneComponent>.Exclude<SceneUnloadingComponent> _scenesFilter;
 
         public void Run()
         {

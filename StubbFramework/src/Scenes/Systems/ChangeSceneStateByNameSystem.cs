@@ -15,10 +15,10 @@ namespace StubbFramework.Scenes.Systems
         private EcsFilter<ActivateSceneByNameEvent> _activateFilter;
         private EcsFilter<DeactivateSceneByNameEvent> _deactivateFilter;
 
-        private EcsFilter<SceneComponent, IsActiveComponent>.Exclude<SceneUnloadedComponent, DeactivateSceneComponent>
+        private EcsFilter<SceneComponent, IsActiveComponent>.Exclude<SceneUnloadingComponent, DeactivateSceneComponent>
             _activeScenesFilter;
 
-        private EcsFilter<SceneComponent, IsInactiveComponent>.Exclude<SceneUnloadedComponent, ActivateSceneComponent>
+        private EcsFilter<SceneComponent, IsInactiveComponent>.Exclude<SceneUnloadingComponent, ActivateSceneComponent>
             _inactiveScenesFilter;
 
         public void Run()

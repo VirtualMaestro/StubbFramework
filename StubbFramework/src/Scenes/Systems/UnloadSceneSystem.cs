@@ -12,7 +12,7 @@ namespace StubbFramework.Scenes.Systems
 #endif
     public sealed class UnloadSceneSystem : IEcsRunSystem
     {
-        private EcsFilter<SceneComponent, SceneUnloadedComponent> _unloadedScenesFilter;
+        private EcsFilter<SceneComponent, SceneUnloadingComponent> _unloadingScenesFilter;
         private EcsFilter<SceneComponent, RemoveEntityComponent> _unloadScenesFilter;
         private EcsFilter<SceneServiceComponent> _serviceFilter;
         private EcsWorld _world;
@@ -26,8 +26,17 @@ namespace StubbFramework.Scenes.Systems
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void _MarkRemoved()
         {
-            if (_unloadedScenesFilter.IsEmpty()) return;
-            _unloadedScenesFilter.MarkRemove();
+            if (_unloadingScenesFilter.IsEmpty()) return;
+            var service = _serviceFilter.Single().SceneService;
+
+            foreach (var idx in _unloadingScenesFilter)
+            {
+                _unloadingScenesFilter.GetEntity(idx).Set<RemoveEntityComponent>();
+
+                var controller = _unloadingScenesFilter.Get1(idx).Scene;
+                service.Unload(controller);
+                controller.Dispose();
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -35,18 +44,11 @@ namespace StubbFramework.Scenes.Systems
         {
             if (_unloadScenesFilter.IsEmpty()) return;
 
-            var service = _serviceFilter.Single().SceneService;
-
             foreach (var idx in _unloadScenesFilter)
             {
-                var controller = _unloadScenesFilter.Get1(idx).Scene;
-
-                service.Unload(controller);
-                controller.Dispose();
-
                 ref var entity = ref _unloadScenesFilter.GetEntity(idx);
                 entity.Unset<RemoveEntityComponent>();
-                entity.Set<SceneUnloadedComponent>();
+                entity.Set<SceneUnloadingComponent>();
                 entity.Set<DeactivateSceneComponent>();
             }
         }
