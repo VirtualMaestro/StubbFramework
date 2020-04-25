@@ -5,10 +5,10 @@ namespace StubbFramework
 {
     public class EcsFeature : IEcsSystem
     {
-        private EcsSystems _systems;
         private bool _isEnable = true;
 
-        internal EcsSystems Systems => _systems;
+        internal EcsSystems Systems { get; private set; }
+        internal EcsSystems Parent { set; private get; }
 
         public string Name { get; }
         public EcsWorld World { get; }
@@ -23,7 +23,7 @@ namespace StubbFramework
 
         private void _InitSystems()
         {
-            _systems = new EcsSystems(World, Name);    
+            Systems = new EcsSystems(World, Name);    
             SetupSystems();
         }
 
@@ -36,25 +36,25 @@ namespace StubbFramework
 
                 _isEnable = value;
 
-                var idx = _systems.GetNamedRunSystem(_systems.Name);
-                _systems.SetRunSystemState(idx, _isEnable);
+                var idx = Parent.GetNamedRunSystem(Systems.Name);
+                Parent.SetRunSystemState(idx, _isEnable);
             }
         }
 
         protected void Add(IEcsSystem system)
         {
-            if (system is EcsFeature feature) _systems.AddFeature(feature);
-            else _systems.Add(system);
+            if (system is EcsFeature feature) Systems.AddFeature(feature);
+            else Systems.Add(system);
         }
 
         protected void Inject<T>(T data)
         {
-            _systems.Inject<T>(data);
+            Systems.Inject<T>(data);
         }
 
         protected void OneFrame<T>() where T : struct
         {
-            _systems.OneFrame<T>();
+            Systems.OneFrame<T>();
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ namespace StubbFramework.Extensions
         {
             systems.Add(feature);
             systems.Add(feature.Systems, feature.Name);
+            feature.Parent = systems;
         }
     }
 }
