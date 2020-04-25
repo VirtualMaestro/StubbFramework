@@ -23,7 +23,7 @@ namespace StubbFramework
 
         private void _InitSystems()
         {
-            _systems = new EcsSystems(World, $"{Name}_FeatureSystems");    
+            _systems = new EcsSystems(World, Name);    
             SetupSystems();
         }
 
@@ -36,7 +36,7 @@ namespace StubbFramework
 
                 _isEnable = value;
 
-                var idx = _systems.GetNamedRunSystem($"{_systems.Name}_FeatureSystems");
+                var idx = _systems.GetNamedRunSystem(_systems.Name);
                 _systems.SetRunSystemState(idx, _isEnable);
             }
         }
