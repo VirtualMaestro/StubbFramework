@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Remove.Components;
 
@@ -10,10 +9,10 @@ namespace StubbFramework.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Single<T>(this EcsFilter<T> filter) where T : struct
         {
-            #if DEBUG
-                if (filter.IsEmpty()) throw new Exception($"EcsFilterExtension.Single. Filter with type {typeof(T)} is empty!");
-                if (filter.GetEntitiesCount() > 1) throw new Exception($"EcsFilterExtension.Single. Filter with type {typeof(T)} is used as single but contains more than one entity!");
-            #endif
+#if DEBUG
+            if (filter.IsEmpty()) throw new System.Exception($"EcsFilterExtension.Single. Filter with type {typeof(T)} is empty!");
+            if (filter.GetEntitiesCount() > 1) throw new System.Exception($"EcsFilterExtension.Single. Filter with type {typeof(T)} is used as single but contains more than one entity!");
+#endif
             
             return filter.Get1(0);
         }

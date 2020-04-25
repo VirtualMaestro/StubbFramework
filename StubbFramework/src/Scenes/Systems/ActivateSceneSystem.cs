@@ -10,17 +10,22 @@ namespace StubbFramework.Scenes.Systems
 #endif
     public sealed class ActivateSceneSystem : IEcsRunSystem
     {
-        private EcsFilter<SceneComponent, IsInactiveComponent, ActivateSceneComponent> _eventFilter;
+        private EcsFilter<SceneComponent, IsInactiveComponent, ActivateSceneComponent> _activateFilter;
 
         public void Run()
         {
-            if (_eventFilter.IsEmpty()) return;
+            if (_activateFilter.IsEmpty()) return;
 
-            foreach (var idx in _eventFilter)
+            foreach (var idx in _activateFilter)
             {
-                ref var entity = ref _eventFilter.GetEntity(idx);
-                var sceneController = _eventFilter.Get1(idx).Scene;
-                var isMain = _eventFilter.Get3(idx).IsMain;
+#if DEBUG            
+                if (_activateFilter.GetEntity(idx).Has<IsActiveComponent>())
+                    throw new System.Exception($"Try to activate scene with name '{_activateFilter.Get1(idx).Scene.SceneName}' which is already activated!");
+#endif
+                
+                ref var entity = ref _activateFilter.GetEntity(idx);
+                var sceneController = _activateFilter.Get1(idx).Scene;
+                var isMain = _activateFilter.Get3(idx).IsMain;
 
                 entity.Unset<IsInactiveComponent>();
                 entity.Set<IsActiveComponent>();
