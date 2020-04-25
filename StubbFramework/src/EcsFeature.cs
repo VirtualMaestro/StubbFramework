@@ -7,7 +7,7 @@ namespace StubbFramework
     {
         private bool _isEnable = true;
 
-        internal EcsSystems Systems { get; private set; }
+        internal EcsSystems InternalSystems { get; private set; }
         internal EcsSystems Parent { set; private get; }
 
         public string Name { get; }
@@ -23,7 +23,7 @@ namespace StubbFramework
 
         private void _InitSystems()
         {
-            Systems = new EcsSystems(World, $"{Name}Systems");    
+            InternalSystems = new EcsSystems(World, $"{Name}Systems");    
             SetupSystems();
         }
 
@@ -43,18 +43,18 @@ namespace StubbFramework
 
         protected void Add(IEcsSystem system)
         {
-            if (system is EcsFeature feature) Systems.AddFeature(feature);
-            else Systems.Add(system);
+            if (system is EcsFeature feature) InternalSystems.AddFeature(feature);
+            else InternalSystems.Add(system);
         }
 
         protected void Inject<T>(T data)
         {
-            Systems.Inject<T>(data);
+            InternalSystems.Inject<T>(data);
         }
 
         protected void OneFrame<T>() where T : struct
         {
-            Systems.OneFrame<T>();
+            InternalSystems.OneFrame<T>();
         }
 
         /// <summary>

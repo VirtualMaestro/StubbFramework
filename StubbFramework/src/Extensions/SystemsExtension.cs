@@ -7,7 +7,7 @@ namespace StubbFramework.Extensions
         public static void AddFeature(this EcsSystems systems, EcsFeature feature)
         {
             systems.Add(feature);
-            systems.Add(feature.Systems, feature.Name);
+            systems.Add(feature.InternalSystems, feature.Name);
             feature.Parent = systems;
         }
     }
