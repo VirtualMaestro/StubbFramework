@@ -36,7 +36,7 @@ namespace StubbFramework
 
                 _isEnable = value;
 
-                var idx = Parent.GetNamedRunSystem(Name);
+                var idx = Parent.GetNamedRunSystem(InternalSystems.Name);
                 Parent.SetRunSystemState(idx, _isEnable);
             }
         }
