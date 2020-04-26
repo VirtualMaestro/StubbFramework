@@ -1,30 +1,37 @@
-﻿using Leopotam.Ecs;
+﻿using System.Runtime.CompilerServices;
+using Leopotam.Ecs;
 using StubbFramework.Extensions;
 
 namespace StubbFramework
 {
     public class EcsFeature : IEcsSystem
     {
-        private bool _isEnable = true;
-
+        private bool _isEnable;
+        private EcsSystems _parentSystems;
+        
         internal EcsSystems InternalSystems { get; private set; }
-        internal EcsSystems Parent { set; private get; }
-
+        
         public string Name { get; }
         public EcsWorld World { get; }
 
-        public EcsFeature(EcsWorld world, string name = null)
+        public EcsFeature(EcsWorld world, string name = null, bool isEnable = true)
         {
             World = world;
             Name = name ?? GetType().Name;
-
+            _isEnable = isEnable;
+            
             _InitSystems();
         }
-
-        private void _InitSystems()
+        
+        internal EcsSystems Parent
         {
-            InternalSystems = new EcsSystems(World, $"{Name}Systems");    
-            SetupSystems();
+            set
+            {
+                _parentSystems = value;
+                if (_isEnable == false)
+                    _EnableSystems(InternalSystems.Name, _isEnable);
+            }
+            private get => _parentSystems;
         }
 
         public bool Enable
@@ -36,8 +43,7 @@ namespace StubbFramework
 
                 _isEnable = value;
 
-                var idx = Parent.GetNamedRunSystem(InternalSystems.Name);
-                Parent.SetRunSystemState(idx, _isEnable);
+                _EnableSystems(InternalSystems.Name, _isEnable);
             }
         }
 
@@ -62,5 +68,19 @@ namespace StubbFramework
         /// </summary>
         protected virtual void SetupSystems()
         {}
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void _InitSystems()
+        {
+            InternalSystems = new EcsSystems(World, $"{Name}Systems");    
+            SetupSystems();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void _EnableSystems(string systemsName, bool isEnable)
+        {
+            var idx = Parent.GetNamedRunSystem(systemsName);
+            Parent.SetRunSystemState(idx, isEnable);
+        }
     }
 }
