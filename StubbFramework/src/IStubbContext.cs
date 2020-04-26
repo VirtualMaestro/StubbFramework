@@ -1,5 +1,6 @@
 ﻿using Leopotam.Ecs;
 using StubbFramework.Common;
+using StubbFramework.Debugging;
 
 namespace StubbFramework
 {

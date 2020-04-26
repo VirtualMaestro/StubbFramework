@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
+using StubbFramework.Debugging;
 using StubbFramework.Extensions;
 
 namespace StubbFramework
@@ -8,7 +9,7 @@ namespace StubbFramework
     {
         private EcsWorld _world;
         private EcsSystems _rootSystems;
-        private IStubbDebug _debugInfo;
+        private IStubbDebug _debugger;
 
         public bool IsDisposed => _world == null;
 
@@ -17,11 +18,11 @@ namespace StubbFramework
             Stubb.AddContext(this);
 
             _world = world;
-            _debugInfo = debug;
+            _debugger = debug;
 
             _rootSystems = InitSystems();
 
-            _debugInfo?.Debug(_rootSystems, _world);
+            _debugger?.Init(_rootSystems, _world);
 
             _rootSystems.ProcessInjects();
             _rootSystems.Init();
@@ -55,6 +56,7 @@ namespace StubbFramework
         public void Run()
         {
             _rootSystems.Run();
+            _debugger?.Debug();
         }
 
         public void Dispose()
