@@ -31,7 +31,7 @@ namespace StubbFramework.Scenes.Systems
 
             foreach (var idx in _unloadingScenesFilter)
             {
-                _unloadingScenesFilter.GetEntity(idx).Set<RemoveEntityComponent>();
+                _unloadingScenesFilter.GetEntity(idx).Get<RemoveEntityComponent>();
 
                 var controller = _unloadingScenesFilter.Get1(idx).Scene;
                 service.Unload(controller);
@@ -47,9 +47,9 @@ namespace StubbFramework.Scenes.Systems
             foreach (var idx in _unloadScenesFilter)
             {
                 ref var entity = ref _unloadScenesFilter.GetEntity(idx);
-                entity.Unset<RemoveEntityComponent>();
-                entity.Set<SceneUnloadingComponent>();
-                entity.Set<DeactivateSceneComponent>();
+                entity.Del<RemoveEntityComponent>();
+                entity.Get<SceneUnloadingComponent>();
+                entity.Get<DeactivateSceneComponent>();
             }
         }
     }

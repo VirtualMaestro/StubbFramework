@@ -36,7 +36,7 @@ namespace StubbFramework.Extensions
         {
             foreach (var idx in filter)
             {
-                filter.GetEntity(idx).Set<RemoveEntityComponent>();
+                filter.GetEntity(idx).Get<RemoveEntityComponent>();
             }
         }
     }

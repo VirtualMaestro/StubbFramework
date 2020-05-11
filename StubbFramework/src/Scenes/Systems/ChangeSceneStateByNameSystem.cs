@@ -40,7 +40,7 @@ namespace StubbFramework.Scenes.Systems
 
                     if (!scene.SceneName.Equals(eventComponent.Name)) continue;
 
-                    _inactiveScenesFilter.GetEntity(i).Set<ActivateSceneComponent>().IsMain = eventComponent.IsMain;
+                    _inactiveScenesFilter.GetEntity(i).Get<ActivateSceneComponent>().IsMain = eventComponent.IsMain;
 
                     // idea behind this 'break' to reduce complexity of this loop,
                     // but with this it is impossible to mark scenes with the same name,
@@ -63,7 +63,7 @@ namespace StubbFramework.Scenes.Systems
 
                     if (!scene.SceneName.Equals(eventComponent.Name)) continue;
 
-                    _activeScenesFilter.GetEntity(i).Set<DeactivateSceneComponent>();
+                    _activeScenesFilter.GetEntity(i).Get<DeactivateSceneComponent>();
 
                     // idea behind this 'break' to reduce complexity of this loop,
                     // but with this it is impossible to mark scenes with the same name,

@@ -28,7 +28,7 @@ namespace StubbFramework.Delay.Systems
 
                 if (delay.Frames <= 0 && delay.Milliseconds <= 0)
                 {
-                    _filterDelay.GetEntity(index).Unset<DelayComponent>();
+                    _filterDelay.GetEntity(index).Del<DelayComponent>();
                 }
             }
         }

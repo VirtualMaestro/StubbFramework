@@ -39,7 +39,7 @@ namespace StubbFramework.Scenes.Systems
 
                     if (!sceneController.SceneName.Equals(sceneName)) continue;
 
-                    _scenesFilter.GetEntity(idx).Set<RemoveEntityComponent>();
+                    _scenesFilter.GetEntity(idx).Get<RemoveEntityComponent>();
                     break;
                 }
             }

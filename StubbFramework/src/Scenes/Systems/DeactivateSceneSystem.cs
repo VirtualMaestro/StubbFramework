@@ -21,9 +21,9 @@ namespace StubbFramework.Scenes.Systems
                 _deactivateFilter.Get1(idx).Scene.HideContent();
 
                 ref var entity = ref _deactivateFilter.GetEntity(idx);
-                entity.Unset<IsActiveComponent>();
-                entity.Set<IsInactiveComponent>();
-                entity.Set<SceneChangedStateComponent>();
+                entity.Del<IsActiveComponent>();
+                entity.Get<IsInactiveComponent>();
+                entity.Get<SceneChangedStateComponent>();
             }
         }
     }

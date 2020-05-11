@@ -40,7 +40,7 @@ namespace StubbFramework.Scenes.Systems
                     World.UnloadScenes(activeLoading.UnloadScenes);
                 }
 
-                _loadingFilter.GetEntity(idx).Set<RemoveEntityComponent>();
+                _loadingFilter.GetEntity(idx).Get<RemoveEntityComponent>();
             }
         }
 
@@ -60,14 +60,14 @@ namespace StubbFramework.Scenes.Systems
         private void _InitSceneController(ISceneController controller, ILoadingSceneConfig config)
         {
             var entity = World.NewEntity();
-            entity.Set<SceneLoadedComponent>();
+            entity.Get<SceneLoadedComponent>();
 
-            ref var sceneComponent = ref entity.Set<SceneComponent>();
+            ref var sceneComponent = ref entity.Get<SceneComponent>();
             sceneComponent.Scene = controller;
             controller.SetEntity(ref entity);
 
-            if (controller.IsContentActive) entity.Set<IsActiveComponent>();
-            else entity.Set<IsInactiveComponent>();
+            if (controller.IsContentActive) entity.Get<IsActiveComponent>();
+            else entity.Get<IsInactiveComponent>();
 
             if (config.IsActive) World.ActivateScene(controller, config.IsMain);
             else World.DeactivateScene(controller);

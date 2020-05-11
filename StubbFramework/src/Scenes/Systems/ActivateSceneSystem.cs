@@ -22,9 +22,9 @@ namespace StubbFramework.Scenes.Systems
                 var sceneController = _activateFilter.Get1(idx).Scene;
                 var isMain = _activateFilter.Get3(idx).IsMain;
 
-                entity.Unset<IsInactiveComponent>();
-                entity.Set<IsActiveComponent>();
-                entity.Set<SceneChangedStateComponent>();
+                entity.Del<IsInactiveComponent>();
+                entity.Get<IsActiveComponent>();
+                entity.Get<SceneChangedStateComponent>();
 
                 sceneController.ShowContent();
 

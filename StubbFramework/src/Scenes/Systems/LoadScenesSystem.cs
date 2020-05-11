@@ -23,7 +23,7 @@ namespace StubbFramework.Scenes.Systems
             foreach (var idx in _loadScenesFilter)
             {
                 ref var loadScenes = ref _loadScenesFilter.Get1(idx);
-                ref var activeLoadingScenes = ref World.NewEntity().Set<ActiveLoadingScenesComponent>();
+                ref var activeLoadingScenes = ref World.NewEntity().Get<ActiveLoadingScenesComponent>();
                 activeLoadingScenes.Progresses = sceneService.Load(loadScenes.LoadingScenes);
                 activeLoadingScenes.UnloadScenes = loadScenes.UnloadingScenes;
                 activeLoadingScenes.UnloadOthers = loadScenes.UnloadOthers;

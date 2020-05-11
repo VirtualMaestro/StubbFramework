@@ -15,7 +15,7 @@ namespace StubbFramework.Time.Systems
 
         public void Init()
         {
-            ref var timeComponent = ref World.NewEntity().Set<TimeComponent>();
+            ref var timeComponent = ref World.NewEntity().Get<TimeComponent>();
             timeComponent.Stopwatch = new Stopwatch();
             timeComponent.ElapsedMilliseconds = 0;
             timeComponent.PrevElapsedMilliseconds = 0;
@@ -29,7 +29,7 @@ namespace StubbFramework.Time.Systems
             foreach (var idx in _timeFilter)
             {
                 ref var timeComponent = ref _timeFilter.Get1(idx);
-                long currentTime = timeComponent.Stopwatch.ElapsedMilliseconds;
+                var currentTime = timeComponent.Stopwatch.ElapsedMilliseconds;
                 timeComponent.PrevElapsedMilliseconds = timeComponent.ElapsedMilliseconds;
                 timeComponent.TimeStep = currentTime - timeComponent.PrevElapsedMilliseconds;
                 timeComponent.ElapsedMilliseconds = currentTime;
