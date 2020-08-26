@@ -53,9 +53,9 @@ namespace StubbFramework
             else InternalSystems.Add(system);
         }
 
-        protected void Inject<T>(T data)
+        protected void Inject(object data)
         {
-            InternalSystems.Inject<T>(data);
+            InternalSystems.Inject(data);
         }
 
         protected void OneFrame<T>() where T : struct
