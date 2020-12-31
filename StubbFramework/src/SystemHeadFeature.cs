@@ -1,5 +1,6 @@
 ﻿using Leopotam.Ecs;
 using StubbFramework.Delay.Systems;
+using StubbFramework.Pooling;
 using StubbFramework.Time.Systems;
 
 namespace StubbFramework
@@ -14,6 +15,8 @@ namespace StubbFramework
         {
             Add(new TimeSystem());
             Add(new DelaySystem());
+            
+            Inject(Pools.I);
         }
     }
 }
