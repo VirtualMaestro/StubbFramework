@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
-using StubbFramework.Common.Components;
 using StubbFramework.Extensions;
 using StubbFramework.Remove.Components;
 using StubbFramework.Scenes.Components;
@@ -66,8 +65,8 @@ namespace StubbFramework.Scenes.Systems
             sceneComponent.Scene = controller;
             controller.SetEntity(ref entity);
 
-            if (controller.IsContentActive) entity.Get<IsActiveComponent>();
-            else entity.Get<IsInactiveComponent>();
+            if (controller.IsContentActive) entity.Get<IsSceneActiveComponent>();
+            else entity.Get<IsSceneInactiveComponent>();
 
             if (config.IsActive) World.ActivateScene(controller, config.IsMain);
             else World.DeactivateScene(controller);

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Leopotam.Ecs;
-using StubbFramework.Common.Components;
 using StubbFramework.Common.Names;
 using StubbFramework.Remove.Components;
 using StubbFramework.Scenes;
@@ -167,7 +166,7 @@ namespace StubbFramework.Extensions
         {
             ref var entity = ref controller.GetEntity();
 #if DEBUG            
-            if (entity.Has<IsActiveComponent>())
+            if (entity.Has<IsSceneActiveComponent>())
                 throw new System.Exception($"Try to activate scene with name '{controller.SceneName}' which is already activated!");
 #endif
             ref var activateScene = ref entity.Get<ActivateSceneComponent>();
@@ -188,7 +187,7 @@ namespace StubbFramework.Extensions
         public static void DeactivateScene(this EcsWorld world, ISceneController controller)
         {
 #if DEBUG            
-            if (controller.GetEntity().Has<IsInactiveComponent>())
+            if (controller.GetEntity().Has<IsSceneInactiveComponent>())
                 throw new System.Exception($"Try to deactivate scene with name '{controller.SceneName}' which is already deactivated!");
 #endif
             controller.GetEntity().Get<DeactivateSceneComponent>();

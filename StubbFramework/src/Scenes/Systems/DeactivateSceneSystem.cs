@@ -1,5 +1,4 @@
 ﻿using Leopotam.Ecs;
-using StubbFramework.Common.Components;
 using StubbFramework.Scenes.Components;
 
 namespace StubbFramework.Scenes.Systems
@@ -10,7 +9,7 @@ namespace StubbFramework.Scenes.Systems
 #endif
     public sealed class DeactivateSceneSystem : IEcsRunSystem
     {
-        private EcsFilter<SceneComponent, IsActiveComponent, DeactivateSceneComponent> _deactivateFilter;
+        private EcsFilter<SceneComponent, IsSceneActiveComponent, DeactivateSceneComponent> _deactivateFilter;
 
         public void Run()
         {
@@ -21,8 +20,8 @@ namespace StubbFramework.Scenes.Systems
                 _deactivateFilter.Get1(idx).Scene.HideContent();
 
                 ref var entity = ref _deactivateFilter.GetEntity(idx);
-                entity.Del<IsActiveComponent>();
-                entity.Get<IsInactiveComponent>();
+                entity.Del<IsSceneActiveComponent>();
+                entity.Get<IsSceneInactiveComponent>();
                 entity.Get<SceneChangedStateComponent>();
             }
         }

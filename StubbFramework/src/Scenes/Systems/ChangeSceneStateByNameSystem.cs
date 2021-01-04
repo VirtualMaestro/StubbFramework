@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
-using StubbFramework.Common.Components;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Events;
 
@@ -15,10 +14,10 @@ namespace StubbFramework.Scenes.Systems
         private EcsFilter<ActivateSceneByNameEvent> _activateFilter;
         private EcsFilter<DeactivateSceneByNameEvent> _deactivateFilter;
 
-        private EcsFilter<SceneComponent, IsActiveComponent>.Exclude<SceneUnloadingComponent, DeactivateSceneComponent>
+        private EcsFilter<SceneComponent, IsSceneActiveComponent>.Exclude<SceneUnloadingComponent, DeactivateSceneComponent>
             _activeScenesFilter;
 
-        private EcsFilter<SceneComponent, IsInactiveComponent>.Exclude<SceneUnloadingComponent, ActivateSceneComponent>
+        private EcsFilter<SceneComponent, IsSceneInactiveComponent>.Exclude<SceneUnloadingComponent, ActivateSceneComponent>
             _inactiveScenesFilter;
 
         public void Run()

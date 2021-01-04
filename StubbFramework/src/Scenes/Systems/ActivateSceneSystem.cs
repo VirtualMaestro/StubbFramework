@@ -1,5 +1,4 @@
 ﻿using Leopotam.Ecs;
-using StubbFramework.Common.Components;
 using StubbFramework.Scenes.Components;
 
 namespace StubbFramework.Scenes.Systems
@@ -10,7 +9,7 @@ namespace StubbFramework.Scenes.Systems
 #endif
     public sealed class ActivateSceneSystem : IEcsRunSystem
     {
-        private EcsFilter<SceneComponent, IsInactiveComponent, ActivateSceneComponent> _activateFilter;
+        private EcsFilter<SceneComponent, IsSceneInactiveComponent, ActivateSceneComponent> _activateFilter;
 
         public void Run()
         {
@@ -22,8 +21,8 @@ namespace StubbFramework.Scenes.Systems
                 var sceneController = _activateFilter.Get1(idx).Scene;
                 var isMain = _activateFilter.Get3(idx).IsMain;
 
-                entity.Del<IsInactiveComponent>();
-                entity.Get<IsActiveComponent>();
+                entity.Del<IsSceneInactiveComponent>();
+                entity.Get<IsSceneActiveComponent>();
                 entity.Get<SceneChangedStateComponent>();
 
                 sceneController.ShowContent();
