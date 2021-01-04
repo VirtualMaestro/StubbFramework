@@ -14,9 +14,9 @@ namespace StubbFramework.Scenes.Systems
 #endif
     public sealed class LoadingScenesProgressSystem : IEcsRunSystem
     {
-        private EcsWorld World;
-        private EcsFilter<ActiveLoadingScenesComponent> _loadingFilter;
-        private EcsFilter<SceneServiceComponent> _sceneServiceFilter;
+        private readonly EcsWorld World = null;
+        private readonly EcsFilter<ActiveLoadingScenesComponent> _loadingFilter = null;
+        private readonly EcsFilter<SceneServiceComponent> _sceneServiceFilter = null;
 
         public void Run()
         {
@@ -65,11 +65,16 @@ namespace StubbFramework.Scenes.Systems
             sceneComponent.Scene = controller;
             controller.SetEntity(ref entity);
 
-            if (controller.IsContentActive) entity.Get<IsSceneActiveComponent>();
-            else entity.Get<IsSceneInactiveComponent>();
-
-            if (config.IsActive) World.ActivateScene(controller, config.IsMain);
-            else World.DeactivateScene(controller);
+            if (config.IsActive)
+            {
+                entity.Get<IsSceneInactiveComponent>();
+                World.ActivateScene(controller, config.IsMain);
+            }
+            else
+            {
+                entity.Get<IsSceneActiveComponent>();
+                World.DeactivateScene(controller);
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
