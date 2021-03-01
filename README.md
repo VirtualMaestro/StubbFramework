@@ -1,5 +1,5 @@
 # StubbFramework
- Platform agnostic framework based on ECS (LeoECS).
+ Platform agnostic game framework based on ECS.
  
  Project can be added as a submodule with the all dependencies as the submodules.
  
