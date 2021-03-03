@@ -1,4 +1,4 @@
-﻿namespace StubbFramework.View.Components
+namespace StubbFramework.View.Components
 {
     /// <summary>
     /// Contains linked view object.

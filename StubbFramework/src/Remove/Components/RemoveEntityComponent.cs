@@ -1,4 +1,4 @@
-﻿using Leopotam.Ecs;
+using Leopotam.Ecs;
 
 namespace StubbFramework.Remove.Components
 {

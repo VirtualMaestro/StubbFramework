@@ -1,4 +1,4 @@
-﻿namespace StubbFramework.Delay.Components
+namespace StubbFramework.Delay.Components
 {
     /// <summary>
     /// Once added this component will be removed after some period of time which is set in its fields (Frames or Milliseconds).

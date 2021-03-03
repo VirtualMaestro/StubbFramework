@@ -1,4 +1,4 @@
-﻿using Leopotam.Ecs;
+using Leopotam.Ecs;
 using StubbFramework.Delay.Components;
 using StubbFramework.Remove.Components;
 using StubbFramework.View.Components;

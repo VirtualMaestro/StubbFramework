@@ -1,8 +1,8 @@
-﻿using Leopotam.Ecs;
+using Leopotam.Ecs;
 
 namespace StubbFramework.Debugging
 {
-    public interface IStubbDebug
+    public interface IEcsDebug
     {
         void Init(EcsSystems rootSystems, EcsWorld world);
         /// <summary>

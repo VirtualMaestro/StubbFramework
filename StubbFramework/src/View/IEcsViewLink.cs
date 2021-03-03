@@ -1,4 +1,4 @@
-﻿using Leopotam.Ecs;
+using Leopotam.Ecs;
 using StubbFramework.Common;
 
 namespace StubbFramework.View

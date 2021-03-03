@@ -1,4 +1,4 @@
-﻿namespace StubbFramework.Scenes.Components
+namespace StubbFramework.Scenes.Components
 {
     /// <summary>
     /// One-frame component which should be attached to the scene controller entity if this scene needs to be activated.

@@ -1,4 +1,4 @@
-﻿namespace StubbFramework.Common
+namespace StubbFramework.Common
 {
     public interface IDispose
     {

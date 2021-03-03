@@ -1,4 +1,4 @@
-﻿using Leopotam.Ecs;
+using Leopotam.Ecs;
 using StubbFramework.Scenes.Components;
 
 namespace StubbFramework.Scenes.Systems

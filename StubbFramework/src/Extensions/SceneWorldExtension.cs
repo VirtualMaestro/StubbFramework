@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Leopotam.Ecs;
 using StubbFramework.Common.Names;
 using StubbFramework.Remove.Components;
@@ -6,17 +7,11 @@ using StubbFramework.Scenes;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Configurations;
 using StubbFramework.Scenes.Events;
-using StubbFramework.Scenes.Services;
 
 namespace StubbFramework.Extensions
 {
     public static class SceneWorldExtension
     {
-        public static void AddSceneService(this EcsWorld world, ISceneService sceneService)
-        {
-            world.NewEntity().Get<SceneServiceComponent>().SceneService = sceneService;
-        }
-
         /// <summary>
         /// Loads a scene by a config.  
         /// </summary>
@@ -25,7 +20,7 @@ namespace StubbFramework.Extensions
             var list = new List<ILoadingSceneConfig> {config};
             LoadScenes(world, list);
         }
-        
+
         /// <summary>
         /// Loads a scene by a config and unload scene with a given name.  
         /// </summary>
@@ -35,7 +30,7 @@ namespace StubbFramework.Extensions
             var unloadList = new List<IAssetName> {unloadScene};
             LoadScenes(world, loadList, unloadList);
         }
-        
+
         /// <summary>
         /// Loads a scene by a config and unload scene with a given names.  
         /// </summary>
@@ -44,7 +39,7 @@ namespace StubbFramework.Extensions
             var list = new List<ILoadingSceneConfig> {config};
             LoadScenes(world, list, unloadScenes);
         }
-        
+
         /// <summary>
         /// Loads a scene by a config and unload others scenes.  
         /// </summary>
@@ -53,7 +48,7 @@ namespace StubbFramework.Extensions
             var list = new List<ILoadingSceneConfig> {config};
             LoadScenes(world, list, unloadOthers);
         }
-        
+
         /// <summary>
         /// Add configuration of the scenes list to load.
         /// LoadScenesComponent will be sent.
@@ -75,7 +70,8 @@ namespace StubbFramework.Extensions
         /// <param name="world"> Extension to the EcsWorld</param>
         /// <param name="configs">List of the ILoadingSceneConfig to load</param>
         /// <param name="unloadScenes">scenes names which have to unload after given list config of new scenes will be loaded.</param>
-        public static void LoadScenes(this EcsWorld world, List<ILoadingSceneConfig> configs, List<IAssetName> unloadScenes)
+        public static void LoadScenes(this EcsWorld world, List<ILoadingSceneConfig> configs,
+            List<IAssetName> unloadScenes)
         {
             ref var loadScenes = ref world.NewEntity().Get<LoadScenesEvent>();
             loadScenes.LoadingScenes = configs;
@@ -114,9 +110,10 @@ namespace StubbFramework.Extensions
         public static void UnloadScene(this EcsWorld world, ISceneController controller)
         {
             ref var entity = ref controller.GetEntity();
-#if DEBUG            
+#if DEBUG
             if (controller.IsDisposed || entity.Has<SceneUnloadingComponent>() || entity.Has<RemoveEntityComponent>())
-                throw new System.Exception($"Try to unload scene with name '{controller.SceneName}' which is already in unloading process or was unloaded!");
+                throw new Exception(
+                    $"Try to unload scene with name '{controller.SceneName}' which is already in unloading process or was unloaded!");
 #endif
             entity.Get<RemoveEntityComponent>();
         }
@@ -165,9 +162,10 @@ namespace StubbFramework.Extensions
         public static void ActivateScene(this EcsWorld world, ISceneController controller, bool isMain = false)
         {
             ref var entity = ref controller.GetEntity();
-#if DEBUG            
+#if DEBUG
             if (entity.Has<IsSceneActiveComponent>())
-                throw new System.Exception($"Try to activate scene with name '{controller.SceneName}' which is already activated!");
+                throw new Exception(
+                    $"Try to activate scene with name '{controller.SceneName}' which is already activated!");
 #endif
             ref var activateScene = ref entity.Get<ActivateSceneComponent>();
             activateScene.IsMain = isMain;
@@ -186,9 +184,10 @@ namespace StubbFramework.Extensions
         /// </summary>
         public static void DeactivateScene(this EcsWorld world, ISceneController controller)
         {
-#if DEBUG            
+#if DEBUG
             if (controller.GetEntity().Has<IsSceneInactiveComponent>())
-                throw new System.Exception($"Try to deactivate scene with name '{controller.SceneName}' which is already deactivated!");
+                throw new Exception(
+                    $"Try to deactivate scene with name '{controller.SceneName}' which is already deactivated!");
 #endif
             controller.GetEntity().Get<DeactivateSceneComponent>();
         }

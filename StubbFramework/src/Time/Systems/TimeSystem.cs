@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Leopotam.Ecs;
 using StubbFramework.Time.Components;
 

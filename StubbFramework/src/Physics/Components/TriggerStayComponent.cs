@@ -1,4 +1,4 @@
-﻿using StubbFramework.View;
+using StubbFramework.View;
 
 namespace StubbFramework.Physics.Components
 {

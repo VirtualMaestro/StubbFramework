@@ -1,16 +1,12 @@
-﻿using Leopotam.Ecs;
+using Leopotam.Ecs;
 using StubbFramework.Delay.Systems;
 using StubbFramework.Time.Systems;
 
-namespace StubbFramework
+namespace StubbFramework.Core
 {
     public class SystemHeadFeature : EcsFeature
     {
-        public SystemHeadFeature(EcsWorld world, string name = null) : base(world, name ?? "HeadSystems")
-        {
-        }
-
-        protected override void SetupSystems()
+        public SystemHeadFeature(EcsWorld world, string name = "HeadSystems") : base(world, name)
         {
             Add(new TimeSystem());
             Add(new DelaySystem());

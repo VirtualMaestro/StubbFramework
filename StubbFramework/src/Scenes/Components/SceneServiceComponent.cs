@@ -1,4 +1,4 @@
-﻿using StubbFramework.Scenes.Services;
+using StubbFramework.Scenes.Services;
 
 namespace StubbFramework.Scenes.Components
 {

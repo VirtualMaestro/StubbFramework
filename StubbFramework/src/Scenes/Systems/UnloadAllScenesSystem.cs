@@ -1,4 +1,4 @@
-﻿using Leopotam.Ecs;
+using Leopotam.Ecs;
 using StubbFramework.Extensions;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Events;

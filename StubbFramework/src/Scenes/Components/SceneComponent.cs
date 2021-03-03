@@ -1,4 +1,4 @@
-﻿namespace StubbFramework.Scenes.Components
+namespace StubbFramework.Scenes.Components
 {
     /// <summary>
     /// Contains reference to the ISceneController which contains a ref to the scene (or part of the scene).

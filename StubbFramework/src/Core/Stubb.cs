@@ -1,13 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using Leopotam.Ecs;
 using StubbFramework.Physics;
 
-namespace StubbFramework
+namespace StubbFramework.Core
 {
     public static class Stubb
     {
         private static List<IStubbContext> _contexts = new List<IStubbContext>(3);
+
+        public static int NumContexts => _contexts.Count;
+
+        /// <summary>
+        /// Main world which is taken from a first context.
+        /// </summary>
+        public static EcsWorld World => _contexts[0].World;
 
         /// <summary>
         /// Adds context to the list.
@@ -27,9 +33,6 @@ namespace StubbFramework
             _contexts.Insert(index, context);
         }
 
-        public static int NumContexts => _contexts.Count;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IStubbContext GetContext(int index = 0)
         {
             index = index < 0 ? 0 : index;
@@ -37,11 +40,6 @@ namespace StubbFramework
 
             return _contexts[index];
         }
-
-        /// <summary>
-        /// Main world which is taken from a first context.
-        /// </summary>
-        public static EcsWorld World => _contexts[0].World;
 
         public static void Clear()
         {

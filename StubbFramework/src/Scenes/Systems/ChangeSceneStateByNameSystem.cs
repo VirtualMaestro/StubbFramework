@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using Leopotam.Ecs;
 using StubbFramework.Scenes.Components;
 using StubbFramework.Scenes.Events;

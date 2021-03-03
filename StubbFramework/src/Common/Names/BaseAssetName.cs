@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using StubbFramework.Logging;
 
 namespace StubbFramework.Common.Names

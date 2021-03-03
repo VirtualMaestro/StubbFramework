@@ -1,4 +1,4 @@
-﻿namespace StubbFramework.Logging
+namespace StubbFramework.Logging
 {
     public enum LogLevel : byte
     {
