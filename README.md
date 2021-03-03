@@ -1,6 +1,12 @@
 # StubbFramework
- Platform agnostic framework based on ECS (LeoECS).
- Project will be added as a submodule with the all dependencies to you project.
+ Platform agnostic game framework based on ECS.
+ 
+ Project can be added as a submodule with the all dependencies as the submodules.
+ 
+ Included dependencies:
+ 
+ * ECS architecture powered by [LeoECS](https://github.com/Leopotam/ecs)
+ * Remote debug powered by [ecs-remotedebug](https://github.com/Leopotam/ecs-remotedebug)
 
 **To install the framework use**: 
 
